@@ -2,7 +2,9 @@ import { config, fields, singleton } from '@keystatic/core';
 
 // Keystatic menggunakan GitHub OAuth untuk autentikasi di mode Production.
 // Di mode Development (Local), autentikasi tidak diperlukan karena file diedit langsung di disk.
-const isLocal = process.env.NODE_ENV === 'development' || !process.env.KEYSTATIC_GITHUB_CLIENT_ID;
+const isLocal =
+  process.env.NODE_ENV === 'development' ||
+  !process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID;
 
 export default config({
   storage: isLocal
