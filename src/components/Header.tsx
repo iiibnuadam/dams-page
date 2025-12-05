@@ -1,7 +1,7 @@
 "use client";
 
 // Header component
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Menu, X } from "lucide-react";
@@ -17,8 +17,48 @@ import { Nav } from "@/types/portfolio";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const { t, i18n } = useTranslation();
   const nav = t("nav", { returnObjects: true }) as Nav;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        "about",
+        "experience",
+        "education",
+        "projects",
+        "contact",
+      ];
+
+      // Find the section that is currently most visible in the viewport
+      let currentSection = "";
+
+      // Check if we are at the top of the page (Hero)
+      if (window.scrollY < 100) {
+        setActiveSection("");
+        return;
+      }
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // If the top of the section is within the viewport (with some offset)
+          // or if the bottom of the section is still visible
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            currentSection = section;
+            break;
+          }
+        }
+      }
+
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -59,7 +99,11 @@ export default function Header() {
                 <a
                   href="#about"
                   onClick={(e) => handleClick(e, "#about")}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-full hover:bg-primary/10"
+                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
+                    activeSection === "about"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
+                      : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                  }`}
                 >
                   {nav.about}
                 </a>
@@ -68,7 +112,11 @@ export default function Header() {
                 <a
                   href="#experience"
                   onClick={(e) => handleClick(e, "#experience")}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-full hover:bg-primary/10"
+                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
+                    activeSection === "experience"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
+                      : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                  }`}
                 >
                   {nav.experience}
                 </a>
@@ -77,7 +125,11 @@ export default function Header() {
                 <a
                   href="#education"
                   onClick={(e) => handleClick(e, "#education")}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-full hover:bg-primary/10"
+                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
+                    activeSection === "education"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
+                      : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                  }`}
                 >
                   {nav.education}
                 </a>
@@ -86,7 +138,11 @@ export default function Header() {
                 <a
                   href="#projects"
                   onClick={(e) => handleClick(e, "#projects")}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-full hover:bg-primary/10"
+                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
+                    activeSection === "projects"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
+                      : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                  }`}
                 >
                   {nav.projects}
                 </a>
@@ -95,7 +151,11 @@ export default function Header() {
                 <a
                   href="#contact"
                   onClick={(e) => handleClick(e, "#contact")}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-full hover:bg-primary/10"
+                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
+                    activeSection === "contact"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
+                      : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                  }`}
                 >
                   {nav.contact}
                 </a>
@@ -184,7 +244,11 @@ export default function Header() {
                 <a
                   href="#about"
                   onClick={(e) => handleClick(e, "#about")}
-                  className="block px-4 py-3 rounded-xl text-base font-medium text-foreground/80 hover:text-blue-500 dark:hover:text-cyan-400 hover:bg-blue-500/10 dark:hover:bg-cyan-500/10 transition-all duration-300"
+                  className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                    activeSection === "about"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
+                      : "text-foreground/80 hover:text-blue-500 dark:hover:text-cyan-400 hover:bg-blue-500/10 dark:hover:bg-cyan-500/10"
+                  }`}
                 >
                   {nav.about}
                 </a>
@@ -193,7 +257,11 @@ export default function Header() {
                 <a
                   href="#experience"
                   onClick={(e) => handleClick(e, "#experience")}
-                  className="block px-4 py-3 rounded-xl text-base font-medium text-foreground/80 hover:text-blue-500 dark:hover:text-cyan-400 hover:bg-blue-500/10 dark:hover:bg-cyan-500/10 transition-all duration-300"
+                  className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                    activeSection === "experience"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
+                      : "text-foreground/80 hover:text-blue-500 dark:hover:text-cyan-400 hover:bg-blue-500/10 dark:hover:bg-cyan-500/10"
+                  }`}
                 >
                   {nav.experience}
                 </a>
@@ -202,7 +270,11 @@ export default function Header() {
                 <a
                   href="#education"
                   onClick={(e) => handleClick(e, "#education")}
-                  className="block px-4 py-3 rounded-xl text-base font-medium text-foreground/80 hover:text-blue-500 dark:hover:text-cyan-400 hover:bg-blue-500/10 dark:hover:bg-cyan-500/10 transition-all duration-300"
+                  className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                    activeSection === "education"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
+                      : "text-foreground/80 hover:text-blue-500 dark:hover:text-cyan-400 hover:bg-blue-500/10 dark:hover:bg-cyan-500/10"
+                  }`}
                 >
                   {nav.education}
                 </a>
@@ -211,7 +283,11 @@ export default function Header() {
                 <a
                   href="#projects"
                   onClick={(e) => handleClick(e, "#projects")}
-                  className="block px-4 py-3 rounded-xl text-base font-medium text-foreground/80 hover:text-blue-500 dark:hover:text-cyan-400 hover:bg-blue-500/10 dark:hover:bg-cyan-500/10 transition-all duration-300"
+                  className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                    activeSection === "projects"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
+                      : "text-foreground/80 hover:text-blue-500 dark:hover:text-cyan-400 hover:bg-blue-500/10 dark:hover:bg-cyan-500/10"
+                  }`}
                 >
                   {nav.projects}
                 </a>
@@ -220,7 +296,11 @@ export default function Header() {
                 <a
                   href="#contact"
                   onClick={(e) => handleClick(e, "#contact")}
-                  className="block px-4 py-3 rounded-xl text-base font-medium text-foreground/80 hover:text-primary hover:bg-primary/10 transition-all duration-300"
+                  className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
+                    activeSection === "contact"
+                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
+                      : "text-foreground/80 hover:text-primary hover:bg-primary/10"
+                  }`}
                 >
                   {nav.contact}
                 </a>
