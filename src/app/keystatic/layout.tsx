@@ -5,11 +5,10 @@ export const metadata: Metadata = {
   description: "Admin UI for Keystatic",
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head />
-      <body>{children}</body>
-    </html>
-  );
+export default function KeystaticLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <div>{children}</div>;
 }
