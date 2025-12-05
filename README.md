@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Landing Page Portofolio
 
-## Getting Started
+Landing page portofolio modern yang dibangun dengan Next.js 16, TypeScript, Tailwind CSS, dan shadcn/ui.
 
-First, run the development server:
+## 🚀 Teknologi
+
+- **Next.js 16** - React framework dengan App Router
+- **TypeScript** - Type safety
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **shadcn/ui** - Komponen UI yang dapat disesuaikan (berbasis Radix UI)
+- **pnpm** - Package manager
+
+## 📦 Instalasi
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone repository
+git clone <repository-url>
+
+# Masuk ke folder proyek
+cd cv-landing-page
+
+# Install dependencies
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Jalankan development server
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
 
-## Learn More
+## 📝 Kustomisasi
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Data Portofolio
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Edit file `src/app/page.tsx` dan sesuaikan objek `portfolioData`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```typescript
+const portfolioData = {
+  hero: {
+    name: 'Nama Anda',
+    title: 'Frontend Developer & UI/UX Enthusiast',
+    description: 'Membangun pengalaman web yang cepat...'
+  },
+  about: {
+    bio: 'Saya adalah seorang developer...',
+    skills: ['React', 'Next.js', 'TypeScript', ...]
+  },
+  projects: [
+    {
+      title: 'Project Name',
+      description: 'Project description',
+      technologies: ['Tech1', 'Tech2'],
+      link: 'https://demo.com',
+      github: 'https://github.com/user/repo'
+    }
+  ],
+  contact: {
+    email: 'email@example.com',
+    github: 'https://github.com/username',
+    linkedin: 'https://linkedin.com/in/username',
+    twitter: 'https://twitter.com/username'
+  }
+}
+```
 
-## Deploy on Vercel
+### 2. Styling & Tema
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Global styles**: `src/app/globals.css`
+- **Color scheme**: Edit CSS variables di `src/app/globals.css`
+- **Dark mode**: Sudah dikonfigurasi otomatis berdasarkan preferensi sistem
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Menambah Komponen shadcn
+
+```bash
+# Lihat daftar komponen available
+pnpm dlx shadcn@latest add
+
+# Contoh: menambahkan komponen badge
+pnpm dlx shadcn@latest add badge
+```
+
+## 📁 Struktur Proyek
+
+```
+cv-landing-page/
+├── src/
+│   ├── app/
+│   │   ├── globals.css      # Global styles
+│   │   ├── layout.tsx       # Root layout & metadata
+│   │   └── page.tsx         # Home page dengan data portofolio
+│   ├── components/
+│   │   ├── ui/              # shadcn/ui components
+│   │   ├── Header.tsx       # Navigation header
+│   │   ├── Hero.tsx         # Hero section
+│   │   ├── About.tsx        # About section
+│   │   ├── Projects.tsx     # Projects showcase
+│   │   ├── Contact.tsx      # Contact section
+│   │   └── Footer.tsx       # Footer
+│   └── lib/
+│       └── utils.ts         # Utility functions (cn helper)
+├── public/                  # Static assets
+├── .copilot/
+│   └── rules               # Copilot rules untuk proyek ini
+└── package.json
+```
+
+## 🎨 Komponen
+
+- **Header**: Navigasi fixed dengan smooth scroll
+- **Hero**: Section pembuka dengan nama dan CTA buttons
+- **About**: Biografi dan skill tags
+- **Projects**: Grid kardu proyek dengan teknologi dan link
+- **Contact**: Email dan social media links
+- **Footer**: Copyright dan tech stack info
+
+## 🚢 Build & Deploy
+
+```bash
+# Build untuk production
+pnpm build
+
+# Jalankan production build locally
+pnpm start
+```
+
+### Deploy ke Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=<your-repo-url>)
+
+Atau manual:
+
+```bash
+# Install Vercel CLI
+pnpm add -g vercel
+
+# Deploy
+vercel
+```
+
+## 📋 Checklist Sebelum Deploy
+
+- [ ] Update semua data placeholder di `src/app/page.tsx`
+- [ ] Update metadata SEO di `src/app/layout.tsx`
+- [ ] Tambahkan favicon di `public/`
+- [ ] Tambahkan Open Graph image di `public/og-image.png`
+- [ ] Test responsiveness (mobile, tablet, desktop)
+- [ ] Test dark mode
+- [ ] Test semua link eksternal
+- [ ] Jalankan `pnpm lint` dan perbaiki error
+- [ ] Jalankan `pnpm build` dan pastikan tidak ada error
+
+## 📖 Dokumentasi Tambahan
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Copilot Rules](.copilot/rules) - Panduan development untuk AI assistant
+
+## 📄 License
+
+MIT
+
+---
+
+Dibuat dengan ❤️ menggunakan Next.js, TypeScript, Tailwind CSS, dan shadcn/ui

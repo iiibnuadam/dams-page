@@ -1,0 +1,171 @@
+# Aturan Copilot untuk proyek: Landing Page Portofolio
+
+Tujuan: berikan panduan singkat tetapi lengkap untuk Copilot (AI assistant) agar membantu membangun sebuah landing page portofolio berbasis Next.js + TypeScript di repositori ini.
+
+Prinsip Umum:
+
+- Tanyakan pertanyaan klarifikasi jika perubahan akan menyentuh arsitektur atau data pribadi.
+- Lakukan perubahan kecil dan terpisah; satu PR/perubahan besar. Jelaskan maksud perubahan singkat di deskripsi PR.
+- Ikuti gaya kode dan struktur existing di repo (`src/app`, `globals.css`, TypeScript).
+- Berikan alternatif sederhana jika solusi utama menambah dependensi besar; jelaskan trade-offs.
+
+Arsitektur & Lokasi File:
+
+- Gunakan `src/app` (App Router) untuk halaman utama.
+- Komponen React: letakkan di `src/components` atau subfolder (mis. `src/components/Hero`). Gunakan PascalCase untuk nama file komponen (mis. `Hero.tsx`).
+- Styles: gunakan `src/app/globals.css` untuk global, dan untuk styles per-komponen gunakan CSS Modules (`Component.module.css`) atau inline styles/utility classes jika sudah ada pilihan proyek.
+
+Konvensi Kode:
+
+- Bahasa: TypeScript. Selalu ketik props dan state (avoid any).
+- Ekspor: gunakan default export untuk komponen halaman dan komponen tunggal yang utama.
+- Penamaan: folder kebab-case, file komponen PascalCase.
+- Hook: custom hooks di `src/hooks` bila perlu, prefiks `use`.
+
+HTML & Aksesibilitas:
+
+- Gunakan semantic HTML (header, nav, main, footer, section, article).
+- Pastikan keyboard navigable, fokus yang terlihat, dan label form yang benar.
+- Sematkan `alt` yang deskriptif untuk semua gambar.
+- Periksa kontras warna (WCAG AA minimal).
+
+Next.js & Performa:
+
+- Gunakan `next/image` untuk gambar dan `priority` untuk hero image bila perlu.
+- Tambahkan meta tags SEO dasar di `head`: `title`, `description`, Open Graph (`og:title`, `og:description`, `og:image`).
+- Hindari render-blocking besar; gunakan dynamic import untuk komponen berat jika perlu.
+
+Content & Data:
+
+- Konten personal (nama, email, resume) jangan hardcode data sensitif di repo publik — gunakan environment variables atau placeholders jika repo publik.
+- Resume/download: sediakan file di `public/` dan tautkan dengan atribut `download` jika ingin memudahkan unduhan.
+
+Styling & Responsiveness:
+
+- Desain mobile-first. Pastikan breakpoint untuk 320px, 768px, 1024px.
+- Gunakan utility classes atau CSS variables jika sudah ada; jangan menambahkan utility framework tanpa persetujuan.
+
+State & Side Effects:
+
+- Gunakan React hooks (useState/useEffect) untuk state lokal.
+- Hindari global state manager kecuali benar-benar diperlukan (mis. Redux tidak disarankan untuk landing page sederhana).
+
+Testing & Quality:
+
+- Jika menambahkan tes, gunakan framework ringan (Vitest atau Jest) dan tulis tes unit untuk komponen kritikal seperti `Hero` atau `ContactForm`.
+- Jalankan linter/formatter sebelum commit jika tersedia (`pnpm lint`, `pnpm format`).
+
+Commit & Branching:
+
+- Gunakan pesan commit bergaya `conventional commits`: `feat:`, `fix:`, `chore:`, `docs:`.
+- Branch naming: `feat/<short-description>`, `fix/<short-description>`.
+
+PR Checklist (otomatis diperiksa oleh Copilot saat membuat PR):
+
+- Ringkasan singkat perubahan dan alasan.
+- File yang diubah dan tempatnya (`src/components/...`, `src/app/...`).
+- Instruksi untuk cek manual (cara menjalankan, screenshot, langkah verifikasi).
+- Jika menambah dependensi, tuliskan alasan dan alternatif.
+
+Interaksi Copilot (ketika mengerjakan task):
+
+- Sebelum membuat perubahan besar: tanyakan apakah boleh menambah dependensi atau mengubah struktur folder.
+- Saat menulis komponen, sertakan contoh penggunaan (usage example) dan minimal satu test/preview screenshot step.
+- Buat perubahan minimal untuk menyelesaikan task; hindari refactor besar tanpa persetujuan.
+
+Snippet Template (komponen dasar)
+
+```tsx
+// src/components/Hero/Hero.tsx
+import Image from "next/image";
+import styles from "./Hero.module.css";
+
+type Props = { name: string };
+
+export default function Hero({ name }: Props) {
+  return (
+    <section className={styles.root} aria-label="Hero">
+      <h1>Hi, I'm {name}.</h1>
+      <p>Frontend developer — building accessible, fast landing pages.</p>
+    </section>
+  );
+}
+```
+
+Snippet Meta (head)
+
+```tsx
+// src/app/head.tsx or in page.tsx
+export default function Head() {
+  return (
+    <>
+      <title>Nama — Portofolio</title>
+      <meta name="description" content="Portofolio singkat dan kontak" />
+      <meta property="og:title" content="Nama — Portofolio" />
+    </>
+  );
+}
+```
+
+Catatan Akhir:
+
+- Ringkas, dapat diikuti oleh kontributor dan Copilot.
+- Jika Anda ingin versi bahasa Inggris, templates tambahan (CI, tests), atau integrasi dengan PR templates, beri tahu saya dan saya akan tambahkan.
+
+## Tailwind & shadcn (spesifik)
+
+- Tujuan: gunakan Tailwind CSS sebagai sistem styling utama dan `shadcn/ui` (komponen berbasis Radix + Tailwind) sebagai koleksi komponen UI yang dapat disesuaikan.
+- Jangan menambahkan shadcn atau dependensi baru tanpa konfirmasi — beri tahu pemilik proyek jika butuh inisialisasi CLI.
+
+Panduan pemasangan (ringkasan langkah yang harus dijalankan manual oleh maintainer):
+
+- Pastikan `tailwindcss` sudah terpasang (lihat `devDependencies`). Jika belum, jalankan:
+  - `pnpm add -D tailwindcss postcss autoprefixer @tailwindcss/forms`
+- Jika ingin menggunakan `shadcn/ui`, rekomendasi langkah (jalankan hanya jika setuju):
+  - `pnpm dlx shadcn-ui@latest init` # secara interaktif menambahkan paket dan template
+  - Ikuti prompt untuk menempatkan komponen di `src/components/ui` atau `src/components`
+  - Jika perintah CLI menambah dependensi (Radix, class-variance-authority, lucide-react, tailwind-variants, dll), konfirmasi sebelum melanjutkan.
+
+Konfigurasi Tailwind yang direkomendasikan (ringkasan aturan untuk Copilot ketika menulis file konfigurasi):
+
+- Masukkan semua path `src/app`, `src/components`, `src/pages` dan file MDX jika ada di `content`/`content` array.
+- Tambahkan plugin `@tailwindcss/forms` jika ada form. Contoh minimal:
+  ```js
+  // tailwind.config.cjs
+  module.exports = {
+    content: [
+      "./src/**/*.{ts,tsx,js,jsx,mdx}",
+      "./app/**/*.{ts,tsx,js,jsx,mdx}",
+    ],
+    theme: { extend: {} },
+    plugins: [require("@tailwindcss/forms")],
+  };
+  ```
+
+Aturan penggunaan shadcn & komponen UI:
+
+- Simpan komponen shadcn di `src/components/ui` atau `src/components/shadcn`.
+- Jangan langsung modifikasi paket `node_modules/shadcn` — fork/override lokal jika perlu.
+- Untuk komponen yang dibawa shadcn, buat wrapper ringan bila perlu menyesuaikan prop tipe atau aksesibilitas khusus proyek.
+- Jika menambah utility `cn()` atau helper classnames, letakkan di `src/lib/cn.ts` dan ketik dengan TypeScript.
+
+Contoh file helper `cn.ts` (untuk Copilot gunakan snippet ini saat membuat helper):
+
+```ts
+// src/lib/cn.ts
+import { clsx } from "clsx";
+export function cn(...inputs: any[]) {
+  return clsx(...inputs);
+}
+```
+
+Review & Checklist (saat Copilot men-generate UI dengan Tailwind/shadcn):
+
+- Pastikan tidak ada data sensitif tersisa di komponen contoh (emails, token, dll).
+- Periksa bahwa class Tailwind bersifat atomik dan mobile-first.
+- Verifikasi bahwa komponen shadcn mengikuti API Radix dan memiliki props untuk `className` sehingga styling tambahan lokal bisa diterapkan.
+
+Catatan operasional:
+
+- Instalasi CLI shadcn dan modifikasi dependensi harus dikonfirmasi oleh pemilik repo (to prevent unexpected dependency additions).
+- Jika pemilik setuju, Copilot boleh mengeneralisir perintah instalasi di PR dengan langkah verifikasi (screenshot/hasil `pnpm list`).
