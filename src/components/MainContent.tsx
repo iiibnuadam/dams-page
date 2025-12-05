@@ -21,20 +21,42 @@ import {
   Footer as FooterType,
 } from "@/types/portfolio";
 
-export default function MainContent() {
+type MainContentProps = {
+  cmsData?: {
+    hero: HeroType;
+    about: AboutType;
+    workExperience: WorkExperienceType;
+    educationAndAwards: EducationAndAwardsType;
+    projects: ProjectsType;
+    contact: ContactType;
+    footer: FooterType;
+  };
+};
+
+export default function MainContent({ cmsData }: MainContentProps) {
   const { t } = useTranslation();
 
-  const hero = t("hero", { returnObjects: true }) as HeroType;
-  const about = t("about", { returnObjects: true }) as AboutType;
-  const workExperience = t("workExperience", {
-    returnObjects: true,
-  }) as WorkExperienceType;
-  const educationAndAwards = t("educationAndAwards", {
-    returnObjects: true,
-  }) as EducationAndAwardsType;
-  const projects = t("projects", { returnObjects: true }) as ProjectsType;
-  const contact = t("contact", { returnObjects: true }) as ContactType;
-  const footer = t("footer", { returnObjects: true }) as FooterType;
+  const hero =
+    cmsData?.hero || (t("hero", { returnObjects: true }) as HeroType);
+  const about =
+    cmsData?.about || (t("about", { returnObjects: true }) as AboutType);
+  const workExperience =
+    cmsData?.workExperience ||
+    (t("workExperience", {
+      returnObjects: true,
+    }) as WorkExperienceType);
+  const educationAndAwards =
+    cmsData?.educationAndAwards ||
+    (t("educationAndAwards", {
+      returnObjects: true,
+    }) as EducationAndAwardsType);
+  const projects =
+    cmsData?.projects ||
+    (t("projects", { returnObjects: true }) as ProjectsType);
+  const contact =
+    cmsData?.contact || (t("contact", { returnObjects: true }) as ContactType);
+  const footer =
+    cmsData?.footer || (t("footer", { returnObjects: true }) as FooterType);
 
   return (
     <>
