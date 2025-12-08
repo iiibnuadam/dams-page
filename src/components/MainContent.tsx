@@ -21,7 +21,15 @@ import {
 } from "@/types/portfolio";
 
 type MainContentProps = {
-  cmsData?: any;
+  cmsData?: Partial<{
+    hero: Record<string, HeroType>;
+    about: Record<string, AboutType>;
+    workExperience: Record<string, WorkExperienceType>;
+    educationAndAwards: Record<string, EducationAndAwardsType>;
+    projects: Record<string, ProjectsType>;
+    contact: Record<string, ContactType>;
+    footer: Record<string, FooterType>;
+  }>;
 };
 
 export default function MainContent({ cmsData }: MainContentProps) {
