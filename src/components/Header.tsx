@@ -169,7 +169,7 @@ export default function Header() {
                       className="rounded-full w-8 h-8"
                     >
                       <span className="text-lg leading-none">
-                        {i18n.language === "id" ? "🇮🇩" : "🇬🇧"}
+                        {i18n.language?.startsWith("id") ? "🇮🇩" : "🇬🇧"}
                       </span>
                       <span className="sr-only">Switch Language</span>
                     </Button>
@@ -197,7 +197,7 @@ export default function Header() {
                     className="rounded-full w-8 h-8"
                   >
                     <span className="text-lg leading-none">
-                      {i18n.language === "id" ? "🇮🇩" : "🇬🇧"}
+                      {i18n.language?.startsWith("id") ? "🇮🇩" : "🇬🇧"}
                     </span>
                     <span className="sr-only">Switch Language</span>
                   </Button>

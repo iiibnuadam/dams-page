@@ -9,7 +9,6 @@ import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import FloatingHireMe from "@/components/FloatingHireMe";
-import "@/lib/i18n";
 import { useTranslation } from "react-i18next";
 import {
   Hero as HeroType,
@@ -22,41 +21,37 @@ import {
 } from "@/types/portfolio";
 
 type MainContentProps = {
-  cmsData?: {
-    hero: HeroType;
-    about: AboutType;
-    workExperience: WorkExperienceType;
-    educationAndAwards: EducationAndAwardsType;
-    projects: ProjectsType;
-    contact: ContactType;
-    footer: FooterType;
-  };
+  cmsData?: any;
 };
 
 export default function MainContent({ cmsData }: MainContentProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.startsWith("id") ? "id" : "en";
 
   const hero =
-    cmsData?.hero || (t("hero", { returnObjects: true }) as HeroType);
+    cmsData?.hero?.[lang] || (t("hero", { returnObjects: true }) as HeroType);
   const about =
-    cmsData?.about || (t("about", { returnObjects: true }) as AboutType);
+    cmsData?.about?.[lang] ||
+    (t("about", { returnObjects: true }) as AboutType);
   const workExperience =
-    cmsData?.workExperience ||
+    cmsData?.workExperience?.[lang] ||
     (t("workExperience", {
       returnObjects: true,
     }) as WorkExperienceType);
   const educationAndAwards =
-    cmsData?.educationAndAwards ||
+    cmsData?.educationAndAwards?.[lang] ||
     (t("educationAndAwards", {
       returnObjects: true,
     }) as EducationAndAwardsType);
   const projects =
-    cmsData?.projects ||
+    cmsData?.projects?.[lang] ||
     (t("projects", { returnObjects: true }) as ProjectsType);
   const contact =
-    cmsData?.contact || (t("contact", { returnObjects: true }) as ContactType);
+    cmsData?.contact?.[lang] ||
+    (t("contact", { returnObjects: true }) as ContactType);
   const footer =
-    cmsData?.footer || (t("footer", { returnObjects: true }) as FooterType);
+    cmsData?.footer?.[lang] ||
+    (t("footer", { returnObjects: true }) as FooterType);
 
   return (
     <>

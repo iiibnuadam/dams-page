@@ -1,20 +1,41 @@
-title: About Me
-bio: >-
-  Hi there! Adam's here. I'm a creative Front-End Developer with over 3 years of
-  experience crafting sleek websites and apps in fast-paced, collaborative
-  settings. My expertise lies in Vue.js and Typescript, complemented by a dash
-  of React.js. I'm well-versed in Design Systems, ensuring a seamless user
-  experience. I thrive in SCRUM Agile environments, adapting quickly to deliver
-  top-notch, scalable solutions.
-skillsTitle: Skills & Technologies
-skills:
-  - Vue.js
-  - React.js
-  - Nuxt.js
-  - Next.js
-  - TypeScript
-  - Tailwind CSS
-  - Jest
-  - Git
-  - Scrum
-  - Design Systems
+en:
+  title: About Me
+  bio: >-
+    Hi there! Adam's here. I'm a creative Front-End Developer with over 3 years of
+    experience crafting sleek websites and apps in fast-paced, collaborative
+    settings. My expertise lies in Vue.js and Typescript, complemented by a dash
+    of React.js. I'm well-versed in Design Systems, ensuring a seamless user
+    experience. I thrive in SCRUM Agile environments, adapting quickly to deliver
+    top-notch, scalable solutions.
+  skillsTitle: Skills & Technologies
+  skills:
+    - Vue.js
+    - React.js
+    - Nuxt.js
+    - Next.js
+    - TypeScript
+    - Tailwind CSS
+    - Jest
+    - Git
+    - Scrum
+    - Design Systems
+id:
+  title: Tentang Saya
+  bio: >-
+    Halo! Saya Adam. Saya seorang Front-End Developer kreatif dengan pengalaman lebih dari 3 tahun
+    dalam membuat website dan aplikasi yang elegan. Keahlian saya terletak pada Vue.js dan Typescript,
+    dilengkapi dengan sedikit sentuhan React.js. Saya sangat memahami Design Systems untuk memastikan
+    pengalaman pengguna yang mulus. Saya terbiasa bekerja dalam lingkungan Agile SCRUM, beradaptasi
+    dengan cepat untuk memberikan solusi terbaik dan skalabel.
+  skillsTitle: Keahlian & Teknologi
+  skills:
+    - Vue.js
+    - React.js
+    - Nuxt.js
+    - Next.js
+    - TypeScript
+    - Tailwind CSS
+    - Jest
+    - Git
+    - Scrum
+    - Design Systems

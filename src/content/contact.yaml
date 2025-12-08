@@ -1,7 +1,16 @@
-title: Get In Touch
-description: Have a project in mind or just want to say hi? Feel free to reach out!
-email: ibnuadam.biz@gmail.com
-github: https://github.com/iiibnuadam
-linkedin: https://www.linkedin.com/in/iiibnuadam/
-twitter: ""
-cta: ""
+en:
+  title: Get In Touch
+  description: Have a project in mind or just want to say hi? Feel free to reach out!
+  email: ibnuadam.biz@gmail.com
+  github: https://github.com/iiibnuadam
+  linkedin: https://www.linkedin.com/in/iiibnuadam/
+  twitter: ""
+  cta: ""
+id:
+  title: Kontak
+  description: Punya proyek atau hanya ingin menyapa? Jangan ragu untuk menghubungi!
+  email: ibnuadam.biz@gmail.com
+  github: https://github.com/iiibnuadam
+  linkedin: https://www.linkedin.com/in/iiibnuadam/
+  twitter: ""
+  cta: ""
