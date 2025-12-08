@@ -26,7 +26,7 @@ export default function Hero({
     let i = 0;
     const timer = setInterval(() => {
       if (i < fullText.length) {
-        setDisplayText((prev) => prev + fullText.charAt(i));
+        setDisplayText(fullText.substring(0, i + 1));
         i++;
       } else {
         clearInterval(timer);
