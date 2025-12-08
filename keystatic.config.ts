@@ -4,7 +4,7 @@ import { config, fields, singleton } from '@keystatic/core';
 // Di mode Development (Local), autentikasi tidak diperlukan karena file diedit langsung di disk.
 const isLocal =
   process.env.NODE_ENV === 'development' ||
-  !process.env.KEYSTATIC_GITHUB_CLIENT_ID;
+  !process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID;
 
 export default config({
   storage: isLocal
