@@ -44,10 +44,7 @@ const initialData = {
       en: "Ibnu Adam",
       id: "Ibnu Adam",
     },
-    title: {
-      en: "Creative Front-End Developer",
-      id: "Creative Front-End Developer",
-    },
+    tags: ["Frontend Developer", "Core Developer"],
     description: {
       en: "Crafting sleek websites and apps in fast-paced, collaborative settings. Turning ideas into digital masterpieces!",
       id: "Menciptakan website dan aplikasi yang elegan dalam lingkungan kolaboratif yang serba cepat. Mengubah ide menjadi mahakarya digital!",

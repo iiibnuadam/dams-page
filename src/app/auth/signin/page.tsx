@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,7 +13,9 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
+import { ArrowLeft } from "lucide-react";
 
 export default function SignIn() {
   const [username, setUsername] = useState("");
@@ -85,6 +88,14 @@ export default function SignIn() {
             </Button>
           </form>
         </CardContent>
+        <CardFooter className="flex justify-center border-t p-4">
+          <Button variant="link" asChild className="text-muted-foreground">
+            <Link href="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Site
+            </Link>
+          </Button>
+        </CardFooter>
       </Card>
     </div>
   );

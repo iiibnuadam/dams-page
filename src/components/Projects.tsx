@@ -113,7 +113,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="flex-shrink-0 snap-center w-[85vw] md:w-[450px]"
               >
-                <Card className="h-full flex flex-col bg-white/60 dark:bg-white/5 backdrop-blur-md border-black/5 dark:border-white/10 hover:border-blue-500/30 transition-all duration-500 hover:shadow-xl hover:shadow-blue-500/5 group overflow-hidden">
+                <Card className="h-full flex flex-col bg-background/80 dark:bg-card/50 backdrop-blur-sm border-border/50 hover:border-blue-500/50 transition-all duration-500 hover:shadow-xl hover:shadow-blue-500/10 group overflow-hidden">
                   {/* Decorative Header Gradient */}
                   <div
                     className={`h-2 w-full bg-gradient-to-r ${
@@ -125,7 +125,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
 
                   <CardHeader className="pb-4">
                     <div className="flex justify-between items-start gap-4">
-                      <CardTitle className="text-2xl font-bold group-hover:text-blue-500 dark:group-hover:text-cyan-400 transition-colors">
+                      <CardTitle className="text-2xl font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {project.title}
                       </CardTitle>
                       <div className="flex gap-2">
@@ -134,7 +134,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-foreground transition-colors"
+                            className="text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-secondary rounded-full"
                           >
                             <Github className="w-5 h-5" />
                           </a>
@@ -144,7 +144,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
                             href={project.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-foreground transition-colors"
+                            className="text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-secondary rounded-full"
                           >
                             <ExternalLink className="w-5 h-5" />
                           </a>
@@ -162,7 +162,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
                         <Badge
                           key={tech}
                           variant="secondary"
-                          className="bg-black/5 dark:bg-white/10 hover:bg-blue-500/10 hover:text-blue-600 transition-colors"
+                          className="bg-secondary/50 hover:bg-secondary text-secondary-foreground border-transparent"
                         >
                           {tech}
                         </Badge>
@@ -171,8 +171,8 @@ export default function Projects({ projects, texts }: ProjectsProps) {
 
                     {project.link && (
                       <Button
-                        variant="outline"
-                        className="w-full group/btn border-black/10 dark:border-white/10 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300"
+                        variant="ghost"
+                        className="w-full group/btn hover:bg-blue-500/10 hover:text-blue-600 dark:hover:text-blue-400 justify-between"
                         asChild
                       >
                         <a
@@ -181,7 +181,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
                           rel="noopener noreferrer"
                         >
                           {texts.viewProject}
-                          <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                         </a>
                       </Button>
                     )}

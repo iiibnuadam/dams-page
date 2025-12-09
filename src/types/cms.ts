@@ -21,7 +21,7 @@ export interface CMSNav {
 
 export interface CMSHero {
   name: Localized<string>;
-  title: Localized<string>;
+  tags: string[];
   description: Localized<string>;
   cta: Localized<string>;
   contact: Localized<string>;
@@ -83,6 +83,7 @@ export type CMSSectionData =
   | CMSFooter;
 
 export interface CMSData {
+  nav?: CMSNav;
   hero?: CMSHero;
   about?: CMSAbout;
   workExperience?: CMSWorkExperience;

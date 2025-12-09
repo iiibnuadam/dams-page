@@ -8,7 +8,7 @@ export interface Nav {
 
 export interface Hero {
   name: string;
-  title: string;
+  tags: string[];
   description: string;
   cta: string;
   contact: string;

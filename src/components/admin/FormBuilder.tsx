@@ -185,19 +185,39 @@ function ArrayInput({
 
   // Helper to get a display title for the item
   const getItemTitle = (item: FormData, idx: number) => {
-    // Try to find a title in common fields
-    const title = item?.title as { en?: string; id?: string } | undefined;
-    const name = item?.name as { en?: string; id?: string } | undefined;
-    const institution = item?.institution as
-      | { en?: string; id?: string }
-      | undefined;
-    const role = item?.role as { en?: string; id?: string } | undefined;
+    // Check for localized content (en/id structure)
+    const en = item?.en as Record<string, unknown> | undefined;
+    const id = item?.id as Record<string, unknown> | undefined;
 
-    if (title?.en) return title.en;
-    if (title?.id) return title.id;
-    if (name?.en) return name.en;
-    if (institution?.en) return institution.en;
-    if (role?.en) return role.en;
+    // Try to find title/name/etc in English first, then Indonesian
+    const title = (en?.title || id?.title) as string | undefined;
+    const name = (en?.name || id?.name) as string | undefined;
+    const position = (en?.position || id?.position) as string | undefined;
+    const company = (en?.company || id?.company) as string | undefined;
+    const institution = (en?.institution || id?.institution) as
+      | string
+      | undefined;
+    const role = (en?.role || id?.role) as string | undefined;
+    const organization = (en?.organization || id?.organization) as
+      | string
+      | undefined;
+
+    if (title) return title;
+    if (name) return name;
+    if (position && company) return `${position} at ${company}`;
+    if (position) return position;
+    if (institution) return institution;
+    if (role && organization) return `${role} at ${organization}`;
+    if (role) return role;
+
+    // Fallback to existing logic for non-localized or different structures
+    const directTitle = item?.title as { en?: string; id?: string } | undefined;
+    const directName = item?.name as { en?: string; id?: string } | undefined;
+
+    if (directTitle?.en) return directTitle.en;
+    if (directTitle?.id) return directTitle.id;
+    if (directName?.en) return directName.en;
+
     return `Item ${idx + 1}`;
   };
 

@@ -106,36 +106,81 @@ export default function WorkExperience({
 
               {/* Content Card */}
               <div className="flex-1">
-                <Card className="h-full bg-white/60 dark:bg-white/5 backdrop-blur-md border-black/5 dark:border-white/10 hover:border-blue-500/30 dark:hover:border-cyan-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/5 group">
+                <Card className="h-full bg-background/80 dark:bg-card/50 backdrop-blur-sm border-border/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group">
                   <CardHeader>
                     <div className="flex flex-col gap-2 mb-2">
                       <div className="flex justify-between items-start flex-wrap gap-2">
-                        <CardTitle className="text-xl md:text-2xl font-bold text-foreground group-hover:text-blue-500 dark:group-hover:text-cyan-400 transition-colors">
+                        <CardTitle className="text-xl md:text-2xl font-bold text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                           {exp.position}
                         </CardTitle>
                         <Badge
-                          variant="outline"
-                          className="bg-blue-500/10 text-blue-600 dark:text-blue-300 border-blue-200 dark:border-blue-800"
+                          variant="secondary"
+                          className="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50"
                         >
                           {exp.type}
                         </Badge>
                       </div>
-                      <div className="text-lg font-semibold text-foreground/80">
+                      <div className="text-lg font-semibold text-foreground/90">
                         {exp.company}
                       </div>
-                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                        <span>{exp.location}</span>
-                        <span className="hidden sm:inline">•</span>
-                        <span>{exp.period}</span>
-                        <span className="hidden sm:inline">•</span>
-                        <span className="text-blue-500 dark:text-cyan-400 font-medium">
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground font-medium">
+                        <span className="flex items-center gap-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                            <circle cx="12" cy="10" r="3" />
+                          </svg>
+                          {exp.location}
+                        </span>
+                        <span className="hidden sm:inline text-muted-foreground/50">
+                          •
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <rect
+                              width="18"
+                              height="18"
+                              x="3"
+                              y="4"
+                              rx="2"
+                              ry="2"
+                            />
+                            <line x1="16" x2="16" y1="2" y2="6" />
+                            <line x1="8" x2="8" y1="2" y2="6" />
+                            <line x1="3" x2="21" y1="10" y2="10" />
+                          </svg>
+                          {exp.period}
+                        </span>
+                        <span className="hidden sm:inline text-muted-foreground/50">
+                          •
+                        </span>
+                        <span className="text-blue-600 dark:text-blue-400 font-semibold">
                           {exp.duration}
                         </span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <ul className="list-disc list-outside ml-5 space-y-2 text-muted-foreground mb-6">
+                    <ul className="list-disc list-outside ml-5 space-y-2 text-muted-foreground mb-6 text-base">
                       {exp.description.map((desc, i) => (
                         <li key={i} className="leading-relaxed">
                           {desc}
@@ -143,14 +188,15 @@ export default function WorkExperience({
                       ))}
                     </ul>
 
-                    <div className="flex flex-wrap gap-2 pt-4 border-t border-black/5 dark:border-white/10">
+                    <div className="flex flex-wrap gap-2 pt-4 border-t border-border/50">
                       {exp.skills.map((skill) => (
-                        <span
+                        <Badge
                           key={skill}
-                          className="text-xs font-medium px-2.5 py-1 bg-black/5 dark:bg-white/10 text-foreground/70 rounded-md group-hover:bg-blue-500/10 group-hover:text-blue-600 dark:group-hover:text-cyan-300 transition-colors"
+                          variant="outline"
+                          className="bg-secondary/50 hover:bg-secondary text-secondary-foreground border-transparent hover:border-blue-500/30 transition-all"
                         >
                           {skill}
-                        </span>
+                        </Badge>
                       ))}
                     </div>
                   </CardContent>

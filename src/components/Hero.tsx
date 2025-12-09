@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 type HeroProps = {
   name: string;
-  title: string;
+  tags: string[];
   description: string;
   cta?: string;
   contact?: string;
@@ -14,27 +14,40 @@ type HeroProps = {
 
 export default function Hero({
   name,
-  title,
+  tags,
   description,
   cta = "View My Work",
 }: HeroProps) {
   const [displayText, setDisplayText] = useState("");
-  const fullText = title;
+  const [currentTagIndex, setCurrentTagIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Fallback if tags is undefined or empty
+  const safeTags = tags && tags.length > 0 ? tags : ["Developer"];
 
   useEffect(() => {
-    setDisplayText(""); // Reset text when title changes (language switch)
-    let i = 0;
-    const timer = setInterval(() => {
-      if (i < fullText.length) {
-        setDisplayText(fullText.substring(0, i + 1));
-        i++;
-      } else {
-        clearInterval(timer);
-      }
-    }, 100);
+    const currentTag = safeTags[currentTagIndex];
 
-    return () => clearInterval(timer);
-  }, [fullText]);
+    const timer = setTimeout(
+      () => {
+        if (isDeleting) {
+          setDisplayText(currentTag.substring(0, displayText.length - 1));
+        } else {
+          setDisplayText(currentTag.substring(0, displayText.length + 1));
+        }
+
+        if (!isDeleting && displayText === currentTag) {
+          setTimeout(() => setIsDeleting(true), 2000); // Wait before deleting
+        } else if (isDeleting && displayText === "") {
+          setIsDeleting(false);
+          setCurrentTagIndex((prev) => (prev + 1) % safeTags.length);
+        }
+      },
+      isDeleting ? 50 : 100
+    );
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, currentTagIndex, safeTags]);
 
   const handleScroll = (targetId: string) => {
     const element = document.querySelector(targetId);

@@ -28,10 +28,7 @@ export const HeroSchema = z.object({
     en: z.string().min(1, "Name is required"),
     id: z.string().min(1, "Name is required"),
   }),
-  title: z.object({
-    en: z.string().min(1, "Title is required"),
-    id: z.string().min(1, "Title is required"),
-  }),
+  tags: z.array(z.string()).min(1, "At least one tag is required"),
   description: z.object({
     en: z.string().min(1, "Description is required"),
     id: z.string().min(1, "Description is required"),

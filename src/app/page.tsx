@@ -19,6 +19,7 @@ async function getSectionData<T>(section: string): Promise<T | undefined> {
 
 export default async function Home() {
   const [
+    nav,
     hero,
     about,
     workExperience,
@@ -27,6 +28,7 @@ export default async function Home() {
     contact,
     footer,
   ] = await Promise.all([
+    getSectionData<CMSData["nav"]>("nav"),
     getSectionData<CMSData["hero"]>("hero"),
     getSectionData<CMSData["about"]>("about"),
     getSectionData<CMSData["workExperience"]>("workExperience"),
@@ -37,6 +39,7 @@ export default async function Home() {
   ]);
 
   const cmsData: CMSData = {
+    nav,
     hero,
     about,
     workExperience,

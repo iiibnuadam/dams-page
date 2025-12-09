@@ -20,6 +20,7 @@ import {
   Projects as ProjectsType,
   Contact as ContactType,
   Footer as FooterType,
+  Nav as NavType,
 } from "@/types/portfolio";
 import { CMSData } from "@/types/cms";
 
@@ -42,6 +43,9 @@ export default function MainContent({ cmsData }: MainContentProps) {
   const hasData = (data: unknown) =>
     data && typeof data === "object" && Object.keys(data).length > 0;
 
+  const nav: NavType = hasData(cmsData?.nav)
+    ? extractLocalizedData<NavType>(cmsData?.nav, lang)
+    : (t("nav", { returnObjects: true }) as NavType);
   const hero: HeroType = hasData(cmsData?.hero)
     ? extractLocalizedData<HeroType>(cmsData?.hero, lang)
     : (t("hero", { returnObjects: true }) as HeroType);
@@ -75,7 +79,7 @@ export default function MainContent({ cmsData }: MainContentProps) {
 
   return (
     <>
-      <Header />
+      <Header nav={nav} />
       <main>
         <Hero {...hero} />
         <About {...about} />

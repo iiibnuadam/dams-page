@@ -9,7 +9,7 @@ export const portfolioData = {
     },
     hero: {
       name: "Ibnu Adam",
-      title: "Creative Front-End Developer",
+      tags: ["Frontend Developer", "Core Developer"],
       description:
         "Crafting sleek websites and apps in fast-paced, collaborative settings. Turning ideas into digital masterpieces!",
       cta: "View My Work",
@@ -266,7 +266,7 @@ export const portfolioData = {
     },
     hero: {
       name: "Ibnu Adam",
-      title: "Creative Front-End Developer",
+      tags: ["Frontend Developer", "Core Developer"],
       description:
         "Menciptakan website dan aplikasi yang elegan dalam lingkungan kolaboratif yang serba cepat. Mengubah ide menjadi mahakarya digital!",
       cta: "Lihat Karya Saya",

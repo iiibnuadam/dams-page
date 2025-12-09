@@ -86,20 +86,20 @@ export default function EducationAndAwards({
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <Card className="bg-white/60 dark:bg-white/5 backdrop-blur-md border-black/5 dark:border-white/10 hover:border-blue-500/30 transition-all duration-300">
+                    <Card className="bg-background/80 dark:bg-card/50 backdrop-blur-sm border-border/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-md">
                       <CardHeader>
-                        <div className="flex justify-between items-start mb-2">
-                          <CardTitle className="text-xl font-bold">
+                        <div className="flex justify-between items-start mb-2 gap-4">
+                          <CardTitle className="text-xl font-bold leading-tight">
                             {edu.institution}
                           </CardTitle>
                           <Badge
                             variant="secondary"
-                            className="bg-blue-500/10 text-blue-600 dark:text-blue-300"
+                            className="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 shrink-0"
                           >
                             {edu.period}
                           </Badge>
                         </div>
-                        <div className="text-lg font-medium text-foreground/80">
+                        <div className="text-lg font-medium text-blue-600 dark:text-blue-400">
                           {edu.degree}
                         </div>
                       </CardHeader>
@@ -134,13 +134,18 @@ export default function EducationAndAwards({
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <Card className="bg-white/60 dark:bg-white/5 backdrop-blur-md border-black/5 dark:border-white/10 hover:border-cyan-500/30 transition-all duration-300">
+                    <Card className="bg-background/80 dark:bg-card/50 backdrop-blur-sm border-border/50 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-md">
                       <CardContent className="pt-6">
-                        <div className="flex justify-between items-start mb-2">
-                          <h4 className="text-lg font-bold">{org.role}</h4>
-                          <span className="text-sm text-muted-foreground bg-black/5 dark:bg-white/10 px-2 py-1 rounded-md">
+                        <div className="flex justify-between items-start mb-2 gap-4">
+                          <h4 className="text-lg font-bold leading-tight">
+                            {org.role}
+                          </h4>
+                          <Badge
+                            variant="outline"
+                            className="shrink-0 border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300"
+                          >
                             {org.period}
-                          </span>
+                          </Badge>
                         </div>
                         <div className="text-base font-medium text-cyan-600 dark:text-cyan-400 mb-1">
                           {org.organization}
@@ -165,7 +170,7 @@ export default function EducationAndAwards({
               <h3 className="text-2xl font-bold">{titles.awards}</h3>
             </div>
 
-            <div className="relative border-l-2 border-black/5 dark:border-white/10 ml-3 space-y-8 pl-8 py-2">
+            <div className="relative border-l-2 border-border/50 ml-3 space-y-8 pl-8 py-2">
               {awards.map((award, index) => (
                 <motion.div
                   key={index}
@@ -173,36 +178,43 @@ export default function EducationAndAwards({
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative"
+                  className="relative group"
                 >
                   {/* Timeline Dot */}
                   <div
-                    className={`absolute -left-[41px] top-1 w-5 h-5 rounded-full border-4 border-background ${
+                    className={`absolute -left-[41px] top-6 w-5 h-5 rounded-full border-4 border-background z-10 ${
                       award.type === "gold"
-                        ? "bg-yellow-400"
+                        ? "bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]"
                         : award.type === "silver"
-                        ? "bg-slate-300"
+                        ? "bg-slate-300 shadow-[0_0_10px_rgba(203,213,225,0.5)]"
                         : award.type === "bronze"
-                        ? "bg-amber-600"
-                        : "bg-blue-500"
+                        ? "bg-amber-600 shadow-[0_0_10px_rgba(217,119,6,0.5)]"
+                        : "bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"
                     }`}
                   />
 
-                  <div className="flex flex-col gap-1">
-                    <h4 className="text-lg font-bold leading-tight group-hover:text-indigo-500 transition-colors">
-                      {award.title}
-                    </h4>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground/80">
-                        {award.issuer}
-                      </span>
-                      <span>•</span>
-                      <span>{award.date}</span>
-                    </div>
-                    <div className="text-sm text-muted-foreground/60">
-                      {award.associatedWith}
-                    </div>
-                  </div>
+                  <Card className="bg-background/80 dark:bg-card/50 backdrop-blur-sm border-border/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-md">
+                    <CardContent className="p-4">
+                      <div className="flex flex-col gap-1">
+                        <h4 className="text-lg font-bold leading-tight group-hover:text-indigo-500 transition-colors">
+                          {award.title}
+                        </h4>
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
+                          <span className="font-medium text-foreground/80 flex items-center gap-1">
+                            <Trophy className="w-3 h-3" />
+                            {award.issuer}
+                          </span>
+                          <span className="hidden sm:inline">•</span>
+                          <span className="bg-secondary/50 px-2 py-0.5 rounded text-xs">
+                            {award.date}
+                          </span>
+                        </div>
+                        <div className="text-sm text-muted-foreground/60 mt-1">
+                          {award.associatedWith}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </motion.div>
               ))}
             </div>

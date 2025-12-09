@@ -77,13 +77,9 @@ export const SCHEMAS: Record<string, Schema> = {
         ],
       },
       {
-        name: "title",
-        label: "Title",
-        type: "object",
-        fields: [
-          { name: "en", label: "English", type: "text" },
-          { name: "id", label: "Indonesian", type: "text" },
-        ],
+        name: "tags",
+        label: "Tags (Roles)",
+        type: "list",
       },
       {
         name: "description",

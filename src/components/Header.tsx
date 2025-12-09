@@ -15,11 +15,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Nav } from "@/types/portfolio";
 
-export default function Header() {
+export default function Header({ nav: navProp }: { nav?: Nav }) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const { t, i18n } = useTranslation();
-  const nav = t("nav", { returnObjects: true }) as Nav;
+  const nav = navProp || (t("nav", { returnObjects: true }) as Nav);
 
   useEffect(() => {
     const handleScroll = () => {

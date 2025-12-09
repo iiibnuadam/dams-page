@@ -91,7 +91,7 @@ export default function About({
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
               whileHover={{ scale: 1.02 }}
-              className="p-6 md:p-8 rounded-2xl bg-white/60 dark:bg-white/5 backdrop-blur-md border border-black/5 dark:border-white/10 hover:border-blue-500/30 dark:hover:border-cyan-500/30 transition-all duration-300 shadow-lg hover:shadow-blue-500/10"
+              className="p-6 md:p-8 rounded-2xl bg-background/80 dark:bg-card/50 backdrop-blur-sm border border-border/50 hover:border-blue-500/50 transition-all duration-300 shadow-lg hover:shadow-blue-500/10"
             >
               <p className="text-base md:text-xl text-foreground/90 leading-relaxed font-light">
                 {bio}
@@ -122,7 +122,7 @@ export default function About({
                       rotate: index % 2 === 0 ? 3 : -3,
                       backgroundColor: "rgba(59, 130, 246, 0.2)",
                     }}
-                    className="px-5 py-2.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl text-sm font-medium hover:border-blue-500/50 hover:text-blue-500 dark:hover:text-cyan-400 transition-all duration-300 cursor-default shadow-sm"
+                    className="px-5 py-2.5 bg-secondary/50 backdrop-blur-sm border border-border/50 rounded-xl text-sm font-medium hover:border-blue-500/50 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 cursor-default shadow-sm"
                   >
                     {skill}
                   </motion.span>
