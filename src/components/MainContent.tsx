@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -9,6 +10,7 @@ import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import FloatingHireMe from "@/components/FloatingHireMe";
+import { extractLocalizedData } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import {
   Hero as HeroType,
@@ -19,47 +21,57 @@ import {
   Contact as ContactType,
   Footer as FooterType,
 } from "@/types/portfolio";
+import { CMSData } from "@/types/cms";
 
 type MainContentProps = {
-  cmsData?: Partial<{
-    hero: Record<string, HeroType>;
-    about: Record<string, AboutType>;
-    workExperience: Record<string, WorkExperienceType>;
-    educationAndAwards: Record<string, EducationAndAwardsType>;
-    projects: Record<string, ProjectsType>;
-    contact: Record<string, ContactType>;
-    footer: Record<string, FooterType>;
-  }>;
+  cmsData?: CMSData;
 };
 
 export default function MainContent({ cmsData }: MainContentProps) {
   const { t, i18n } = useTranslation();
-  const lang = i18n.language?.startsWith("id") ? "id" : "en";
+  const [mounted, setMounted] = useState(false);
 
-  const hero =
-    cmsData?.hero?.[lang] || (t("hero", { returnObjects: true }) as HeroType);
-  const about =
-    cmsData?.about?.[lang] ||
-    (t("about", { returnObjects: true }) as AboutType);
-  const workExperience =
-    cmsData?.workExperience?.[lang] ||
-    (t("workExperience", {
-      returnObjects: true,
-    }) as WorkExperienceType);
-  const educationAndAwards =
-    cmsData?.educationAndAwards?.[lang] ||
-    (t("educationAndAwards", {
-      returnObjects: true,
-    }) as EducationAndAwardsType);
-  const projects =
-    cmsData?.projects?.[lang] ||
-    (t("projects", { returnObjects: true }) as ProjectsType);
-  const contact =
-    cmsData?.contact?.[lang] ||
-    (t("contact", { returnObjects: true }) as ContactType);
-  const footer =
-    cmsData?.footer?.[lang] ||
-    (t("footer", { returnObjects: true }) as FooterType);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  const effectiveLang = mounted ? i18n.language : "en";
+  const lang = (effectiveLang?.startsWith("id") ? "id" : "en") as "en" | "id";
+
+  const hasData = (data: unknown) =>
+    data && typeof data === "object" && Object.keys(data).length > 0;
+
+  const hero: HeroType = hasData(cmsData?.hero)
+    ? extractLocalizedData<HeroType>(cmsData?.hero, lang)
+    : (t("hero", { returnObjects: true }) as HeroType);
+  const about: AboutType = hasData(cmsData?.about)
+    ? extractLocalizedData<AboutType>(cmsData?.about, lang)
+    : (t("about", { returnObjects: true }) as AboutType);
+  const workExperience: WorkExperienceType = hasData(cmsData?.workExperience)
+    ? extractLocalizedData<WorkExperienceType>(cmsData?.workExperience, lang)
+    : (t("workExperience", {
+        returnObjects: true,
+      }) as WorkExperienceType);
+  const educationAndAwards: EducationAndAwardsType = hasData(
+    cmsData?.educationAndAwards
+  )
+    ? extractLocalizedData<EducationAndAwardsType>(
+        cmsData?.educationAndAwards,
+        lang
+      )
+    : (t("educationAndAwards", {
+        returnObjects: true,
+      }) as EducationAndAwardsType);
+  const projects: ProjectsType = hasData(cmsData?.projects)
+    ? extractLocalizedData<ProjectsType>(cmsData?.projects, lang)
+    : (t("projects", { returnObjects: true }) as ProjectsType);
+  const contact: ContactType = hasData(cmsData?.contact)
+    ? extractLocalizedData<ContactType>(cmsData?.contact, lang)
+    : (t("contact", { returnObjects: true }) as ContactType);
+  const footer: FooterType = hasData(cmsData?.footer)
+    ? extractLocalizedData<FooterType>(cmsData?.footer, lang)
+    : (t("footer", { returnObjects: true }) as FooterType);
 
   return (
     <>

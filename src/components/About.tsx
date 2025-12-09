@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 type AboutProps = {
   bio: string;
@@ -74,10 +75,11 @@ export default function About({
               }}
               className="relative aspect-square overflow-hidden border-4 border-white/10 shadow-2xl"
             >
-              <img
+              <Image
                 src="https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4"
                 alt="Profile Photo"
-                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                fill
+                className="object-cover transform group-hover:scale-110 transition-transform duration-500"
               />
             </motion.div>
           </motion.div>

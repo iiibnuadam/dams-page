@@ -99,6 +99,7 @@ export default function Header() {
                 <a
                   href="#about"
                   onClick={(e) => handleClick(e, "#about")}
+                  suppressHydrationWarning
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
                     activeSection === "about"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
@@ -112,6 +113,7 @@ export default function Header() {
                 <a
                   href="#experience"
                   onClick={(e) => handleClick(e, "#experience")}
+                  suppressHydrationWarning
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
                     activeSection === "experience"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
@@ -125,6 +127,7 @@ export default function Header() {
                 <a
                   href="#education"
                   onClick={(e) => handleClick(e, "#education")}
+                  suppressHydrationWarning
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
                     activeSection === "education"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
@@ -138,6 +141,7 @@ export default function Header() {
                 <a
                   href="#projects"
                   onClick={(e) => handleClick(e, "#projects")}
+                  suppressHydrationWarning
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
                     activeSection === "projects"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
@@ -151,6 +155,7 @@ export default function Header() {
                 <a
                   href="#contact"
                   onClick={(e) => handleClick(e, "#contact")}
+                  suppressHydrationWarning
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
                     activeSection === "contact"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
@@ -168,7 +173,10 @@ export default function Header() {
                       size="icon"
                       className="rounded-full w-8 h-8"
                     >
-                      <span className="text-lg leading-none">
+                      <span
+                        className="text-lg leading-none"
+                        suppressHydrationWarning
+                      >
                         {i18n.language?.startsWith("id") ? "🇮🇩" : "🇬🇧"}
                       </span>
                       <span className="sr-only">Switch Language</span>
@@ -196,7 +204,10 @@ export default function Header() {
                     size="icon"
                     className="rounded-full w-8 h-8"
                   >
-                    <span className="text-lg leading-none">
+                    <span
+                      className="text-lg leading-none"
+                      suppressHydrationWarning
+                    >
                       {i18n.language?.startsWith("id") ? "🇮🇩" : "🇬🇧"}
                     </span>
                     <span className="sr-only">Switch Language</span>
@@ -244,6 +255,7 @@ export default function Header() {
                 <a
                   href="#about"
                   onClick={(e) => handleClick(e, "#about")}
+                  suppressHydrationWarning
                   className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
                     activeSection === "about"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
@@ -257,6 +269,7 @@ export default function Header() {
                 <a
                   href="#experience"
                   onClick={(e) => handleClick(e, "#experience")}
+                  suppressHydrationWarning
                   className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
                     activeSection === "experience"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
@@ -270,6 +283,7 @@ export default function Header() {
                 <a
                   href="#education"
                   onClick={(e) => handleClick(e, "#education")}
+                  suppressHydrationWarning
                   className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
                     activeSection === "education"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
@@ -283,6 +297,7 @@ export default function Header() {
                 <a
                   href="#projects"
                   onClick={(e) => handleClick(e, "#projects")}
+                  suppressHydrationWarning
                   className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
                     activeSection === "projects"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
@@ -296,6 +311,7 @@ export default function Header() {
                 <a
                   href="#contact"
                   onClick={(e) => handleClick(e, "#contact")}
+                  suppressHydrationWarning
                   className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
                     activeSection === "contact"
                       ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
