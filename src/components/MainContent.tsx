@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
 import WorkExperience from "@/components/WorkExperience";
 import EducationAndAwards from "@/components/EducationAndAwards";
 import Projects from "@/components/Projects";
@@ -14,7 +13,6 @@ import { extractLocalizedData } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import {
   Hero as HeroType,
-  About as AboutType,
   WorkExperience as WorkExperienceType,
   EducationAndAwards as EducationAndAwardsType,
   Projects as ProjectsType,
@@ -49,9 +47,6 @@ export default function MainContent({ cmsData }: MainContentProps) {
   const hero: HeroType = hasData(cmsData?.hero)
     ? extractLocalizedData<HeroType>(cmsData?.hero, lang)
     : (t("hero", { returnObjects: true }) as HeroType);
-  const about: AboutType = hasData(cmsData?.about)
-    ? extractLocalizedData<AboutType>(cmsData?.about, lang)
-    : (t("about", { returnObjects: true }) as AboutType);
   const workExperience: WorkExperienceType = hasData(cmsData?.workExperience)
     ? extractLocalizedData<WorkExperienceType>(cmsData?.workExperience, lang)
     : (t("workExperience", {
@@ -82,7 +77,6 @@ export default function MainContent({ cmsData }: MainContentProps) {
       <Header nav={nav} />
       <main>
         <Hero {...hero} />
-        <About {...about} />
         <WorkExperience
           experiences={workExperience.experiences}
           title={workExperience.title}

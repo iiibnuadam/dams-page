@@ -2,19 +2,56 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Twitter,
+  Instagram,
+  Facebook,
+  Youtube,
+  Gitlab,
+  Dribbble,
+} from "lucide-react";
+
+type Social = {
+  platform: string;
+  url: string;
+};
 
 type ContactInfo = {
   title: string;
   description: string;
   email: string;
-  github?: string;
-  linkedin?: string;
-  twitter?: string;
+  socials: Social[];
   cta?: string;
 };
 
 type ContactProps = {
   contact: ContactInfo;
+};
+
+const getIcon = (platform: string) => {
+  switch (platform.toLowerCase()) {
+    case "github":
+      return <Github className="w-8 h-8" />;
+    case "linkedin":
+      return <Linkedin className="w-8 h-8" />;
+    case "twitter":
+      return <Twitter className="w-8 h-8" />;
+    case "instagram":
+      return <Instagram className="w-8 h-8" />;
+    case "facebook":
+      return <Facebook className="w-8 h-8" />;
+    case "youtube":
+      return <Youtube className="w-8 h-8" />;
+    case "gitlab":
+      return <Gitlab className="w-8 h-8" />;
+    case "dribbble":
+      return <Dribbble className="w-8 h-8" />;
+    default:
+      return null;
+  }
 };
 
 export default function Contact({ contact }: ContactProps) {
@@ -74,39 +111,18 @@ export default function Contact({ contact }: ContactProps) {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="flex gap-8 mt-8"
             >
-              {contact.github && (
+              {contact.socials.map((social) => (
                 <a
-                  href={contact.github}
+                  key={social.platform}
+                  href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-foreground/40 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors hover:scale-125 transform duration-200"
-                  aria-label="GitHub"
+                  aria-label={social.platform}
                 >
-                  GitHub
+                  {getIcon(social.platform)}
                 </a>
-              )}
-              {contact.linkedin && (
-                <a
-                  href={contact.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/40 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors hover:scale-125 transform duration-200"
-                  aria-label="LinkedIn"
-                >
-                  LinkedIn
-                </a>
-              )}
-              {contact.twitter && (
-                <a
-                  href={contact.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/40 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors hover:scale-125 transform duration-200"
-                  aria-label="Twitter"
-                >
-                  Twitter
-                </a>
-              )}
+              ))}
             </motion.div>
           </div>
         </div>

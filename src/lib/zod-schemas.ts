@@ -1,10 +1,6 @@
 import { z } from "zod";
 
 export const NavSchema = z.object({
-  about: z.object({
-    en: z.string().min(1, "About text is required"),
-    id: z.string().min(1, "About text is required"),
-  }),
   experience: z.object({
     en: z.string().min(1, "Experience text is required"),
     id: z.string().min(1, "Experience text is required"),
@@ -41,6 +37,7 @@ export const HeroSchema = z.object({
     en: z.string().min(1, "Contact button text is required"),
     id: z.string().min(1, "Contact button text is required"),
   }),
+  skills: z.array(z.string()).min(1, "At least one skill is required"),
 });
 
 export const AboutSchema = z.object({
@@ -66,6 +63,7 @@ const ExperienceItemSchema = z.object({
   en: z.object({
     position: z.string().min(1, "Position is required"),
     company: z.string().min(1, "Company is required"),
+    logo: z.string().optional(),
     location: z.string().min(1, "Location is required"),
     type: z.string().min(1, "Type is required"),
     period: z.string().min(1, "Period is required"),
@@ -76,6 +74,7 @@ const ExperienceItemSchema = z.object({
   id: z.object({
     position: z.string().min(1, "Position is required"),
     company: z.string().min(1, "Company is required"),
+    logo: z.string().optional(),
     location: z.string().min(1, "Location is required"),
     type: z.string().min(1, "Type is required"),
     period: z.string().min(1, "Period is required"),
@@ -218,22 +217,13 @@ export const ContactSchema = z.object({
     en: z.string().min(1, "Description is required"),
     id: z.string().min(1, "Description is required"),
   }),
-  email: z.object({
-    en: z.string().email("Invalid email address"),
-    id: z.string().email("Invalid email address"),
-  }),
-  github: z.object({
-    en: z.string().url("Invalid GitHub URL").optional().or(z.literal("")),
-    id: z.string().url("Invalid GitHub URL").optional().or(z.literal("")),
-  }),
-  linkedin: z.object({
-    en: z.string().url("Invalid LinkedIn URL").optional().or(z.literal("")),
-    id: z.string().url("Invalid LinkedIn URL").optional().or(z.literal("")),
-  }),
-  twitter: z.object({
-    en: z.string().url("Invalid Twitter URL").optional().or(z.literal("")),
-    id: z.string().url("Invalid Twitter URL").optional().or(z.literal("")),
-  }),
+  email: z.string().email("Invalid email address"),
+  socials: z.array(
+    z.object({
+      platform: z.string().min(1, "Platform name is required"),
+      url: z.string().url("Invalid URL"),
+    })
+  ),
   cta: z.object({
     en: z.string().min(1, "CTA is required"),
     id: z.string().min(1, "CTA is required"),

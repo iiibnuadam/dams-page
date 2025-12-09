@@ -18,10 +18,6 @@ if (!MONGODB_URI) {
 
 const initialData = {
   nav: {
-    about: {
-      en: "About",
-      id: "Tentang",
-    },
     experience: {
       en: "Experience",
       id: "Pengalaman",
@@ -46,8 +42,8 @@ const initialData = {
     },
     tags: ["Frontend Developer", "Core Developer"],
     description: {
-      en: "Crafting sleek websites and apps in fast-paced, collaborative settings. Turning ideas into digital masterpieces!",
-      id: "Menciptakan website dan aplikasi yang elegan dalam lingkungan kolaboratif yang serba cepat. Mengubah ide menjadi mahakarya digital!",
+      en: "Hi there! Adam's here. I'm a creative Front-End Developer with over 3 years of experience crafting sleek websites and apps in fast-paced, collaborative settings. My expertise lies in Vue.js and Typescript, complemented by a dash of React.js.",
+      id: "Halo! Saya Adam. Saya seorang Front-End Developer kreatif dengan pengalaman lebih dari 3 tahun dalam membuat website dan aplikasi yang elegan. Keahlian saya terletak pada Vue.js dan Typescript, dilengkapi dengan sedikit sentuhan React.js.",
     },
     cta: {
       en: "View My Work",
@@ -57,46 +53,18 @@ const initialData = {
       en: "Contact Me",
       id: "Hubungi Saya",
     },
-  },
-  about: {
-    title: {
-      en: "About Me",
-      id: "Tentang Saya",
-    },
-    bio: {
-      en: "Hi there! Adam's here. I'm a creative Front-End Developer with over 3 years of experience crafting sleek websites and apps in fast-paced, collaborative settings. My expertise lies in Vue.js and Typescript, complemented by a dash of React.js. I'm well-versed in Design Systems, ensuring a seamless user experience. I thrive in SCRUM Agile environments, adapting quickly to deliver top-notch, scalable solutions.",
-      id: "Halo! Saya Adam. Saya seorang Front-End Developer kreatif dengan pengalaman lebih dari 3 tahun dalam membuat website dan aplikasi yang elegan. Keahlian saya terletak pada Vue.js dan Typescript, dilengkapi dengan sedikit sentuhan React.js. Saya sangat memahami Design Systems untuk memastikan pengalaman pengguna yang mulus. Saya terbiasa bekerja dalam lingkungan Agile SCRUM, beradaptasi dengan cepat untuk memberikan solusi terbaik dan skalabel.",
-    },
-    skillsTitle: {
-      en: "Skills & Technologies",
-      id: "Keahlian & Teknologi",
-    },
-    skills: {
-      en: [
-        "Vue.js",
-        "React.js",
-        "Nuxt.js",
-        "Next.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Jest",
-        "Git",
-        "Scrum",
-        "Design Systems",
-      ],
-      id: [
-        "Vue.js",
-        "React.js",
-        "Nuxt.js",
-        "Next.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Jest",
-        "Git",
-        "Scrum",
-        "Design Systems",
-      ],
-    },
+    skills: [
+      "Vue.js",
+      "React.js",
+      "Nuxt.js",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Jest",
+      "Git",
+      "Scrum",
+      "Design Systems",
+    ],
   },
   workExperience: {
     title: {
@@ -108,6 +76,7 @@ const initialData = {
         en: {
           position: "Frontend Developer",
           company: "PT. GITS Indonesia",
+          logo: "https://ui-avatars.com/api/?name=PT+GITS+Indonesia&background=random",
           location: "Bandung",
           type: "Fulltime - Remote",
           period: "Dec, 2021 - Present",
@@ -137,6 +106,7 @@ const initialData = {
         id: {
           position: "Frontend Developer",
           company: "PT. GITS Indonesia",
+          logo: "https://ui-avatars.com/api/?name=PT+GITS+Indonesia&background=random",
           location: "Bandung",
           type: "Fulltime - Remote",
           period: "Des, 2021 - Sekarang",
@@ -168,6 +138,7 @@ const initialData = {
         en: {
           position: "Frontend Developer",
           company: "PT. Telkom Indonesia Squad Digital Amoeba",
+          logo: "https://ui-avatars.com/api/?name=Telkom+Indonesia&background=random",
           location: "Bandung",
           type: "Contract - Remote",
           period: "Sept, 2021 - Feb, 2022",
@@ -184,6 +155,7 @@ const initialData = {
         id: {
           position: "Frontend Developer",
           company: "PT. Telkom Indonesia Squad Digital Amoeba",
+          logo: "https://ui-avatars.com/api/?name=Telkom+Indonesia&background=random",
           location: "Bandung",
           type: "Kontrak - Remote",
           period: "Sept, 2021 - Feb, 2022",
@@ -202,6 +174,7 @@ const initialData = {
         en: {
           position: "Frontend Developer",
           company: "PT. Qatros Teknologi Indonesia",
+          logo: "https://ui-avatars.com/api/?name=Qatros+Teknologi&background=random",
           location: "Yogyakarta",
           type: "Fulltime - Hybrid",
           period: "Aug, 2020 - Sept, 2021",
@@ -228,6 +201,7 @@ const initialData = {
         id: {
           position: "Frontend Developer",
           company: "PT. Qatros Teknologi Indonesia",
+          logo: "https://ui-avatars.com/api/?name=Qatros+Teknologi&background=random",
           location: "Yogyakarta",
           type: "Fulltime - Hybrid",
           period: "Agust, 2020 - Sept, 2021",
@@ -577,22 +551,17 @@ const initialData = {
       en: "Have a project in mind or just want to say hi? Feel free to reach out!",
       id: "Punya ide proyek atau hanya ingin menyapa? Jangan ragu untuk menghubungi saya!",
     },
-    email: {
-      en: "ibnuadam.biz@gmail.com",
-      id: "ibnuadam.biz@gmail.com",
-    },
-    github: {
-      en: "https://github.com/iiibnuadam",
-      id: "https://github.com/iiibnuadam",
-    },
-    linkedin: {
-      en: "https://www.linkedin.com/in/iiibnuadam/",
-      id: "https://www.linkedin.com/in/iiibnuadam/",
-    },
-    twitter: {
-      en: "https://twitter.com",
-      id: "https://twitter.com",
-    },
+    email: "ibnuadam.biz@gmail.com",
+    socials: [
+      {
+        platform: "github",
+        url: "https://github.com/iiibnuadam",
+      },
+      {
+        platform: "linkedin",
+        url: "https://www.linkedin.com/in/iiibnuadam/",
+      },
+    ],
     cta: {
       en: "Say Hello",
       id: "Katakan Halo",

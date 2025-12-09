@@ -21,7 +21,6 @@ export default async function Home() {
   const [
     nav,
     hero,
-    about,
     workExperience,
     educationAndAwards,
     projects,
@@ -30,7 +29,6 @@ export default async function Home() {
   ] = await Promise.all([
     getSectionData<CMSData["nav"]>("nav"),
     getSectionData<CMSData["hero"]>("hero"),
-    getSectionData<CMSData["about"]>("about"),
     getSectionData<CMSData["workExperience"]>("workExperience"),
     getSectionData<CMSData["educationAndAwards"]>("educationAndAwards"),
     getSectionData<CMSData["projects"]>("projects"),
@@ -41,7 +39,6 @@ export default async function Home() {
   const cmsData: CMSData = {
     nav,
     hero,
-    about,
     workExperience,
     educationAndAwards,
     projects,

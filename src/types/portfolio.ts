@@ -1,5 +1,4 @@
 export interface Nav {
-  about: string;
   experience: string;
   education: string;
   projects: string;
@@ -12,6 +11,7 @@ export interface Hero {
   description: string;
   cta: string;
   contact: string;
+  skills: string[];
 }
 
 export interface About {
@@ -24,6 +24,7 @@ export interface About {
 export interface Experience {
   position: string;
   company: string;
+  logo?: string;
   location: string;
   type: string;
   period: string;
@@ -90,10 +91,11 @@ export interface Contact {
   title: string;
   description: string;
   email: string;
-  github: string;
-  linkedin: string;
+  socials: {
+    platform: string;
+    url: string;
+  }[];
   cta?: string;
-  twitter?: string;
 }
 
 export interface Footer {

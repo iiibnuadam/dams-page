@@ -1,4 +1,4 @@
-export type FieldType = "text" | "textarea" | "list" | "object" | "array";
+export type FieldType = "text" | "textarea" | "list" | "object" | "array" | "select";
 
 export interface Field {
   name: string;
@@ -6,6 +6,7 @@ export interface Field {
   type: FieldType;
   fields?: Field[]; // For object type
   itemFields?: Field[]; // For array type (if array of objects)
+  options?: { label: string; value: string }[]; // For select type
 }
 
 export interface Schema {
@@ -437,37 +438,33 @@ export const SCHEMAS: Record<string, Schema> = {
       {
         name: "email",
         label: "Email",
-        type: "object",
-        fields: [
-          { name: "en", label: "English", type: "text" },
-          { name: "id", label: "Indonesian", type: "text" },
-        ],
+        type: "text",
       },
       {
-        name: "github",
-        label: "GitHub URL",
-        type: "object",
-        fields: [
-          { name: "en", label: "English", type: "text" },
-          { name: "id", label: "Indonesian", type: "text" },
-        ],
-      },
-      {
-        name: "linkedin",
-        label: "LinkedIn URL",
-        type: "object",
-        fields: [
-          { name: "en", label: "English", type: "text" },
-          { name: "id", label: "Indonesian", type: "text" },
-        ],
-      },
-      {
-        name: "twitter",
-        label: "Twitter URL",
-        type: "object",
-        fields: [
-          { name: "en", label: "English", type: "text" },
-          { name: "id", label: "Indonesian", type: "text" },
+        name: "socials",
+        label: "Social Media",
+        type: "array",
+        itemFields: [
+          {
+            name: "platform",
+            label: "Platform (Icon)",
+            type: "select",
+            options: [
+              { label: "GitHub", value: "github" },
+              { label: "LinkedIn", value: "linkedin" },
+              { label: "Twitter", value: "twitter" },
+              { label: "Instagram", value: "instagram" },
+              { label: "Facebook", value: "facebook" },
+              { label: "YouTube", value: "youtube" },
+              { label: "GitLab", value: "gitlab" },
+              { label: "Dribbble", value: "dribbble" },
+            ],
+          },
+          {
+            name: "url",
+            label: "URL",
+            type: "text",
+          },
         ],
       },
       {

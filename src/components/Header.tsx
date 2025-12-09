@@ -23,13 +23,7 @@ export default function Header({ nav: navProp }: { nav?: Nav }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = [
-        "about",
-        "experience",
-        "education",
-        "projects",
-        "contact",
-      ];
+      const sections = ["experience", "education", "projects", "contact"];
 
       // Find the section that is currently most visible in the viewport
       let currentSection = "";
@@ -97,29 +91,25 @@ export default function Header({ nav: navProp }: { nav?: Nav }) {
             <ul className="hidden md:flex gap-1 sm:gap-2 items-center">
               <li>
                 <a
-                  href="#about"
-                  onClick={(e) => handleClick(e, "#about")}
-                  suppressHydrationWarning
-                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
-                    activeSection === "about"
-                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
-                      : "text-muted-foreground hover:text-primary hover:bg-primary/10"
-                  }`}
-                >
-                  {nav.about}
-                </a>
-              </li>
-              <li>
-                <a
                   href="#experience"
                   onClick={(e) => handleClick(e, "#experience")}
-                  suppressHydrationWarning
-                  className={`px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full ${
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-blue-600 dark:hover:text-cyan-400 ${
                     activeSection === "experience"
-                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 shadow-sm font-bold"
-                      : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                      ? "text-blue-600 dark:text-cyan-400"
+                      : "text-foreground/80"
                   }`}
                 >
+                  {activeSection === "experience" && (
+                    <motion.span
+                      layoutId="activeSection"
+                      className="absolute inset-0 bg-blue-100/50 dark:bg-blue-900/20 rounded-full -z-10"
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                    />
+                  )}
                   {nav.experience}
                 </a>
               </li>
@@ -251,20 +241,6 @@ export default function Header({ nav: navProp }: { nav?: Nav }) {
             className="absolute top-full left-0 right-0 mt-2 p-4 rounded-3xl bg-white/80 dark:bg-[#1a1a1a]/90 backdrop-blur-xl border border-black/5 dark:border-white/10 shadow-2xl md:hidden overflow-hidden"
           >
             <ul className="flex flex-col gap-2">
-              <li>
-                <a
-                  href="#about"
-                  onClick={(e) => handleClick(e, "#about")}
-                  suppressHydrationWarning
-                  className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
-                    activeSection === "about"
-                      ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 font-bold"
-                      : "text-foreground/80 hover:text-blue-500 dark:hover:text-cyan-400 hover:bg-blue-500/10 dark:hover:bg-cyan-500/10"
-                  }`}
-                >
-                  {nav.about}
-                </a>
-              </li>
               <li>
                 <a
                   href="#experience"

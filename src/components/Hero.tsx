@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type HeroProps = {
   name: string;
@@ -10,6 +11,7 @@ type HeroProps = {
   description: string;
   cta?: string;
   contact?: string;
+  skills?: string[];
 };
 
 export default function Hero({
@@ -17,6 +19,8 @@ export default function Hero({
   tags,
   description,
   cta = "View My Work",
+  contact = "Contact Me",
+  skills = [],
 }: HeroProps) {
   const [displayText, setDisplayText] = useState("");
   const [currentTagIndex, setCurrentTagIndex] = useState(0);
@@ -58,110 +62,109 @@ export default function Hero({
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center px-4 py-16 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden"
       aria-label="Hero"
     >
-      {/* Background Effects */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -z-10"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      {/* Minimalist Background */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/20 via-background to-background dark:from-blue-900/10" />
 
-      <div className="max-w-5xl mx-auto text-center z-10">
+      <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-center">
+        {/* Left Column: Content */}
         <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="p-6 md:p-12 rounded-3xl bg-white/60 dark:bg-white/5 backdrop-blur-md border border-black/5 dark:border-white/10 shadow-2xl relative group"
+          className="text-center lg:text-left order-2 lg:order-1"
         >
-          {/* Playful decorative elements */}
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-12 -right-12 w-24 h-24 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full blur-xl opacity-50 group-hover:opacity-80 transition-opacity"
-          />
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="absolute -bottom-8 -left-8 w-16 h-16 bg-gradient-to-tr from-teal-400 to-emerald-400 rounded-full blur-xl opacity-50 group-hover:opacity-80 transition-opacity"
-          />
-
-          <motion.h1
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-4xl md:text-6xl lg:text-8xl font-extrabold mb-6 md:mb-8 bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400 bg-clip-text text-transparent drop-shadow-sm"
+            transition={{ duration: 0.5 }}
+            className="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-sm font-medium"
           >
-            {name}
-          </motion.h1>
-
-          <motion.div className="h-8 md:h-12 mb-8">
-            <p className="text-xl md:text-3xl font-bold text-foreground/80">
-              {displayText}
-              <motion.span
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ repeat: Infinity, duration: 0.8 }}
-                className="inline-block w-1 h-6 md:h-8 bg-primary ml-1 align-middle"
-              />
-            </p>
+            Available for work
           </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="text-lg md:text-xl text-foreground/60 mb-10 max-w-2xl mx-auto leading-relaxed"
-          >
-            {description}
-          </motion.p>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-foreground">
+            {name}
+          </h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
+          <div className="h-8 md:h-10 mb-8 flex justify-center lg:justify-start items-center text-xl md:text-2xl text-muted-foreground font-medium">
+            <span>I am a </span>
+            <span className="ml-2 text-foreground font-semibold">
+              {displayText}
+            </span>
+            <motion.span
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ repeat: Infinity, duration: 0.8 }}
+              className="inline-block w-0.5 h-6 md:h-8 bg-primary ml-1"
+            />
+          </div>
+
+          <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            {description}
+          </p>
+
+          {/* Tech Stack */}
+          {skills && skills.length > 0 && (
+            <div className="mb-10">
+              <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+                Tech Stack
+              </p>
+              <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+                {skills.map((skill, index) => (
+                  <motion.span
+                    key={skill}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05 + 0.5 }}
+                    className="px-4 py-2 rounded-lg bg-secondary/50 hover:bg-secondary text-secondary-foreground text-sm font-medium transition-colors cursor-default border border-border/50"
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <Button
               size="lg"
-              className="rounded-full text-white text-lg px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-lg hover:shadow-blue-500/25 hover:scale-105 transition-all duration-300"
+              className="rounded-full text-base px-8 h-12"
               onClick={() => handleScroll("#projects")}
             >
               {cta}
             </Button>
             <Button
+              variant="outline"
               size="lg"
-              className="rounded-full text-lg px-8 py-6 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300 relative overflow-hidden group"
+              className="rounded-full text-base px-8 h-12"
               onClick={() => handleScroll("#contact")}
             >
-              <span className="relative z-10 flex items-center gap-2">
-                Hire Me
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                >
-                  <line x1="22" y1="2" x2="11" y2="13"></line>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
-              </span>
-              <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+              {contact}
             </Button>
-          </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Right Column: Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="order-1 lg:order-2 flex justify-center lg:justify-end"
+        >
+          <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px]">
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500 to-cyan-400 rounded-[2rem] rotate-6 opacity-20 blur-2xl" />
+            <div className="relative w-full h-full rounded-[2rem] overflow-hidden border border-border/50 shadow-2xl bg-background">
+              <Image
+                src="https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4"
+                alt={name}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

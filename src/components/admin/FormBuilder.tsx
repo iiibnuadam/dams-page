@@ -100,6 +100,23 @@ export default function FormBuilder({
             />
           )}
 
+          {field.type === "select" && field.options && (
+            <select
+              value={(data?.[field.name] as string) || ""}
+              onChange={(e) => handleChange(field.name, e.target.value)}
+              className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <option value="" disabled>
+                Select an option
+              </option>
+              {field.options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          )}
+
           {field.type === "list" && (
             <ListInput
               value={(data?.[field.name] as string[]) || []}
@@ -201,9 +218,11 @@ function ArrayInput({
     const organization = (en?.organization || id?.organization) as
       | string
       | undefined;
+    const platform = item?.platform as string | undefined;
 
     if (title) return title;
     if (name) return name;
+    if (platform) return platform.charAt(0).toUpperCase() + platform.slice(1);
     if (position && company) return `${position} at ${company}`;
     if (position) return position;
     if (institution) return institution;

@@ -12,7 +12,6 @@ export type Localized<T> = {
 };
 
 export interface CMSNav {
-  about: Localized<string>;
   experience: Localized<string>;
   education: Localized<string>;
   projects: Localized<string>;
@@ -25,6 +24,7 @@ export interface CMSHero {
   description: Localized<string>;
   cta: Localized<string>;
   contact: Localized<string>;
+  skills: string[];
 }
 
 export interface CMSAbout {
@@ -61,11 +61,12 @@ export interface CMSProjects {
 export interface CMSContact {
   title: Localized<string>;
   description: Localized<string>;
-  email: Localized<string>;
-  github: Localized<string>;
-  linkedin: Localized<string>;
+  email: string;
+  socials: {
+    platform: string;
+    url: string;
+  }[];
   cta?: Localized<string>;
-  twitter?: Localized<string>;
 }
 
 export interface CMSFooter {
