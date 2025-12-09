@@ -148,6 +148,7 @@ export const SCHEMAS: Record<string, Schema> = {
             fields: [
               { name: "position", label: "Position", type: "text" },
               { name: "company", label: "Company", type: "text" },
+              { name: "logo", label: "Company Logo URL", type: "text" },
               { name: "location", label: "Location", type: "text" },
               { name: "type", label: "Type", type: "text" },
               { name: "period", label: "Period", type: "text" },
@@ -163,6 +164,7 @@ export const SCHEMAS: Record<string, Schema> = {
             fields: [
               { name: "position", label: "Position", type: "text" },
               { name: "company", label: "Company", type: "text" },
+              { name: "logo", label: "Company Logo URL", type: "text" },
               { name: "location", label: "Location", type: "text" },
               { name: "type", label: "Type", type: "text" },
               { name: "period", label: "Period", type: "text" },
