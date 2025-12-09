@@ -11,13 +11,9 @@ export interface Hero {
   description: string;
   cta: string;
   contact: string;
-  skills: string[];
-}
-
-export interface About {
-  title: string;
-  bio: string;
-  skillsTitle: string;
+  status: {
+    variant: "available" | "open" | "busy";
+  };
   skills: string[];
 }
 
@@ -105,7 +101,6 @@ export interface Footer {
 export interface PortfolioContent {
   nav: Nav;
   hero: Hero;
-  about: About;
   workExperience: WorkExperience;
   educationAndAwards: EducationAndAwards;
   projects: Projects;

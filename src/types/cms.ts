@@ -24,14 +24,10 @@ export interface CMSHero {
   description: Localized<string>;
   cta: Localized<string>;
   contact: Localized<string>;
+  status: {
+    variant: "available" | "open" | "busy";
+  };
   skills: string[];
-}
-
-export interface CMSAbout {
-  title: Localized<string>;
-  bio: Localized<string>;
-  skillsTitle: Localized<string>;
-  skills: Localized<string[]>;
 }
 
 export interface CMSWorkExperience {
@@ -76,7 +72,6 @@ export interface CMSFooter {
 export type CMSSectionData =
   | CMSNav
   | CMSHero
-  | CMSAbout
   | CMSWorkExperience
   | CMSEducationAndAwards
   | CMSProjects
@@ -86,7 +81,6 @@ export type CMSSectionData =
 export interface CMSData {
   nav?: CMSNav;
   hero?: CMSHero;
-  about?: CMSAbout;
   workExperience?: CMSWorkExperience;
   educationAndAwards?: CMSEducationAndAwards;
   projects?: CMSProjects;

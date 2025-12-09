@@ -12,6 +12,10 @@ type HeroProps = {
   cta?: string;
   contact?: string;
   skills?: string[];
+  status?: {
+    variant: "available" | "open" | "busy";
+  };
+  lang?: "en" | "id";
 };
 
 export default function Hero({
@@ -21,6 +25,8 @@ export default function Hero({
   cta = "View My Work",
   contact = "Contact Me",
   skills = [],
+  status = { variant: "available" },
+  lang = "en",
 }: HeroProps) {
   const [displayText, setDisplayText] = useState("");
   const [currentTagIndex, setCurrentTagIndex] = useState(0);
@@ -28,6 +34,39 @@ export default function Hero({
 
   // Fallback if tags is undefined or empty
   const safeTags = tags && tags.length > 0 ? tags : ["Developer"];
+
+  const statusVariants = {
+    available: {
+      container:
+        "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+      dot: "bg-emerald-500 shadow-[0_0_12px_rgba(16,185,129,0.6)]",
+      text: {
+        en: "Available for work",
+        id: "Tersedia untuk bekerja",
+      },
+    },
+    open: {
+      container:
+        "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+      dot: "bg-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.6)]",
+      text: {
+        en: "Open to opportunities",
+        id: "Terbuka untuk peluang",
+      },
+    },
+    busy: {
+      container:
+        "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+      dot: "bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.6)]",
+      text: {
+        en: "Busy / Not looking",
+        id: "Sedang sibuk / Tidak mencari",
+      },
+    },
+  };
+
+  const currentStatus =
+    statusVariants[status.variant] || statusVariants.available;
 
   useEffect(() => {
     const currentTag = safeTags[currentTagIndex];
@@ -80,9 +119,19 @@ export default function Hero({
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-block mb-4 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-sm font-medium"
+            className={`inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border backdrop-blur-sm ${currentStatus.container}`}
           >
-            Available for work
+            <span className="relative flex h-2.5 w-2.5">
+              <span
+                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${currentStatus.dot}`}
+              ></span>
+              <span
+                className={`relative inline-flex rounded-full h-2.5 w-2.5 ${currentStatus.dot}`}
+              ></span>
+            </span>
+            <span className="text-sm font-medium tracking-wide uppercase text-[11px]">
+              {currentStatus.text[lang]}
+            </span>
           </motion.div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-foreground">
@@ -153,17 +202,56 @@ export default function Hero({
           transition={{ duration: 0.8, delay: 0.2 }}
           className="order-1 lg:order-2 flex justify-center lg:justify-end"
         >
-          <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px]">
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500 to-cyan-400 rounded-[2rem] rotate-6 opacity-20 blur-2xl" />
-            <div className="relative w-full h-full rounded-[2rem] overflow-hidden border border-border/50 shadow-2xl bg-background">
+          <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] group">
+            {/* Animated Glow Background */}
+            <div className="absolute -inset-8 bg-gradient-to-r from-blue-600/30 to-cyan-400/30 rounded-full blur-3xl animate-pulse" />
+
+            {/* Rotating Tech Rings */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute -inset-1 rounded-full border border-blue-500/30 border-dashed z-0"
+            />
+            <motion.div
+              animate={{ rotate: -360 }}
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              className="absolute -inset-4 rounded-full border border-cyan-400/20 border-dotted z-0"
+            />
+
+            {/* Main Image Container */}
+            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/10 bg-background z-10 shadow-2xl ring-1 ring-white/20 group-hover:scale-[1.02] transition-transform duration-500">
               <Image
                 src="https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4"
                 alt={name}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
                 priority
               />
+
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
+
+            {/* Floating Elements */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-2 -right-2 w-12 h-12 bg-background/80 backdrop-blur-md border border-blue-500/30 rounded-2xl flex items-center justify-center shadow-lg z-20"
+            >
+              <span className="text-2xl">💻</span>
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1,
+              }}
+              className="absolute bottom-4 -left-4 w-14 h-14 bg-background/80 backdrop-blur-md border border-cyan-500/30 rounded-full flex items-center justify-center shadow-lg z-20"
+            >
+              <span className="text-2xl">🚀</span>
+            </motion.div>
           </div>
         </motion.div>
       </div>

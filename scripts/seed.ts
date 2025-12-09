@@ -53,17 +53,16 @@ const initialData = {
       en: "Contact Me",
       id: "Hubungi Saya",
     },
+    status: {
+      variant: "available",
+    },
     skills: [
       "Vue.js",
       "React.js",
-      "Nuxt.js",
-      "Next.js",
       "TypeScript",
       "Tailwind CSS",
-      "Jest",
-      "Git",
-      "Scrum",
-      "Design Systems",
+      "Next.js",
+      "Node.js",
     ],
   },
   workExperience: {

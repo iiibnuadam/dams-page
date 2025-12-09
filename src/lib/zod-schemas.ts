@@ -37,26 +37,10 @@ export const HeroSchema = z.object({
     en: z.string().min(1, "Contact button text is required"),
     id: z.string().min(1, "Contact button text is required"),
   }),
+  status: z.object({
+    variant: z.enum(["available", "open", "busy"]),
+  }),
   skills: z.array(z.string()).min(1, "At least one skill is required"),
-});
-
-export const AboutSchema = z.object({
-  title: z.object({
-    en: z.string().min(1, "Title is required"),
-    id: z.string().min(1, "Title is required"),
-  }),
-  bio: z.object({
-    en: z.string().min(1, "Bio is required"),
-    id: z.string().min(1, "Bio is required"),
-  }),
-  skillsTitle: z.object({
-    en: z.string().min(1, "Skills Title is required"),
-    id: z.string().min(1, "Skills Title is required"),
-  }),
-  skills: z.object({
-    en: z.array(z.string()).min(1, "At least one skill is required"),
-    id: z.array(z.string()).min(1, "At least one skill is required"),
-  }),
 });
 
 const ExperienceItemSchema = z.object({
@@ -254,7 +238,6 @@ export const ProfileSchema = z.object({
 export const SectionSchemas = {
   nav: NavSchema,
   hero: HeroSchema,
-  about: AboutSchema,
   workExperience: WorkExperienceSchema,
   educationAndAwards: EducationAndAwardsSchema,
   projects: ProjectsSchema,

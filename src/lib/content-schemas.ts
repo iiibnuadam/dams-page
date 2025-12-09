@@ -19,15 +19,6 @@ export const SCHEMAS: Record<string, Schema> = {
     name: "Navigation",
     fields: [
       {
-        name: "about",
-        label: "About",
-        type: "object",
-        fields: [
-          { name: "en", label: "English", type: "text" },
-          { name: "id", label: "Indonesian", type: "text" },
-        ],
-      },
-      {
         name: "experience",
         label: "Experience",
         type: "object",
@@ -109,46 +100,27 @@ export const SCHEMAS: Record<string, Schema> = {
           { name: "id", label: "Indonesian", type: "text" },
         ],
       },
-    ],
-  },
-  about: {
-    name: "About",
-    fields: [
       {
-        name: "title",
-        label: "Title",
+        name: "status",
+        label: "Availability Status",
         type: "object",
         fields: [
-          { name: "en", label: "English", type: "text" },
-          { name: "id", label: "Indonesian", type: "text" },
-        ],
-      },
-      {
-        name: "bio",
-        label: "Bio",
-        type: "object",
-        fields: [
-          { name: "en", label: "English", type: "textarea" },
-          { name: "id", label: "Indonesian", type: "textarea" },
-        ],
-      },
-      {
-        name: "skillsTitle",
-        label: "Skills Title",
-        type: "object",
-        fields: [
-          { name: "en", label: "English", type: "text" },
-          { name: "id", label: "Indonesian", type: "text" },
+          {
+            name: "variant",
+            label: "Status Variant",
+            type: "select",
+            options: [
+              { label: "Available (Green)", value: "available" },
+              { label: "Open to Opportunities (Yellow)", value: "open" },
+              { label: "Busy / Not Looking (Red)", value: "busy" },
+            ],
+          },
         ],
       },
       {
         name: "skills",
         label: "Skills",
-        type: "object",
-        fields: [
-          { name: "en", label: "English", type: "list" },
-          { name: "id", label: "Indonesian", type: "list" },
-        ],
+        type: "list",
       },
     ],
   },

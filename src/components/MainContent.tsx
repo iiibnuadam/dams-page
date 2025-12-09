@@ -76,7 +76,7 @@ export default function MainContent({ cmsData }: MainContentProps) {
     <>
       <Header nav={nav} />
       <main>
-        <Hero {...hero} />
+        <Hero {...hero} lang={lang} />
         <WorkExperience
           experiences={workExperience.experiences}
           title={workExperience.title}
