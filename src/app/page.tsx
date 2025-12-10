@@ -79,7 +79,7 @@ export default async function Home() {
     url: process.env.NEXTAUTH_URL || "http://localhost:3000",
     jobTitle: hero?.tags?.[0] || "Web Developer",
     description: hero?.description?.en,
-    sameAs: contact?.socials?.map((s: any) => s.url) || [],
+    sameAs: contact?.socials?.map((s) => s.url) || [],
     knowsAbout: hero?.skills || [],
   };
 

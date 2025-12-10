@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { CMSSectionData } from "@/types/cms";
+import { CMSSectionData, CMSSettings } from "@/types/cms";
 import { SCHEMAS } from "@/lib/content-schemas";
 import FormBuilder from "@/components/admin/FormBuilder";
 import ProfileForm from "@/components/admin/ProfileForm";
@@ -174,7 +174,7 @@ export default function AdminPage() {
 
       if (res.ok) {
         toast.success("Order saved successfully!");
-        setData({ sectionOrder: order } as any);
+        setData({ sectionOrder: order } as CMSSettings);
         // Refresh iframe
         if (iframeRef.current && iframeRef.current.contentWindow) {
           iframeRef.current.contentWindow.postMessage({ type: "REFRESH" }, "*");
@@ -582,7 +582,7 @@ export default function AdminPage() {
                           </div>
                         ) : activeSection === "settings" ? (
                           <SectionReorder
-                            initialOrder={(data as any)?.sectionOrder}
+                            initialOrder={(data as CMSSettings)?.sectionOrder}
                             onSave={handleSettingsSave}
                             loading={loading}
                           />
@@ -618,7 +618,7 @@ export default function AdminPage() {
                           </div>
                         ) : activeSection === "settings" ? (
                           <SectionReorder
-                            initialOrder={(data as any)?.sectionOrder}
+                            initialOrder={(data as CMSSettings)?.sectionOrder}
                             onSave={handleSettingsSave}
                             loading={loading}
                           />
