@@ -111,7 +111,7 @@ export default function Contact({ contact }: ContactProps) {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="flex gap-8 mt-8"
             >
-              {contact.socials.map((social) => (
+              {contact.socials?.map((social) => (
                 <a
                   key={social.platform}
                   href={social.url}

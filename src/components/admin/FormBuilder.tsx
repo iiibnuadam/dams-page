@@ -243,11 +243,14 @@ function ArrayInput({
   return (
     <div className="space-y-4">
       {value.map((item, idx) => (
-        <Card key={idx} className="flex items-center justify-between p-4">
-          <div className="font-medium truncate flex-1 mr-4">
+        <Card
+          key={idx}
+          className="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-4"
+        >
+          <div className="font-medium break-words whitespace-normal">
             {getItemTitle(item, idx)}
           </div>
-          <div className="flex gap-2 shrink-0">
+          <div className="flex gap-2 shrink-0 self-end sm:self-auto">
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm">
