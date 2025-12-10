@@ -79,7 +79,7 @@ export default function Contact({ contact }: ContactProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-foreground/60 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed"
           >
             {contact.description}
           </motion.p>
@@ -117,7 +117,7 @@ export default function Contact({ contact }: ContactProps) {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground/40 hover:text-blue-500 dark:hover:text-cyan-400 transition-colors hover:scale-125 transform duration-200"
+                  className="text-muted-foreground hover:text-blue-500 dark:hover:text-cyan-400 transition-colors hover:scale-125 transform duration-200"
                   aria-label={social.platform}
                 >
                   {getIcon(social.platform)}

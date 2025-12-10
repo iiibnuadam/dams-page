@@ -49,6 +49,7 @@ import {
   Tablet,
   Monitor,
   Settings,
+  RefreshCw,
 } from "lucide-react";
 
 const SECTION_ICONS: Record<string, React.ElementType> = {
@@ -660,6 +661,22 @@ export default function AdminPage() {
                               <CardTitle className="text-base">
                                 Live Preview
                               </CardTitle>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-6 w-6 ml-2"
+                                onClick={() => {
+                                  if (iframeRef.current?.contentWindow) {
+                                    iframeRef.current.contentWindow.postMessage(
+                                      { type: "REFRESH" },
+                                      "*"
+                                    );
+                                  }
+                                }}
+                                title="Refresh Preview"
+                              >
+                                <RefreshCw className="h-3 w-3" />
+                              </Button>
                             </div>
                             <div className="flex items-center gap-2">
                               <div className="flex items-center gap-1 bg-background rounded-md border p-1">

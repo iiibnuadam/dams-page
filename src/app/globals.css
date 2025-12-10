@@ -67,7 +67,7 @@
 
   /* Muted elements */
   --muted: oklch(0.96 0.01 250);
-  --muted-foreground: oklch(0.55 0.05 250);
+  --muted-foreground: oklch(0.45 0.05 250);
 
   /* Accent: Hover states */
   --accent: oklch(0.95 0.03 250);

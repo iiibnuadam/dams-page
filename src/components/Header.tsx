@@ -233,6 +233,7 @@ export default function Header({ nav: navProp }: { nav?: Nav }) {
                 size="icon"
                 onClick={() => setIsOpen(!isOpen)}
                 className="rounded-full w-10 h-10 bg-white/10 hover:bg-white/20"
+                aria-label="Toggle menu"
               >
                 {isOpen ? (
                   <X className="h-5 w-5" />

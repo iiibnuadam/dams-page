@@ -38,7 +38,7 @@ export default function Footer({ text }: FooterProps) {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-xs text-muted-foreground/60 mt-2"
+          className="text-xs text-muted-foreground mt-2"
         >
           {text}
         </motion.p>

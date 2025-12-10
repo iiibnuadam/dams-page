@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import WorkExperience from "@/components/WorkExperience";
@@ -8,6 +9,7 @@ import EducationAndAwards from "@/components/EducationAndAwards";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import MainContent from "@/components/MainContent";
 import { extractLocalizedData } from "@/lib/utils";
 import {
   Hero as HeroType,
@@ -18,8 +20,11 @@ import {
   Footer as FooterType,
   Nav as NavType,
 } from "@/types/portfolio";
+import { CMSData } from "@/types/cms";
 
 export default function PreviewPage() {
+  const { i18n } = useTranslation();
+  const [fullData, setFullData] = useState<CMSData | null>(null);
   const [state, setState] = useState<{
     section: string;
     data:
@@ -29,7 +34,8 @@ export default function PreviewPage() {
       | ProjectsType
       | ContactType
       | FooterType
-      | NavType;
+      | NavType
+      | any;
     lang: "en" | "id";
   } | null>(null);
 
@@ -41,6 +47,21 @@ export default function PreviewPage() {
           data: event.data.data,
           lang: event.data.lang,
         });
+
+        // Update language
+        if (event.data.lang && i18n.language !== event.data.lang) {
+          i18n.changeLanguage(event.data.lang);
+        }
+      } else if (event.data.type === "REFRESH") {
+        // Force reload full data
+        setFullData(null);
+        // If we are in settings, this will trigger the useEffect to fetch data again
+        // If we are not in settings, we might want to reload the page or just re-fetch
+        if (state?.section === "settings") {
+          // Trigger re-fetch by setting fullData to null (already done)
+        } else {
+          window.location.reload();
+        }
       }
     };
 
@@ -48,7 +69,36 @@ export default function PreviewPage() {
     window.parent.postMessage({ type: "PREVIEW_READY" }, "*");
 
     return () => window.removeEventListener("message", handleMessage);
-  }, []);
+  }, [i18n]);
+
+  useEffect(() => {
+    if (state?.section === "settings" && !fullData) {
+      const fetchAllData = async () => {
+        try {
+          const sections = [
+            "nav",
+            "hero",
+            "workExperience",
+            "educationAndAwards",
+            "projects",
+            "contact",
+            "footer",
+          ];
+          const results = await Promise.all(
+            sections.map((s) => fetch(`/api/cms/${s}`).then((r) => r.json()))
+          );
+          const data = sections.reduce((acc, section, idx) => {
+            acc[section as keyof CMSData] = results[idx];
+            return acc;
+          }, {} as CMSData);
+          setFullData(data);
+        } catch (error) {
+          console.error("Error fetching full data for preview:", error);
+        }
+      };
+      fetchAllData();
+    }
+  }, [state?.section, fullData]);
 
   if (!state || !state.data) {
     return (
@@ -63,6 +113,20 @@ export default function PreviewPage() {
 
   const renderContent = () => {
     switch (section) {
+      case "settings":
+        if (!fullData) {
+          return (
+            <div className="flex items-center justify-center min-h-screen text-muted-foreground text-sm">
+              Loading full preview...
+            </div>
+          );
+        }
+        // Merge the new settings (order) with the full data
+        const mergedData: CMSData = {
+          ...fullData,
+          settings: data,
+        };
+        return <MainContent cmsData={mergedData} />;
       case "nav":
         return (
           <div className="relative min-h-[100px] w-full bg-background/50 p-4 rounded-lg border">

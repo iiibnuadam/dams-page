@@ -83,6 +83,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
               size="icon"
               onClick={() => scroll("left")}
               className="rounded-full hover:bg-blue-500/10 hover:text-blue-500 border-black/10 dark:border-white/10"
+              aria-label="Scroll left"
             >
               <ChevronLeft className="w-5 h-5" />
             </Button>
@@ -91,6 +92,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
               size="icon"
               onClick={() => scroll("right")}
               className="rounded-full hover:bg-cyan-500/10 hover:text-cyan-500 border-black/10 dark:border-white/10"
+              aria-label="Scroll right"
             >
               <ChevronRight className="w-5 h-5" />
             </Button>
@@ -135,6 +137,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-secondary rounded-full"
+                            aria-label={`View ${project.title} source code on GitHub`}
                           >
                             <Github className="w-5 h-5" />
                           </a>
@@ -145,6 +148,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-secondary rounded-full"
+                            aria-label={`Visit ${project.title} live site`}
                           >
                             <ExternalLink className="w-5 h-5" />
                           </a>
@@ -168,7 +172,6 @@ export default function Projects({ projects, texts }: ProjectsProps) {
                         </Badge>
                       ))}
                     </div>
-
                     {project.link && (
                       <Button
                         variant="ghost"
@@ -179,6 +182,7 @@ export default function Projects({ projects, texts }: ProjectsProps) {
                           href={project.link}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`${texts.viewProject} - ${project.title}`}
                         >
                           {texts.viewProject}
                           <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
