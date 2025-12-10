@@ -18,11 +18,13 @@ import { Nav } from "@/types/portfolio";
 export default function Header({ nav: navProp }: { nav?: Nav }) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [isScrolled, setIsScrolled] = useState(false);
   const { t, i18n } = useTranslation();
   const nav = navProp || (t("nav", { returnObjects: true }) as Nav);
 
   useEffect(() => {
     const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
       const sections = ["experience", "education", "projects", "contact"];
 
       // Find the section that is currently most visible in the viewport
@@ -68,12 +70,25 @@ export default function Header({ nav: navProp }: { nav?: Nav }) {
 
   return (
     <motion.header
-      initial={{ y: -100, x: "-50%", opacity: 0 }}
-      animate={{ y: 0, x: "-50%", opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-4 md:top-6 left-1/2 z-50 w-[95%] md:w-[90%] max-w-4xl"
+      initial={{ y: -100, opacity: 0, x: "-50%" }}
+      animate={{
+        y: 0,
+        opacity: 1,
+        x: "-50%",
+        top: isScrolled ? "1.5rem" : "0rem",
+        width: isScrolled ? "90%" : "100%",
+        maxWidth: isScrolled ? "56rem" : "100%",
+      }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="fixed left-1/2 z-50"
     >
-      <div className="bg-white/60 dark:bg-white/5 backdrop-blur-md border border-black/5 dark:border-white/10 rounded-full shadow-lg transition-all duration-300 hover:bg-white/80 dark:hover:bg-white/10 hover:shadow-primary/20 hover:shadow-2xl px-6 py-3">
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          isScrolled
+            ? "bg-white/60 dark:bg-white/5 backdrop-blur-md border border-black/5 dark:border-white/10 rounded-full shadow-lg px-6 py-3"
+            : "bg-transparent border-transparent shadow-none rounded-none px-6 py-4 md:px-12 md:py-6"
+        }`}
+      >
         <nav aria-label="Main navigation">
           <div className="flex justify-between items-center">
             <a
