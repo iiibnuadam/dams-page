@@ -22,7 +22,14 @@ import {
 export default function PreviewPage() {
   const [state, setState] = useState<{
     section: string;
-    data: any;
+    data:
+      | HeroType
+      | WorkExperienceType
+      | EducationAndAwardsType
+      | ProjectsType
+      | ContactType
+      | FooterType
+      | NavType;
     lang: "en" | "id";
   } | null>(null);
 
