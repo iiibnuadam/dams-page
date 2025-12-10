@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { Field } from "@/lib/content-schemas";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,7 +15,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Trash2, Plus, Pencil } from "lucide-react";
+import { Reorder, useDragControls } from "framer-motion";
+import { Trash2, Plus, Pencil, GripVertical } from "lucide-react";
 
 type FormData = Record<string, unknown>;
 
@@ -192,7 +194,39 @@ function ArrayInput({
   value: FormData[];
   onChange: (val: FormData[]) => void;
 }) {
-  const add = () => onChange([...value, {}]);
+  // Ensure IDs exist for reordering
+  useEffect(() => {
+    let changed = false;
+    const newValue = value.map((item) => {
+      if (!item._ui_id) {
+        changed = true;
+        return {
+          ...item,
+          _ui_id:
+            typeof crypto !== "undefined" && crypto.randomUUID
+              ? crypto.randomUUID()
+              : Math.random().toString(36).substring(2) +
+                Date.now().toString(36),
+        };
+      }
+      return item;
+    });
+
+    if (changed) {
+      onChange(newValue);
+    }
+  }, [value, onChange]);
+
+  const add = () =>
+    onChange([
+      ...value,
+      {
+        _ui_id:
+          typeof crypto !== "undefined" && crypto.randomUUID
+            ? crypto.randomUUID()
+            : Math.random().toString(36).substring(2) + Date.now().toString(36),
+      },
+    ]);
   const remove = (idx: number) => onChange(value.filter((_, i) => i !== idx));
   const update = (idx: number, val: FormData) => {
     const newValue = [...value];
@@ -242,47 +276,87 @@ function ArrayInput({
 
   return (
     <div className="space-y-4">
-      {value.map((item, idx) => (
-        <Card
-          key={idx}
-          className="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-4"
-        >
-          <div className="font-medium break-words whitespace-normal">
-            {getItemTitle(item, idx)}
-          </div>
-          <div className="flex gap-2 shrink-0 self-end sm:self-auto">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="outline" size="sm">
-                  <Pencil className="h-4 w-4 mr-2" /> Edit
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle>Edit Item {idx + 1}</DialogTitle>
-                </DialogHeader>
-                <div className="py-4">
-                  <FormBuilder
-                    schema={itemFields}
-                    data={item}
-                    onChange={(val) => update(idx, val)}
-                  />
-                </div>
-              </DialogContent>
-            </Dialog>
-            <Button
-              variant="destructive"
-              size="icon"
-              onClick={() => remove(idx)}
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </div>
-        </Card>
-      ))}
+      <Reorder.Group axis="y" values={value} onReorder={onChange}>
+        {value.map((item, idx) => (
+          <SortableArrayItem
+            key={(item._ui_id as string) || idx}
+            item={item}
+            idx={idx}
+            itemFields={itemFields}
+            onUpdate={(val) => update(idx, val)}
+            onRemove={() => remove(idx)}
+            getItemTitle={getItemTitle}
+          />
+        ))}
+      </Reorder.Group>
       <Button variant="outline" onClick={add} className="w-full border-dashed">
         <Plus className="h-4 w-4 mr-2" /> Add Entry
       </Button>
     </div>
+  );
+}
+
+function SortableArrayItem({
+  item,
+  idx,
+  itemFields,
+  onUpdate,
+  onRemove,
+  getItemTitle,
+}: {
+  item: FormData;
+  idx: number;
+  itemFields: Field[];
+  onUpdate: (val: FormData) => void;
+  onRemove: () => void;
+  getItemTitle: (item: FormData, idx: number) => string;
+}) {
+  const controls = useDragControls();
+
+  return (
+    <Reorder.Item
+      value={item}
+      dragListener={false}
+      dragControls={controls}
+      className="relative mb-2"
+    >
+      <Card className="flex flex-col sm:flex-row sm:items-center justify-between p-4 gap-4">
+        <div className="flex items-center gap-4 flex-1 min-w-0">
+          <div
+            onPointerDown={(e) => controls.start(e)}
+            className="cursor-grab active:cursor-grabbing p-1 hover:bg-muted rounded touch-none"
+          >
+            <GripVertical className="h-5 w-5 text-muted-foreground" />
+          </div>
+          <div className="font-medium break-words whitespace-normal">
+            {getItemTitle(item, idx)}
+          </div>
+        </div>
+        <div className="flex gap-2 shrink-0 self-end sm:self-auto">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                <Pencil className="h-4 w-4 mr-2" /> Edit
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Edit Item {idx + 1}</DialogTitle>
+              </DialogHeader>
+              <div className="py-4">
+                <FormBuilder
+                  schema={itemFields}
+                  data={item}
+                  onChange={onUpdate}
+                />
+              </div>
+            </DialogContent>
+          </Dialog>
+          <Button variant="destructive" size="icon" onClick={onRemove}>
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
+      </Card>
+    </Reorder.Item>
   );
 }

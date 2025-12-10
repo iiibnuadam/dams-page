@@ -48,6 +48,7 @@ import {
   Smartphone,
   Tablet,
   Monitor,
+  Settings,
 } from "lucide-react";
 
 const SECTION_ICONS: Record<string, React.ElementType> = {
@@ -58,6 +59,7 @@ const SECTION_ICONS: Record<string, React.ElementType> = {
   projects: FolderGit2,
   contact: Mail,
   footer: PanelBottom,
+  settings: Settings,
 };
 import { toast } from "sonner";
 import Link from "next/link";
@@ -69,6 +71,7 @@ import EducationAndAwards from "@/components/EducationAndAwards";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import SectionReorder from "@/components/admin/SectionReorder";
 import { extractLocalizedData } from "@/lib/utils";
 import {
   Hero as HeroType,
@@ -151,6 +154,35 @@ export default function AdminPage() {
       }
     } catch (error) {
       console.error("Error saving data:", error);
+      toast.error("Server Error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSettingsSave = async (order: string[]) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/cms/settings`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sectionOrder: order }),
+      });
+
+      if (res.ok) {
+        toast.success("Order saved successfully!");
+        setData({ sectionOrder: order } as any);
+        // Refresh iframe
+        if (iframeRef.current && iframeRef.current.contentWindow) {
+          iframeRef.current.contentWindow.postMessage({ type: "REFRESH" }, "*");
+        }
+      } else {
+        toast.error("Failed to save order.");
+      }
+    } catch (error) {
+      console.error("Error saving order:", error);
       toast.error("Server Error");
     } finally {
       setLoading(false);
@@ -547,6 +579,12 @@ export default function AdminPage() {
                             <Loader2 className="h-10 w-10 animate-spin mb-4 text-primary/50" />
                             <p>Loading content...</p>
                           </div>
+                        ) : activeSection === "settings" ? (
+                          <SectionReorder
+                            initialOrder={(data as any)?.sectionOrder}
+                            onSave={handleSettingsSave}
+                            loading={loading}
+                          />
                         ) : (
                           <FormBuilder
                             schema={SCHEMAS[activeSection].fields}
@@ -577,6 +615,12 @@ export default function AdminPage() {
                             <Loader2 className="h-10 w-10 animate-spin mb-4 text-primary/50" />
                             <p>Loading content...</p>
                           </div>
+                        ) : activeSection === "settings" ? (
+                          <SectionReorder
+                            initialOrder={(data as any)?.sectionOrder}
+                            onSave={handleSettingsSave}
+                            loading={loading}
+                          />
                         ) : (
                           <FormBuilder
                             schema={SCHEMAS[activeSection].fields}

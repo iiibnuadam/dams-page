@@ -221,6 +221,10 @@ export const FooterSchema = z.object({
   }),
 });
 
+export const SettingsSchema = z.object({
+  sectionOrder: z.array(z.string()),
+});
+
 export const ProfileSchema = z.object({
   name: z.string().min(1, "Name is required"),
   currentPassword: z.string().min(1, "Current password is required"),
@@ -243,4 +247,5 @@ export const SectionSchemas = {
   projects: ProjectsSchema,
   contact: ContactSchema,
   footer: FooterSchema,
+  settings: SettingsSchema,
 };

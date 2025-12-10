@@ -466,4 +466,8 @@ export const SCHEMAS: Record<string, Schema> = {
       },
     ],
   },
+  settings: {
+    name: "Settings",
+    fields: [],
+  },
 };

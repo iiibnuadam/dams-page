@@ -72,28 +72,55 @@ export default function MainContent({ cmsData }: MainContentProps) {
     ? extractLocalizedData<FooterType>(cmsData?.footer, lang)
     : (t("footer", { returnObjects: true }) as FooterType);
 
+  const sectionOrder = cmsData?.settings?.sectionOrder || [
+    "workExperience",
+    "educationAndAwards",
+    "projects",
+    "contact",
+  ];
+
+  const renderSection = (sectionId: string) => {
+    switch (sectionId) {
+      case "workExperience":
+        return (
+          <WorkExperience
+            key="workExperience"
+            experiences={workExperience.experiences}
+            title={workExperience.title}
+          />
+        );
+      case "educationAndAwards":
+        return (
+          <EducationAndAwards
+            key="educationAndAwards"
+            education={educationAndAwards.education}
+            awards={educationAndAwards.awards}
+            organizations={educationAndAwards.organizations}
+            titles={{
+              main: educationAndAwards.title,
+              education: educationAndAwards.educationTitle,
+              awards: educationAndAwards.awardsTitle,
+              organizations: educationAndAwards.organizationsTitle,
+            }}
+          />
+        );
+      case "projects":
+        return (
+          <Projects key="projects" projects={projects.items} texts={projects} />
+        );
+      case "contact":
+        return <Contact key="contact" contact={contact} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <Header nav={nav} />
       <main>
         <Hero {...hero} lang={lang} />
-        <WorkExperience
-          experiences={workExperience.experiences}
-          title={workExperience.title}
-        />
-        <EducationAndAwards
-          education={educationAndAwards.education}
-          awards={educationAndAwards.awards}
-          organizations={educationAndAwards.organizations}
-          titles={{
-            main: educationAndAwards.title,
-            education: educationAndAwards.educationTitle,
-            awards: educationAndAwards.awardsTitle,
-            organizations: educationAndAwards.organizationsTitle,
-          }}
-        />
-        <Projects projects={projects.items} texts={projects} />
-        <Contact contact={contact} />
+        {sectionOrder.map(renderSection)}
       </main>
       <Footer text={footer.rights} />
       <FloatingHireMe />

@@ -49,6 +49,7 @@ export default async function Home() {
     projects,
     contact,
     footer,
+    settings,
   ] = await Promise.all([
     getSectionData<CMSData["nav"]>("nav"),
     getSectionData<CMSData["hero"]>("hero"),
@@ -57,6 +58,7 @@ export default async function Home() {
     getSectionData<CMSData["projects"]>("projects"),
     getSectionData<CMSData["contact"]>("contact"),
     getSectionData<CMSData["footer"]>("footer"),
+    getSectionData<CMSData["settings"]>("settings"),
   ]);
 
   const cmsData: CMSData = {
@@ -67,6 +69,7 @@ export default async function Home() {
     projects,
     contact,
     footer,
+    settings,
   };
 
   const jsonLd = {

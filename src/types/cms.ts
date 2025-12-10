@@ -69,6 +69,10 @@ export interface CMSFooter {
   rights: Localized<string>;
 }
 
+export interface CMSSettings {
+  sectionOrder: string[];
+}
+
 export type CMSSectionData =
   | CMSNav
   | CMSHero
@@ -76,7 +80,8 @@ export type CMSSectionData =
   | CMSEducationAndAwards
   | CMSProjects
   | CMSContact
-  | CMSFooter;
+  | CMSFooter
+  | CMSSettings;
 
 export interface CMSData {
   nav?: CMSNav;
@@ -86,4 +91,5 @@ export interface CMSData {
   projects?: CMSProjects;
   contact?: CMSContact;
   footer?: CMSFooter;
+  settings?: CMSSettings;
 }
