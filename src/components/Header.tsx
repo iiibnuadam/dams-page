@@ -99,7 +99,7 @@ export default function Header({ nav: navProp }: { nav?: Nav }) {
               }}
               className="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
             >
-              Portofolio
+              DAMS
             </a>
 
             {/* Desktop Menu */}
