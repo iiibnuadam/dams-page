@@ -1,5 +1,6 @@
 import MainContent from "@/components/MainContent";
 import { CMSData } from "@/types/cms";
+import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,28 @@ async function getSectionData<T>(section: string): Promise<T | undefined> {
     console.error(`Error fetching ${section}:`, error);
     return undefined;
   }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const hero = await getSectionData<CMSData["hero"]>("hero");
+
+  const title = hero?.name?.en || "Ibnu Adam";
+  const description =
+    hero?.description?.en ||
+    "Portfolio website showcasing projects and experience.";
+
+  return {
+    title: `${title} - Portfolio`,
+    description: description,
+    openGraph: {
+      title: `${title} - Portfolio`,
+      description: description,
+    },
+    twitter: {
+      title: `${title} - Portfolio`,
+      description: description,
+    },
+  };
 }
 
 export default async function Home() {
@@ -46,5 +69,24 @@ export default async function Home() {
     footer,
   };
 
-  return <MainContent cmsData={cmsData} />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: hero?.name?.en || "Ibnu Adam",
+    url: process.env.NEXTAUTH_URL || "http://localhost:3000",
+    jobTitle: hero?.tags?.[0] || "Web Developer",
+    description: hero?.description?.en,
+    sameAs: contact?.socials?.map((s: any) => s.url) || [],
+    knowsAbout: hero?.skills || [],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <MainContent cmsData={cmsData} />
+    </>
+  );
 }
