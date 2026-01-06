@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Reorder, useDragControls } from "framer-motion";
 import { Trash2, Plus, Pencil, GripVertical } from "lucide-react";
+import ImageManager from "./ImageManager";
 
 type FormData = Record<string, unknown>;
 
@@ -140,6 +141,12 @@ export default function FormBuilder({
             <ArrayInput
               itemFields={field.itemFields}
               value={(data?.[field.name] as FormData[]) || []}
+              onChange={(val) => handleChange(field.name, val)}
+            />
+          )}
+          {field.type === "image" && (
+            <ImageManager
+              value={(data?.[field.name] as string) || ""}
               onChange={(val) => handleChange(field.name, val)}
             />
           )}

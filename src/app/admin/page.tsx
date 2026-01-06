@@ -7,6 +7,7 @@ import { CMSSectionData, CMSSettings } from "@/types/cms";
 import { SCHEMAS } from "@/lib/content-schemas";
 import FormBuilder from "@/components/admin/FormBuilder";
 import ProfileForm from "@/components/admin/ProfileForm";
+import { ImageGallery } from "@/components/admin/ImageManager";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -59,9 +60,11 @@ const SECTION_ICONS: Record<string, React.ElementType> = {
   educationAndAwards: GraduationCap,
   projects: FolderGit2,
   contact: Mail,
+  media: ImageIcon,
   footer: PanelBottom,
   settings: Settings,
 };
+import { Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -84,7 +87,7 @@ import {
   Nav as NavType,
 } from "@/types/portfolio";
 
-const SECTIONS = Object.keys(SCHEMAS);
+const SECTIONS = [...Object.keys(SCHEMAS), "media"];
 
 export default function AdminPage() {
   const { data: session, status } = useSession();
@@ -113,6 +116,7 @@ export default function AdminPage() {
   }, [activeSection, session]);
 
   const fetchData = async (section: string) => {
+    if (section === "media") return;
     setLoading(true);
     try {
       const res = await fetch(`/api/cms/${section}`);
@@ -291,8 +295,11 @@ export default function AdminPage() {
   }
 
   const isProfile = activeSection === "profile";
+  const isMedia = activeSection === "media";
   const currentSchema = isProfile
     ? { name: "Profile Settings" }
+    : isMedia
+    ? { name: "Media Manager" }
     : SCHEMAS[activeSection];
 
   return (
@@ -359,14 +366,22 @@ export default function AdminPage() {
                         : "hover:bg-muted hover:translate-x-1"
                     }`}
                     onClick={() => setActiveSection(section)}
-                    title={isSidebarCollapsed ? SCHEMAS[section].name : ""}
+                    title={
+                      isSidebarCollapsed
+                        ? section === "media"
+                          ? "Media Manager"
+                          : SCHEMAS[section].name
+                        : ""
+                    }
                   >
                     {isSidebarCollapsed ? (
                       <Icon className="h-5 w-5" />
                     ) : (
                       <>
                         <Icon className="mr-2 h-4 w-4" />
-                        {SCHEMAS[section].name}
+                        {section === "media"
+                          ? "Media Manager"
+                          : SCHEMAS[section].name}
                       </>
                     )}
                   </Button>
@@ -474,10 +489,12 @@ export default function AdminPage() {
               <p className="text-muted-foreground mt-2 text-lg">
                 {isProfile
                   ? "Manage your account settings and preferences."
+                  : isMedia
+                  ? "Upload and manage images for your portfolio."
                   : "Manage and update content for this section."}
               </p>
             </div>
-            {!isProfile && (
+            {!isProfile && !isMedia && (
               <div className="flex items-center gap-4">
                 <Dialog
                   open={isSaveDialogOpen}
@@ -555,49 +572,62 @@ export default function AdminPage() {
                     <ProfileForm />
                   </CardContent>
                 </Card>
-              ) : (
-                <div
-                  ref={containerRef}
-                  className="flex flex-col xl:flex-row gap-0 h-[calc(100vh-180px)]"
-                >
-                  {/* Editor Panel (Desktop) */}
+
+                ) : activeSection === "media" ? (
+                  <Card className="shadow-md border-muted-foreground/10 overflow-hidden bg-card/50 backdrop-blur-sm h-full">
+                    <CardHeader className="bg-muted/30 border-b px-8 py-6">
+                      <CardTitle className="text-xl">Media Library</CardTitle>
+                      <CardDescription>
+                        Manage your uploaded images and files.
+                      </CardDescription>
+                    </CardHeader>
+                    <div className="flex-1 p-0 h-[calc(100%-88px)]">
+                      <ImageGallery />
+                    </div>
+                  </Card>
+                ) : (
                   <div
-                    style={{ width: `calc(${100 - previewWidth}% - 10px)` }}
-                    className="h-full overflow-y-auto pr-4 hidden xl:block"
+                    ref={containerRef}
+                    className="flex flex-col xl:flex-row gap-0 h-[calc(100vh-180px)]"
                   >
-                    <Card className="shadow-md border-muted-foreground/10 overflow-hidden bg-card/50 backdrop-blur-sm h-fit min-h-full">
-                      <CardHeader className="bg-muted/30 border-b px-8 py-6">
-                        <CardTitle className="text-xl">
-                          Content Editor
-                        </CardTitle>
-                        <CardDescription>
-                          Make changes to the content fields below.
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent className="p-8">
-                        {loading && !data ? (
-                          <div className="flex flex-col items-center justify-center py-20 text-muted-foreground">
-                            <Loader2 className="h-10 w-10 animate-spin mb-4 text-primary/50" />
-                            <p>Loading content...</p>
-                          </div>
-                        ) : activeSection === "settings" ? (
-                          <SectionReorder
-                            initialOrder={(data as CMSSettings)?.sectionOrder}
-                            onSave={handleSettingsSave}
-                            loading={loading}
-                          />
-                        ) : (
-                          <FormBuilder
-                            schema={SCHEMAS[activeSection].fields}
-                            data={data as Record<string, unknown>}
-                            onChange={(val) =>
-                              setData(val as Partial<CMSSectionData>)
-                            }
-                          />
-                        )}
-                      </CardContent>
-                    </Card>
-                  </div>
+                    {/* Editor Panel (Desktop) */}
+                    <div
+                      style={{ width: `calc(${100 - previewWidth}% - 10px)` }}
+                      className="h-full overflow-y-auto pr-4 hidden xl:block"
+                    >
+                      <Card className="shadow-md border-muted-foreground/10 overflow-hidden bg-card/50 backdrop-blur-sm h-fit min-h-full">
+                        <CardHeader className="bg-muted/30 border-b px-8 py-6">
+                          <CardTitle className="text-xl">
+                            Content Editor
+                          </CardTitle>
+                          <CardDescription>
+                            Make changes to the content fields below.
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="p-8">
+                          {loading && !data ? (
+                            <div className="flex flex-col items-center justify-center py-20 text-muted-foreground">
+                              <Loader2 className="h-10 w-10 animate-spin mb-4 text-primary/50" />
+                              <p>Loading content...</p>
+                            </div>
+                          ) : activeSection === "settings" ? (
+                            <SectionReorder
+                              initialOrder={(data as CMSSettings)?.sectionOrder}
+                              onSave={handleSettingsSave}
+                              loading={loading}
+                            />
+                          ) : (
+                            <FormBuilder
+                              schema={SCHEMAS[activeSection].fields}
+                              data={data as Record<string, unknown>}
+                              onChange={(val) =>
+                                setData(val as Partial<CMSSectionData>)
+                              }
+                            />
+                          )}
+                        </CardContent>
+                      </Card>
+                    </div>
 
                   {/* Mobile Editor */}
                   <div className="xl:hidden w-full mb-8">

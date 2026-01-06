@@ -1,4 +1,4 @@
-export type FieldType = "text" | "textarea" | "list" | "object" | "array" | "select";
+export type FieldType = "text" | "textarea" | "list" | "object" | "array" | "select" | "image";
 
 export interface Field {
   name: string;
@@ -59,6 +59,11 @@ export const SCHEMAS: Record<string, Schema> = {
   hero: {
     name: "Hero",
     fields: [
+      {
+        name: "image",
+        label: "Hero Image",
+        type: "image",
+      },
       {
         name: "name",
         label: "Name",
@@ -148,7 +153,7 @@ export const SCHEMAS: Record<string, Schema> = {
             fields: [
               { name: "position", label: "Position", type: "text" },
               { name: "company", label: "Company", type: "text" },
-              { name: "logo", label: "Company Logo URL", type: "text" },
+              { name: "logo", label: "Company Logo URL", type: "image" },
               { name: "location", label: "Location", type: "text" },
               { name: "type", label: "Type", type: "text" },
               { name: "period", label: "Period", type: "text" },
@@ -164,7 +169,7 @@ export const SCHEMAS: Record<string, Schema> = {
             fields: [
               { name: "position", label: "Position", type: "text" },
               { name: "company", label: "Company", type: "text" },
-              { name: "logo", label: "Company Logo URL", type: "text" },
+              { name: "logo", label: "Company Logo URL", type: "image" },
               { name: "location", label: "Location", type: "text" },
               { name: "type", label: "Type", type: "text" },
               { name: "period", label: "Period", type: "text" },

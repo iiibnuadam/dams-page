@@ -46,7 +46,7 @@ export async function PUT(request: NextRequest) {
   };
 
   if (newPassword) {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
     updateData.password = hashedPassword;
   }
 

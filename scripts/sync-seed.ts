@@ -57,23 +57,28 @@ async function syncSeed() {
     const seedContent = fs.readFileSync(seedFilePath, "utf-8");
 
     // Find the start and end of the initialData object
-    const startMarker = "const initialData = ";
-    const endMarker = ";\n\nasync function seed()";
+    const startRegex = /const\s+initialData\s*=\s*/;
+    const endRegex = /async\s+function\s+seed\(\)/;
 
-    const startIndex = seedContent.indexOf(startMarker);
-    const endIndex = seedContent.indexOf(endMarker);
+    const startMatch = seedContent.match(startRegex);
+    const endMatch = seedContent.match(endRegex);
 
-    if (startIndex === -1 || endIndex === -1) {
-      throw new Error("Could not locate 'initialData' block in seed.ts. Please ensure the file structure hasn't changed significantly.");
+    if (!startMatch || !endMatch) {
+      throw new Error("Could not locate 'initialData' block or 'seed' function in seed.ts.");
     }
+
+    const startIndex = startMatch.index! + startMatch[0].length;
+    const endIndex = endMatch.index!;
 
     // Format the new data as a JSON string
     const newDataString = JSON.stringify(data, null, 2);
 
     // Construct the new file content
+    // Construct the new file content
     const newContent =
-      seedContent.substring(0, startIndex + startMarker.length) +
+      seedContent.substring(0, startIndex) +
       newDataString +
+      ";\n\n" +
       seedContent.substring(endIndex);
 
     fs.writeFileSync(seedFilePath, newContent, "utf-8");

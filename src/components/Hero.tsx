@@ -11,6 +11,7 @@ type HeroProps = {
   description: string;
   cta?: string;
   contact?: string;
+  image?: string;
   skills?: string[];
   status?: {
     variant: "available" | "open" | "busy";
@@ -24,6 +25,7 @@ export default function Hero({
   description,
   cta = "View My Work",
   contact = "Contact Me",
+  image,
   skills = [],
   status = { variant: "available" },
   lang = "en",
@@ -221,7 +223,7 @@ export default function Hero({
             {/* Main Image Container */}
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/10 bg-background z-10 shadow-2xl ring-1 ring-white/20 group-hover:scale-[1.02] transition-transform duration-500">
               <Image
-                src="https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4"
+                src={image || "https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4"}
                 alt={name}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
