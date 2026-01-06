@@ -3,6 +3,10 @@ export interface Nav {
   education: string;
   projects: string;
   contact: string;
+  logo?: {
+    light?: string;
+    dark?: string;
+  };
 }
 
 export interface Hero {

@@ -19,6 +19,15 @@ export const SCHEMAS: Record<string, Schema> = {
     name: "Navigation",
     fields: [
       {
+        name: "logo",
+        label: "Logo",
+        type: "object",
+        fields: [
+            { name: "light", label: "Light Mode Logo", type: "image" },
+            { name: "dark", label: "Dark Mode Logo", type: "image" },
+        ]
+      },
+      {
         name: "experience",
         label: "Experience",
         type: "object",

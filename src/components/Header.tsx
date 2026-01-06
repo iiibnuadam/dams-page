@@ -3,7 +3,9 @@
 // Header component
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useTheme } from "next-themes";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
@@ -20,7 +22,17 @@ export default function Header({ nav: navProp }: { nav?: Nav }) {
   const [activeSection, setActiveSection] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, i18n } = useTranslation();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const nav = navProp || (t("nav", { returnObjects: true }) as Nav);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const logoSrc = mounted ? (resolvedTheme === "dark" 
+    ? (nav.logo?.dark || nav.logo?.light) 
+    : (nav.logo?.light || nav.logo?.dark)) : null;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,7 +111,19 @@ export default function Header({ nav: navProp }: { nav?: Nav }) {
               }}
               className="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
             >
-              DAMS
+              {logoSrc ? (
+                <div className="relative w-8 h-8 rounded-full overflow-hidden">
+                  <Image
+                    src={logoSrc}
+                    alt="Logo"
+                    fill
+                    className="object-cover"
+                    sizes="32px"
+                  />
+                </div>
+              ) : (
+                "DAMS"
+              )}
             </a>
 
             {/* Desktop Menu */}
