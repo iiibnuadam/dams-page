@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Trophy, Users } from "lucide-react";
+import { BlurText } from "@/components/reactbits/BlurText";
 
 type Education = {
   institution: string;
@@ -51,19 +52,17 @@ export default function EducationAndAwards({
       className="py-20 md:py-32 px-4 relative overflow-hidden"
     >
       {/* Background Elements */}
-      <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] -z-10" />
+      <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-[120px] -z-10" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-[100px] -z-10" />
 
       <div className="max-w-6xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-6xl font-bold mb-16 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-500 leading-tight"
-        >
-          {titles.main}
-        </motion.h2>
+        <div className="flex justify-center mb-16">
+          <BlurText 
+            text={titles.main} 
+            delay={0.05} 
+            className="text-3xl md:text-6xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-500 leading-tight" 
+          />
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Left Column: Education & Organizations */}
@@ -86,7 +85,7 @@ export default function EducationAndAwards({
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <Card className="bg-background/80 dark:bg-card/50 backdrop-blur-sm border-border/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-md">
+                    <Card className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-border/50 hover:border-blue-500/40 dark:hover:border-blue-400/40 transition-all duration-300 hover:shadow-md hover:shadow-blue-500/5 dark:hover:shadow-blue-400/5">
                       <CardHeader>
                         <div className="flex justify-between items-start mb-2 gap-4">
                           <CardTitle className="text-xl font-bold leading-tight">
@@ -134,7 +133,7 @@ export default function EducationAndAwards({
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <Card className="bg-background/80 dark:bg-card/50 backdrop-blur-sm border-border/50 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-md">
+                    <Card className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-border/50 hover:border-cyan-500/40 dark:hover:border-cyan-400/40 transition-all duration-300 hover:shadow-md hover:shadow-cyan-500/5 dark:hover:shadow-cyan-400/5">
                       <CardContent className="pt-6">
                         <div className="flex justify-between items-start mb-2 gap-4">
                           <h4 className="text-lg font-bold leading-tight">
@@ -193,7 +192,7 @@ export default function EducationAndAwards({
                     }`}
                   />
 
-                  <Card className="bg-background/80 dark:bg-card/50 backdrop-blur-sm border-border/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-md">
+                  <Card className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-border/50 hover:border-indigo-500/40 dark:hover:border-indigo-400/40 transition-all duration-300 hover:shadow-md hover:shadow-indigo-500/5 dark:hover:shadow-indigo-400/5">
                     <CardContent className="p-4">
                       <div className="flex flex-col gap-1">
                         <h4 className="text-lg font-bold leading-tight group-hover:text-indigo-500 transition-colors">

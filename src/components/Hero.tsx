@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 
 type HeroProps = {
@@ -17,6 +18,46 @@ type HeroProps = {
     variant: "available" | "open" | "busy";
   };
   lang?: "en" | "id";
+};
+
+import { AuroraBackground } from "@/components/reactbits/AuroraBackground";
+import { BlurText } from "@/components/reactbits/BlurText";
+import { Magnet } from "@/components/reactbits/Magnet";
+import {
+  FaReact,
+  FaVuejs,
+  FaNodeJs,
+  FaPython,
+  FaAws,
+  FaDocker,
+} from "react-icons/fa";
+import {
+  SiNextdotjs,
+  SiTypescript,
+  SiJavascript,
+  SiTailwindcss,
+  SiMongodb,
+  SiPostgresql,
+  SiNestjs,
+} from "react-icons/si";
+
+// Map to return the correct icon for a given tech stack string
+const getTechIcon = (skillName: string) => {
+  const normName = skillName.toLowerCase();
+  if (normName.includes("react")) return <FaReact className="text-[#61DAFB]" />;
+  if (normName.includes("vue")) return <FaVuejs className="text-[#4FC08D]" />;
+  if (normName.includes("next")) return <SiNextdotjs />;
+  if (normName.includes("typescript") || normName.includes("ts")) return <SiTypescript className="text-[#3178C6]" />;
+  if (normName.includes("javascript") || normName.includes("js")) return <SiJavascript className="text-[#F7DF1E]" />;
+  if (normName.includes("node")) return <FaNodeJs className="text-[#339933]" />;
+  if (normName.includes("tailwind")) return <SiTailwindcss className="text-[#06B6D4]" />;
+  if (normName.includes("python")) return <FaPython className="text-[#3776AB]" />;
+  if (normName.includes("aws")) return <FaAws className="text-[#FF9900]" />;
+  if (normName.includes("docker")) return <FaDocker className="text-[#2496ED]" />;
+  if (normName.includes("mongo")) return <SiMongodb className="text-[#47A248]" />;
+  if (normName.includes("postgres") || normName.includes("sql")) return <SiPostgresql className="text-[#4169E1]" />;
+  if (normName.includes("nest")) return <SiNestjs className="text-[#E0234E]" />;
+  return <span className="text-xl">🚀</span>; // Fallback
 };
 
 export default function Hero({
@@ -35,7 +76,7 @@ export default function Hero({
   const [isDeleting, setIsDeleting] = useState(false);
 
   // Fallback if tags is undefined or empty
-  const safeTags = tags && tags.length > 0 ? tags : ["Developer"];
+  const safeTags = React.useMemo(() => tags && tags.length > 0 ? tags : ["Developer"], [tags]);
 
   const statusVariants = {
     available: {
@@ -102,14 +143,12 @@ export default function Hero({
   };
 
   return (
-    <section
-      className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden"
+    <AuroraBackground
+      className="px-4 py-20 min-h-[100vh]"
+      showRadialGradient={true}
       aria-label="Hero"
     >
-      {/* Minimalist Background */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/20 via-background to-background dark:from-blue-900/10" />
-
-      <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-center">
+      <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-20 items-center z-10">
         {/* Left Column: Content */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -136,9 +175,12 @@ export default function Hero({
             </span>
           </motion.div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-foreground">
-            {name}
-          </h1>
+          {/* Using React Bits BlurText */}
+          <BlurText 
+            text={name} 
+            delay={0.05} 
+            className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-foreground justify-center lg:justify-start" 
+          />
 
           <div className="h-8 md:h-10 mb-8 flex justify-center lg:justify-start items-center text-xl md:text-2xl text-muted-foreground font-medium">
             <span>I am a </span>
@@ -164,36 +206,46 @@ export default function Hero({
               </p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-3">
                 {skills.map((skill, index) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.05 + 0.5 }}
-                    className="px-4 py-2 rounded-lg bg-secondary/50 hover:bg-secondary text-secondary-foreground text-sm font-medium transition-colors cursor-default border border-border/50"
-                  >
-                    {skill}
-                  </motion.span>
+                  <Magnet key={skill} padding={4}>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.05 + 0.5 }}
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-background/80 dark:bg-card/50 backdrop-blur-md border border-border/50 shadow-sm hover:shadow-md hover:border-blue-500/30 transition-all cursor-default group"
+                    >
+                      <span className="text-lg group-hover:scale-110 transition-transform duration-300">
+                        {getTechIcon(skill)}
+                      </span>
+                      <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">
+                        {skill}
+                      </span>
+                    </motion.div>
+                  </Magnet>
                 ))}
               </div>
             </div>
           )}
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Button
-              size="lg"
-              className="rounded-full text-base px-8 h-12"
-              onClick={() => handleScroll("#projects")}
-            >
-              {cta}
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-full text-base px-8 h-12"
-              onClick={() => handleScroll("#contact")}
-            >
-              {contact}
-            </Button>
+            <Magnet padding={4}>
+              <Button
+                size="lg"
+                className="rounded-full text-base px-8 h-12 w-full sm:w-auto"
+                onClick={() => handleScroll("#projects")}
+              >
+                {cta}
+              </Button>
+            </Magnet>
+            <Magnet padding={4}>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full text-base px-8 h-12 w-full sm:w-auto bg-background/50 backdrop-blur-sm"
+                onClick={() => handleScroll("#contact")}
+              >
+                {contact}
+              </Button>
+            </Magnet>
           </div>
         </motion.div>
 
@@ -257,6 +309,6 @@ export default function Hero({
           </div>
         </motion.div>
       </div>
-    </section>
+    </AuroraBackground>
   );
 }
