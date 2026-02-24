@@ -30,6 +30,7 @@ import {
   FaPython,
   FaAws,
   FaDocker,
+  FaJava,
 } from "react-icons/fa";
 import {
   SiNextdotjs,
@@ -39,6 +40,8 @@ import {
   SiMongodb,
   SiPostgresql,
   SiNestjs,
+  SiGo,
+  SiMysql,
 } from "react-icons/si";
 
 // Map to return the correct icon for a given tech stack string
@@ -56,7 +59,11 @@ const getTechIcon = (skillName: string) => {
   if (normName.includes("docker")) return <FaDocker className="text-[#2496ED]" />;
   if (normName.includes("mongo")) return <SiMongodb className="text-[#47A248]" />;
   if (normName.includes("postgres") || normName.includes("sql")) return <SiPostgresql className="text-[#4169E1]" />;
+  if (normName.includes("mysql")) return <SiMysql className="text-[#4169E1]" />;
+  if (normName.includes("mongo")) return <SiMongodb className="text-[#47A248]" />;
   if (normName.includes("nest")) return <SiNestjs className="text-[#E0234E]" />;
+  if (normName.includes("go")) return <SiGo className="text-[#00ADD8]" />;
+  if (normName.includes("java")) return <FaJava className="text-[#00ADD8]" />;
   return <span className="text-xl">🚀</span>; // Fallback
 };
 
