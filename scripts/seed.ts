@@ -18,10 +18,6 @@ if (!MONGODB_URI) {
 
 const initialData = {
   "nav": {
-    "logo": {
-      "light": "https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4",
-      "dark": "https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4"
-    },
     "about": {
       "en": "About",
       "id": "Tentang"
@@ -41,6 +37,10 @@ const initialData = {
     "projects": {
       "en": "Projects",
       "id": "Proyek"
+    },
+    "logo": {
+      "light": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/logo-dark.png",
+      "dark": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/logo-light.png"
     }
   },
   "hero": {
@@ -53,7 +53,7 @@ const initialData = {
       "id": "Lihat Karya Saya"
     },
     "description": {
-      "en": "Hi there! Adam's here. I'm a creative Front-End Developer with over 3 years of experience crafting sleek websites and apps in fast-paced, collaborative settings. My expertise lies in Vue.js and Typescript, complemented by a dash of React.js.",
+      "en": "Hi there! Adam here — a Fullstack Engineer passionate about building scalable products from UI to core systems. I work with React, Vue.js, TypeScript, Golang, Java, and Node.js, focusing on clean architecture, microservices, and micro frontend development to create reliable and high-performing applications.",
       "id": "Halo! Saya Adam. Saya seorang Front-End Developer kreatif dengan pengalaman lebih dari 3 tahun dalam membuat website dan aplikasi yang elegan. Keahlian saya terletak pada Vue.js dan Typescript, dilengkapi dengan sedikit sentuhan React.js."
     },
     "name": {
@@ -66,7 +66,8 @@ const initialData = {
     },
     "tags": [
       "Frontend Developer",
-      "Core Developer"
+      "Core Developer",
+      "Fullstack Developer"
     ],
     "skills": [
       "Vue.js",
@@ -74,12 +75,17 @@ const initialData = {
       "TypeScript",
       "Tailwind CSS",
       "Next.js",
-      "Node.js"
+      "Node.js",
+      "Go",
+      "Java",
+      "PostgreSQL",
+      "MySql",
+      "Mongo"
     ],
     "status": {
       "variant": "available"
     },
-    "image": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/Gemini_Generated_Image_l2igrul2igrul2ig.png"
+    "image": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/dams.jpg"
   },
   "workExperience": {
     "experiences": [
@@ -93,7 +99,10 @@ const initialData = {
           "period": "Aug, 2024 - Present",
           "duration": "1 Year",
           "description": [
-            "Develop Internal Application"
+            "Implement Micro Frontend architecture using Vue and TypeScript, enabling modular development and independent deployment across multiple teams.",
+            "Develop and maintain enterprise financial platforms using microservices architecture with Golang, Java, and Node.js (Express) to support scalable core business operations.",
+            "Design and integrate RESTful APIs connecting distributed systems while improving system performance, reliability, and maintainability.",
+            "Collaborate across cross-functional teams to deliver end-to-end solutions, participate in architectural decisions, and support CI/CD deployment and production systems.."
           ],
           "skills": [
             "Vue",

@@ -21,6 +21,7 @@ import {
   Nav as NavType,
 } from "@/types/portfolio";
 import { CMSData } from "@/types/cms";
+import { fallbackTranslations } from "@/lib/fallback-translations";
 
 type MainContentProps = {
   cmsData?: CMSData;
@@ -41,36 +42,27 @@ export default function MainContent({ cmsData }: MainContentProps) {
   const hasData = (data: unknown) =>
     data && typeof data === "object" && Object.keys(data).length > 0;
 
-  const nav: NavType = hasData(cmsData?.nav)
-    ? extractLocalizedData<NavType>(cmsData?.nav, lang)
-    : (t("nav", { returnObjects: true }) as NavType);
-  const hero: HeroType = hasData(cmsData?.hero)
-    ? extractLocalizedData<HeroType>(cmsData?.hero, lang)
-    : (t("hero", { returnObjects: true }) as HeroType);
-  const workExperience: WorkExperienceType = hasData(cmsData?.workExperience)
-    ? extractLocalizedData<WorkExperienceType>(cmsData?.workExperience, lang)
-    : (t("workExperience", {
-        returnObjects: true,
-      }) as WorkExperienceType);
-  const educationAndAwards: EducationAndAwardsType = hasData(
-    cmsData?.educationAndAwards
-  )
-    ? extractLocalizedData<EducationAndAwardsType>(
-        cmsData?.educationAndAwards,
-        lang
-      )
-    : (t("educationAndAwards", {
-        returnObjects: true,
-      }) as EducationAndAwardsType);
-  const projects: ProjectsType = hasData(cmsData?.projects)
-    ? extractLocalizedData<ProjectsType>(cmsData?.projects, lang)
-    : (t("projects", { returnObjects: true }) as ProjectsType);
-  const contact: ContactType = hasData(cmsData?.contact)
-    ? extractLocalizedData<ContactType>(cmsData?.contact, lang)
-    : (t("contact", { returnObjects: true }) as ContactType);
-  const footer: FooterType = hasData(cmsData?.footer)
-    ? extractLocalizedData<FooterType>(cmsData?.footer, lang)
-    : (t("footer", { returnObjects: true }) as FooterType);
+  const getSection = <T extends object>(
+    sectionKey: keyof typeof fallbackTranslations.en,
+    cmsValue: unknown
+  ): T => {
+    if (hasData(cmsValue)) {
+      return extractLocalizedData<T>(cmsValue, lang);
+    }
+    const tValue = t(sectionKey, { returnObjects: true });
+    if (tValue && typeof tValue === "object" && !Array.isArray(tValue)) {
+      return tValue as T;
+    }
+    return fallbackTranslations[lang][sectionKey] as unknown as T;
+  };
+
+  const nav = getSection<NavType>("nav", cmsData?.nav);
+  const hero = getSection<HeroType>("hero", cmsData?.hero);
+  const workExperience = getSection<WorkExperienceType>("workExperience", cmsData?.workExperience);
+  const educationAndAwards = getSection<EducationAndAwardsType>("educationAndAwards", cmsData?.educationAndAwards);
+  const projects = getSection<ProjectsType>("projects", cmsData?.projects);
+  const contact = getSection<ContactType>("contact", cmsData?.contact);
+  const footer = getSection<FooterType>("footer", cmsData?.footer);
 
   const sectionOrder = cmsData?.settings?.sectionOrder || [
     "workExperience",

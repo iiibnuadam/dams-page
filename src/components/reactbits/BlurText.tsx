@@ -9,7 +9,7 @@ interface BlurTextProps {
   className?: string;
 }
 
-export const BlurText = ({ text, delay = 0, className = "" }: BlurTextProps) => {
+export const BlurText = ({ text = "", delay = 0, className = "" }: BlurTextProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-10%" });
 
@@ -39,6 +39,9 @@ export const BlurText = ({ text, delay = 0, className = "" }: BlurTextProps) => 
     },
   };
 
+  const safeText = typeof text === "string" ? text : "";
+  const words = safeText ? safeText.split(" ") : [];
+
   return (
     <motion.h1
       style={{ display: "flex", flexWrap: "wrap", overflow: "hidden" }}
@@ -48,7 +51,7 @@ export const BlurText = ({ text, delay = 0, className = "" }: BlurTextProps) => 
       className={className}
       ref={ref}
     >
-      {text.split(" ").map((word, index) => (
+      {words.map((word, index) => (
         <motion.span
           variants={child}
           style={{ marginRight: "0.25em" }}
