@@ -119,6 +119,7 @@ export default function Header({ nav: navProp }: { nav?: Nav }) {
                     fill
                     className="object-cover"
                     sizes="32px"
+                    unoptimized
                   />
                 </div>
               ) : (
