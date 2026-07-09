@@ -6,8 +6,8 @@ export const fallbackTranslations = {
       projects: "Projects",
       contact: "Contact",
       logo: {
-        light: "https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4",
-        dark: "https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4"
+        light: "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/logo-dark.png",
+        dark: "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/logo-light.png"
       }
     },
     hero: {
@@ -253,8 +253,8 @@ export const fallbackTranslations = {
       projects: "Proyek",
       contact: "Kontak",
       logo: {
-        light: "https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4",
-        dark: "https://media.licdn.com/dms/image/v2/D5603AQEpAjotJThYXg/profile-displayphoto-crop_800_800/B56Zl6s38oH8AI-/0/1758700213131?e=1766620800&v=beta&t=nl4OFkDexdExnK0kniY0R9M-T1-6ocze4Y6qSpNsDo4"
+        light: "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/logo-dark.png",
+        dark: "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/logo-light.png"
       }
     },
     hero: {
