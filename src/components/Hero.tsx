@@ -3,15 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { gsap } from "@/lib/gsap";
-import { Check, Copy, ArrowDown, Code2 } from "lucide-react";
+import { Check, Copy, ArrowDown, Code2, Layers, ArrowUpRight } from "lucide-react";
 import { toast } from "sonner";
-import { FaNodeJs } from "react-icons/fa";
+import { FaNodeJs, FaJava } from "react-icons/fa";
 import {
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
   SiGo,
   SiNuxtdotjs,
+  SiDocker,
 } from "react-icons/si";
 
 interface HeroProps {
@@ -95,6 +96,7 @@ export default function Hero({
             opacity: 0,
             duration: 0.5,
             stagger: 0.1,
+            clearProps: "all",
           },
           "-=0.3"
         );
@@ -150,32 +152,50 @@ export default function Hero({
   const currentStatus = statusConfig[status.variant] || statusConfig.available;
 
   // Real, verified credentials from CV (R-17, R-36, C-5)
-  const credentials = [
+  const credentials: Array<{
+    value: string;
+    label: string;
+    sub: string;
+    href?: string;
+  }> = [
     {
       value: "5+ Years",
-      label: lang === "id" ? "Pengalaman Produksi" : "Production Experience",
+      label: lang === "id" ? "Pengalaman Rekayasa" : "Engineering Experience",
       sub: "Enterprise & Scale",
     },
     {
       value: "BimbelKu",
-      label: lang === "id" ? "Founder & Architect" : "Founder & Architect",
+      label: "Founder & Architect",
       sub: "bimbelku.web.id",
-    },
-    {
-      value: "+30% Speed",
-      label: lang === "id" ? "Optimasi Page Score" : "Performance Optimization",
-      sub: "SEO & Web Vitals",
+      href: "https://bimbelku.web.id",
     },
     {
       value: "3.79 GPA",
-      label: lang === "id" ? "Teknik Informatika UNY" : "Informatics Engineering",
-      sub: "Honors Graduate",
+      label: lang === "id" ? "Teknik Informatika UNY" : "Informatics Engineering UNY",
+      sub: lang === "id" ? "Cum Laude Honors" : "Cum Laude Honors",
+    },
+    {
+      value: "Enterprise",
+      label: lang === "id" ? "Core & Micro-Frontend" : "Core & Micro-Frontends",
+      sub: "Pegadaian & Multi-Squad",
     },
   ];
 
   // Dynamic skill icon resolver for backend skills
   const getSkillIcon = (skillName: string) => {
     const s = skillName.toLowerCase();
+    if (s.includes("micro") || s.includes("federation")) {
+      return <Layers className="w-4 h-4 text-indigo-500" />;
+    }
+    if (s.includes("docker") || s.includes("container")) {
+      return <SiDocker className="w-4 h-4 text-sky-500" />;
+    }
+    if (s.includes("java") && !s.includes("script")) {
+      return <FaJava className="w-4 h-4 text-amber-600" />;
+    }
+    if (s.includes("go") || s.includes("golang")) {
+      return <SiGo className="w-4 h-4 text-teal-500" />;
+    }
     if (s.includes("vue") || s.includes("nuxt")) {
       return <SiNuxtdotjs className="w-4 h-4 text-emerald-500" />;
     }
@@ -187,9 +207,6 @@ export default function Hero({
     }
     if (s.includes("tailwind") || s.includes("css")) {
       return <SiTailwindcss className="w-4 h-4 text-cyan-500" />;
-    }
-    if (s.includes("go") || s.includes("golang") || s.includes("java")) {
-      return <SiGo className="w-4 h-4 text-teal-500" />;
     }
     if (s.includes("node")) {
       return <FaNodeJs className="w-4 h-4 text-green-600" />;
@@ -207,8 +224,11 @@ export default function Hero({
           { name: "Vue.js / Nuxt 3", icon: <SiNuxtdotjs className="w-4 h-4 text-emerald-500" /> },
           { name: "React / Next.js", icon: <SiNextdotjs className="w-4 h-4 text-sky-500" /> },
           { name: "TypeScript", icon: <SiTypescript className="w-4 h-4 text-blue-500" /> },
+          { name: "Micro-Frontends", icon: <Layers className="w-4 h-4 text-indigo-500" /> },
+          { name: "Go", icon: <SiGo className="w-4 h-4 text-teal-500" /> },
+          { name: "Java", icon: <FaJava className="w-4 h-4 text-amber-600" /> },
+          { name: "Docker", icon: <SiDocker className="w-4 h-4 text-sky-500" /> },
           { name: "Tailwind CSS", icon: <SiTailwindcss className="w-4 h-4 text-cyan-500" /> },
-          { name: "Go & Java", icon: <SiGo className="w-4 h-4 text-teal-500" /> },
           { name: "Node.js", icon: <FaNodeJs className="w-4 h-4 text-green-600" /> },
         ];
 
@@ -264,8 +284,8 @@ export default function Hero({
         >
           {description ||
             (lang === "id"
-              ? `Halo, saya ${name}. Frontend & Core Systems Developer dengan pengalaman 5+ tahun merancang website interaktif, sistem desain skala enterprise, dan aplikasi web modular di lingkungan kolaboratif cepat.`
-              : `Hello, I am ${name}. A Frontend Developer and Core Systems Engineer with over 5 years of production experience building interactive web applications, design systems, and resilient frontend products.`)}
+              ? `Halo, saya ${name}. Lulusan Teknik Informatika UNY (IPK 3.79, Mawapres). Software Engineer dengan pengalaman 5+ tahun merancang arsitektur web modern, sistem desain skala enterprise, dan modul platform modular.`
+              : `Hello, I am ${name}. Informatics Engineering graduate from UNY (GPA 3.79, Honors). Software Engineer with over 5 years of production experience building resilient web applications, enterprise design systems, and core platforms.`)}
         </p>
 
         {/* Core Tech Stack Badges from Backend */}
@@ -329,15 +349,40 @@ export default function Hero({
         >
           {credentials.map((item) => (
             <div key={item.value} className="flex flex-col">
-              <span className="text-xl sm:text-2xl md:text-3xl font-bold font-mono tracking-tight text-foreground">
-                {item.value}
-              </span>
-              <span className="text-xs sm:text-sm font-semibold text-foreground mt-1">
-                {item.label}
-              </span>
-              <span className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">
-                {item.sub}
-              </span>
+              {item.href ? (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col text-left -m-2 p-2 rounded-xl hover:bg-secondary/50 border border-transparent hover:border-border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
+                  title={`Kunjungi ${item.value} (${item.sub})`}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xl sm:text-2xl md:text-3xl font-bold font-mono tracking-tight text-foreground group-hover:text-primary transition-colors">
+                      {item.value}
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </div>
+                  <span className="text-xs sm:text-sm font-semibold text-foreground mt-1">
+                    {item.label}
+                  </span>
+                  <span className="text-[11px] sm:text-xs text-primary underline underline-offset-2 mt-0.5 group-hover:text-primary/80 transition-colors">
+                    {item.sub}
+                  </span>
+                </a>
+              ) : (
+                <>
+                  <span className="text-xl sm:text-2xl md:text-3xl font-bold font-mono tracking-tight text-foreground">
+                    {item.value}
+                  </span>
+                  <span className="text-xs sm:text-sm font-semibold text-foreground mt-1">
+                    {item.label}
+                  </span>
+                  <span className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">
+                    {item.sub}
+                  </span>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -346,9 +391,9 @@ export default function Hero({
         <div className="mt-8 hidden lg:flex items-center justify-center">
           <button
             type="button"
-            onClick={() => scrollToSection("#stack")}
+            onClick={() => scrollToSection("#experience")}
             className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors group p-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            aria-label="Scroll to next slide: Tech Stack"
+            aria-label="Scroll to next slide: Work Experience"
           >
             <span>Scroll atau tekan panah bawah untuk lanjut</span>
             <ArrowDown className="w-3.5 h-3.5 animate-bounce group-hover:translate-y-0.5 transition-transform" />

@@ -1,24 +1,17 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { gsap } from "@/lib/gsap";
 import {
-  ExternalLink,
   Layers,
   ArrowUpRight,
   CheckCircle2,
-  LayoutGrid,
-  List,
-  ChevronLeft,
-  ChevronRight,
+  ExternalLink,
+  Sparkles,
+  ChevronUp,
+  ChevronDown,
 } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
 
 interface ProjectItem {
   title: string;
@@ -44,19 +37,8 @@ interface ProjectsProps {
 
 export default function Projects({ projects = [], texts }: ProjectsProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [viewMode, setViewMode] = useState<"cards" | "index">("cards");
-  const [activeProject, setActiveProject] = useState<ProjectItem | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = 360;
-      scrollContainerRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const detailPanelRef = useRef<HTMLDivElement>(null);
 
   // Complete, verified production projects from CV & Fallbacks
   const baseProjects: ProjectItem[] = [
@@ -67,13 +49,13 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
       technologies: ["Go", "PostgreSQL", "React", "TypeScript", "Tailwind CSS", "TanStack Router"],
       link: "https://bimbelku.web.id",
       category: "Product & SaaS",
-      role: "Creator & Lead Architect",
+      role: "Founder & Lead Architect",
       impactMetric: "Live EdTech SaaS Platform",
       architectureNotes: [
         "Dibangun dengan backend Go (Golang) REST API dan database PostgreSQL untuk keandalan transaksi multi-cabang.",
         "Dirancang khusus untuk alur operasional bimbel: manajemen jadwal terintegrasi, kuota sesi privat, dan deteksi bentrok ruang.",
         "Presensi live berbasis kamera dan jurnal perkembangan materi siswa tersimpan rapi tiap pertemuan.",
-        "Automasi 3 skema penagihan SPP (bulanan, paket sesi, per pertemuan) dengan invoice & reminder 1-klik ke WhatsApp orang tua.",
+        "Automasi 3 skema penagihan SPP (bulanan, paket sesi, per pertemuan) dengan invoice dan reminder 1-klik ke WhatsApp orang tua.",
         "Perhitungan honor tentor otomatis berbasis absensi valid dan rekapitulasi laba rugi operasional.",
       ],
     },
@@ -119,7 +101,7 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
       architectureNotes: [
         "Dibangun dengan arsitektur Server-Side Rendering (SSR) Nuxt 3 dan Vue 3 untuk optimalisasi SEO dan Core Web Vitals.",
         "Antarmuka responsif modern dengan transisi animasi halus dan navigasi terstruktur untuk civitas akademika.",
-        "Optimalisasi caching aset statis dan performa rendering untuk melayani ribuan pengunjung kampus.",
+        "Optimalisasi caching aset statis dan performa rendering untuk melayani ribuan civitas akademika.",
       ],
     },
     {
@@ -140,50 +122,50 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
     {
       title: "My Pertamina PDS",
       description:
-        "Pertamina Delivery Service on-demand fuel ordering and scheduling platform for personal and corporate fleet operations.",
+        "Platform pemesanan dan pengantaran bahan bakar on-demand Pertamina Delivery Service untuk kebutuhan konsumen maupun armada komersial.",
       technologies: ["Vue.js", "Nuxt 3", "TypeScript", "Tailwind CSS"],
       link: "https://pds.mypertamina.id/",
       category: "Enterprise & Cloud",
       role: "Frontend Engineer",
-      impactMetric: "Commercial & Consumer Fleet Dispatch",
+      impactMetric: "Commercial Fleet Dispatch",
       architectureNotes: [
-        "Architected modular checkout flow supporting both consumer orders and high-volume corporate fuel dispatch.",
-        "Integrated interactive location mapping and route calculation with low latency.",
-        "Optimized client state caching to maintain instant responsiveness during peak operational hours.",
+        "Merancang alur checkout modular yang mendukung pesanan personal serta penjadwalan armada korporat skala besar.",
+        "Integrasi penentuan lokasi interaktif dan kalkulasi rute pengiriman berlatensi rendah.",
+        "Optimalisasi client-side caching untuk menjaga responsivitas cepat selama jam operasional puncak.",
       ],
     },
     {
       title: "Morpheme UI Design System",
       description:
-        "Comprehensive enterprise design system developed at GITS Indonesia. Standardized UI components, tokens, and accessibility across multi-squad applications.",
+        "Sistem desain enterprise komprehensif yang dikembangkan di GITS Indonesia. Menstandarkan komponen UI yang aksesibel, token desain, dan konsistensi antar-squad.",
       technologies: ["Vue 3", "TypeScript", "Tailwind CSS", "Storybook"],
       link: "https://github.com/iiibnuadam",
       category: "Design Systems & Tools",
       role: "Design System Author",
       impactMetric: "+30% Accelerated Squad Delivery",
       architectureNotes: [
-        "Authored 50+ accessible, customizable UI primitives with atomic design principles.",
-        "Established unified design tokens for color, typography, spacing, and dark mode themes.",
-        "Created Storybook documentation and automated testing pipelines for design system reliability.",
+        "Menulis 50+ komponen primitif UI yang modular dan aksesibel dengan prinsip atomic design.",
+        "Menetapkan token desain terpadu untuk warna, tipografi, spacing, dan tema dark mode.",
+        "Membangun dokumentasi Storybook dan automated testing untuk keandalan ekosistem desain.",
       ],
     },
     {
       title: "Lintasarta Cloudeka",
       description:
-        "Enterprise cloud services platform delivering compute provisioning, resource quota management, and billing dashboards.",
+        "Platform layanan cloud enterprise yang menyediakan provisi komputasi, manajemen kuota sumber daya, dan dashboard penagihan.",
       technologies: ["Vue.js", "Nuxt.js", "Cloud Services", "TypeScript"],
       link: "https://www.cloudeka.id/",
       category: "Enterprise & Cloud",
       role: "Frontend Engineer",
       impactMetric: "Enterprise Cloud Infrastructure Portal",
       architectureNotes: [
-        "Structured multi-tenant user authentication and enterprise organization hierarchies.",
-        "Developed data-heavy analytics charts and billing invoice viewers with strict typings.",
+        "Menyusun hierarki organisasi enterprise dan autentikasi multi-tenant yang aman.",
+        "Mengembangkan visualisasi analitik penggunaan kuota dan modul invoice dengan pengetikan ketat TypeScript.",
       ],
     },
   ];
 
-  // Merge projects from props if custom CMS data exists, or ensure all base projects are present
+  // Merge projects from props if custom CMS data exists, preserving enriched metadata
   const allProjects = baseProjects.map((bp) => {
     const match = projects.find(
       (p) =>
@@ -194,7 +176,6 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
       return {
         ...bp,
         ...match,
-        // Preserve enriched metadata
         category: bp.category,
         role: bp.role,
         impactMetric: bp.impactMetric,
@@ -206,10 +187,10 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
 
   const categories = [
     { id: "all", label: "All Projects" },
-    { id: "Product & SaaS", label: "Product & SaaS" },
     { id: "Enterprise & Cloud", label: "Enterprise & Cloud" },
-    { id: "Design Systems & Tools", label: "Design Systems & Tools" },
+    { id: "Product & SaaS", label: "Product & SaaS" },
     { id: "Consumer & Web", label: "Consumer & Web" },
+    { id: "Design Systems & Tools", label: "Design Systems & Tools" },
   ];
 
   const filteredProjects = allProjects.filter((item) => {
@@ -217,71 +198,94 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
     return item.category === selectedCategory;
   });
 
+  const safeIndex = selectedIndex >= filteredProjects.length ? 0 : selectedIndex;
+  const currentProject = filteredProjects[safeIndex] || filteredProjects[0];
+  const listRef = useRef<HTMLDivElement>(null);
+  const [canScrollDown, setCanScrollDown] = useState(false);
+  const [canScrollUp, setCanScrollUp] = useState(false);
+
+  const checkScroll = () => {
+    if (listRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listRef.current;
+      setCanScrollUp(scrollTop > 8);
+      setCanScrollDown(scrollTop + clientHeight < scrollHeight - 12);
+    }
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const el = listRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [filteredProjects, selectedCategory]);
+
+  const scrollList = (direction: "up" | "down") => {
+    if (listRef.current) {
+      listRef.current.scrollBy({
+        top: direction === "down" ? 170 : -170,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  // Animate detail panel when selected project changes
+  useEffect(() => {
+    if (!detailPanelRef.current) return;
+    gsap.fromTo(
+      detailPanelRef.current,
+      { opacity: 0, x: 12 },
+      { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }
+    );
+  }, [safeIndex, selectedCategory]);
+
+  const handleCategoryChange = (catId: string) => {
+    setSelectedCategory(catId);
+    setSelectedIndex(0);
+  };
+
+  const rawSubtitle = texts?.subtitle || "";
+  const subtitle =
+    rawSubtitle.includes("Geser") || rawSubtitle.includes("Swipe")
+      ? "Platform web produksi, sistem enterprise, dan arsitektur frontend skala besar. Pilih proyek untuk melihat arsitektur & live demo."
+      : rawSubtitle ||
+        "Mission-critical web applications, enterprise platforms, and scalable design systems built for scale and reliability.";
+
   return (
     <section
       id="projects"
-      className="slide-section snap-start snap-always relative min-h-[100dvh] lg:h-[100dvh] flex flex-col justify-center py-16 sm:py-20 px-4 sm:px-6 bg-background border-t border-border overflow-hidden"
+      className="slide-section snap-start snap-always relative min-h-screen lg:min-h-[100dvh] flex flex-col justify-start lg:justify-center pt-24 pb-16 sm:py-20 px-4 sm:px-6 bg-background border-t border-border overflow-x-hidden lg:overflow-visible w-full max-w-full min-w-0"
       aria-label="Featured Projects Showcase"
     >
-      <div className="max-w-5xl mx-auto w-full">
+      <div className="max-w-5xl mx-auto w-full min-w-0">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono font-medium mb-3">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-5 sm:mb-8 w-full min-w-0">
+          <div className="min-w-0 max-w-full">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/10 text-primary text-xs font-mono font-medium mb-2">
               <Layers className="w-3.5 h-3.5" />
-              <span>Production Work</span>
+              <span>Production Portfolio</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-foreground">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">
               {texts?.title || "Featured Projects"}
             </h2>
-            <p className="text-muted-foreground text-sm sm:text-base mt-3 max-w-xl leading-relaxed">
-              {texts?.subtitle ||
-                "A curated selection of mission-critical web applications, enterprise platforms, and scalable design systems."}
+            <p className="text-muted-foreground text-xs sm:text-sm lg:text-base mt-1.5 sm:mt-2 max-w-xl leading-relaxed">
+              {subtitle}
             </p>
           </div>
 
-          {/* Controls: View Switcher, Category Filters & Mobile Nav */}
-          <div className="flex flex-wrap items-center gap-3">
-            {/* View Mode Toggle: Cards vs Index */}
-            <div className="inline-flex items-center p-1 rounded-xl bg-secondary/70 border border-border">
-              <button
-                type="button"
-                onClick={() => setViewMode("cards")}
-                className={`p-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 ${
-                  viewMode === "cards"
-                    ? "bg-card text-foreground shadow-xs font-semibold"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-                title="Cards View"
-                aria-pressed={viewMode === "cards"}
-              >
-                <LayoutGrid className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Cards</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode("index")}
-                className={`p-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 ${
-                  viewMode === "index"
-                    ? "bg-card text-foreground shadow-xs font-semibold"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-                title="Index View"
-                aria-pressed={viewMode === "index"}
-              >
-                <List className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Index</span>
-              </button>
-            </div>
-
-            {/* Category Filter Pills */}
-            <div className="flex flex-wrap items-center gap-1.5 bg-secondary/70 p-1 rounded-xl border border-border">
+          {/* Category Filter Pills (Fluid scroll on small screens with min-w-0 containment) */}
+          <div className="w-full md:w-auto min-w-0 max-w-full overflow-hidden">
+            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-secondary/60 border border-border overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full min-w-0">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   type="button"
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                  onClick={() => handleCategoryChange(cat.id)}
+                  className={`whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-medium transition-all shrink-0 ${
                     selectedCategory === cat.id
                       ? "bg-card text-foreground shadow-xs font-semibold"
                       : "text-muted-foreground hover:text-foreground"
@@ -291,311 +295,225 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                 </button>
               ))}
             </div>
-
-            {/* Scroll Arrows */}
-            {viewMode === "cards" && (
-              <div className="flex items-center gap-1.5">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => scroll("left")}
-                  className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg border-border"
-                  aria-label="Scroll projects left"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => scroll("right")}
-                  className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg border-border"
-                  aria-label="Scroll projects right"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
-            )}
           </div>
         </div>
 
-        {/* Carousel Swipe Cue */}
-        {viewMode === "cards" && (
-          <div className="flex items-center justify-between text-[11px] font-mono text-muted-foreground mb-3">
-            <span>{filteredProjects.length} Verified Production Projects</span>
-            <span className="hidden sm:inline">Gunakan tombol panah atau geser horizontal ➔</span>
-            <span className="sm:hidden">Swipe ➔</span>
-          </div>
-        )}
+        {/* Master-Detail Layout */}
+        <div className="grid lg:grid-cols-[1.1fr_1.9fr] gap-4 sm:gap-6 items-start w-full min-w-0 max-w-full">
+          {/* Projects Navigation Column */}
+          <div className="flex flex-col w-full min-w-0 max-w-full">
+            {/* Desktop Header with Project Count & Up/Down Arrows */}
+            <div className="hidden lg:flex items-center justify-between px-1 mb-2">
+              <span className="text-xs font-mono text-muted-foreground">
+                Daftar Proyek ({filteredProjects.length})
+              </span>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => scrollList("up")}
+                  disabled={!canScrollUp}
+                  className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-30 disabled:pointer-events-none transition-colors border border-border/60"
+                  aria-label="Scroll list up"
+                  title="Scroll ke atas"
+                >
+                  <ChevronUp className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollList("down")}
+                  disabled={!canScrollDown}
+                  className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-30 disabled:pointer-events-none transition-colors border border-border/60"
+                  aria-label="Scroll list down"
+                  title="Scroll ke bawah"
+                >
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
 
-        {/* View Mode: Cards Horizontal Swipe Carousel */}
-        {viewMode === "cards" && (
-          <div
-            ref={scrollContainerRef}
-            className="flex overflow-x-auto snap-x snap-mandatory pb-4 gap-5 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {filteredProjects.map((project, index) => (
-              <div
-                key={project.title}
-                className="w-[85vw] sm:w-[350px] lg:w-[380px] shrink-0 snap-start group flex flex-col justify-between rounded-2xl border border-border bg-card hover:border-primary/50 transition-all duration-300 shadow-xs hover:shadow-md overflow-hidden opacity-100"
-              >
-                {/* Visual Header / Mockup Bar */}
-                <div className="p-4 bg-secondary/50 border-b border-border flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                  </div>
-                  <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">
-                    {project.category}
+            {/* Mobile Header with Count & Horizontal Swipe Cue */}
+            <div className="flex lg:hidden items-center justify-between px-1 mb-2 w-full min-w-0">
+              <span className="text-xs font-mono text-muted-foreground">
+                Pilih Proyek ({filteredProjects.length})
+              </span>
+              <span className="text-[11px] font-mono text-primary flex items-center gap-1">
+                <span>Geser kartu</span>
+                <span>→</span>
+              </span>
+            </div>
+
+            {/* Scroll Container */}
+            <div className="relative w-full min-w-0 max-w-full overflow-hidden">
+              {/* Top fade cue on desktop */}
+              {canScrollUp && (
+                <div
+                  onClick={() => scrollList("up")}
+                  className="hidden lg:flex cursor-pointer absolute top-0 inset-x-0 h-10 bg-gradient-to-b from-background via-background/85 to-transparent z-10 items-start justify-center pt-1 transition-opacity"
+                  title="Scroll ke atas"
+                >
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-card/90 border border-border text-[10px] font-mono text-muted-foreground hover:text-foreground shadow-xs">
+                    <ChevronUp className="w-3 h-3 text-primary animate-bounce" />
+                    <span>Ke atas</span>
                   </span>
                 </div>
+              )}
 
-                <div className="p-6 flex flex-col justify-between flex-1">
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-mono text-muted-foreground">
-                        0{index + 1}
-                      </span>
-                      {project.link && (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-1 rounded-md text-muted-foreground hover:text-primary hover:bg-secondary transition-colors"
-                          aria-label={`Open external link for ${project.title}`}
-                        >
-                          <ArrowUpRight className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
-
-                    <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                      {project.title}
-                    </h3>
-
-                    {project.impactMetric && (
-                      <span className="inline-block mt-1 text-xs font-mono text-primary font-medium">
-                        {project.impactMetric}
-                      </span>
-                    )}
-
-                    <p className="mt-3 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
-                      {project.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t border-border">
-                    {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2 py-0.5 rounded-md bg-secondary text-[11px] font-mono text-foreground"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex items-center gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setActiveProject(project)}
-                        className="w-full text-xs h-9 rounded-lg border-border hover:bg-secondary font-medium"
-                      >
-                        Inspect Details
-                      </Button>
-                      {project.link && (
-                        <Button
-                          asChild
-                          variant="ghost"
-                          size="sm"
-                          className="h-9 px-2.5 rounded-lg text-muted-foreground hover:text-foreground"
-                        >
-                          <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Visit Live Application"
-                          >
-                            <ExternalLink className="w-3.5 h-3.5" />
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* View Mode: Index Table (All projects in clean tabular list) */}
-        {viewMode === "index" && (
-          <div className="border border-border rounded-2xl bg-card overflow-hidden">
-            <div className="divide-y divide-border">
-              {filteredProjects.map((project, idx) => (
-                <div
-                  key={project.title}
-                  className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-secondary/40 transition-colors"
-                >
-                  <div className="flex items-start sm:items-center gap-4">
-                    <span className="font-mono text-xs text-muted-foreground w-6">
-                      0{idx + 1}
-                    </span>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-bold text-sm text-foreground">
+              {/* The scrollable list */}
+              <div
+                ref={listRef}
+                className="flex lg:flex-col gap-2.5 overflow-x-auto lg:overflow-y-auto w-full min-w-0 max-w-full max-h-none lg:max-h-[460px] pb-3 lg:pb-12 pr-1.5 scroll-smooth snap-x snap-mandatory lg:snap-none [scrollbar-width:thin] [scrollbar-color:oklch(var(--border))_transparent] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-secondary/40 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 hover:[&::-webkit-scrollbar-thumb]:bg-primary/60 [&::-webkit-scrollbar-thumb]:rounded-full"
+                role="tablist"
+                aria-label="Projects list"
+              >
+                {filteredProjects.map((project, idx) => {
+                  const isSelected = idx === safeIndex;
+                  return (
+                    <button
+                      key={project.title}
+                      type="button"
+                      role="tab"
+                      aria-selected={isSelected}
+                      onClick={() => setSelectedIndex(idx)}
+                      className={`w-[220px] sm:w-[260px] lg:w-full shrink-0 snap-start text-left p-3 sm:p-4 rounded-xl border transition-all duration-200 flex flex-col gap-1.5 ${
+                        isSelected
+                          ? "bg-card border-primary/50 shadow-xs ring-1 ring-primary/20"
+                          : "bg-card/40 border-border text-muted-foreground hover:bg-card hover:text-foreground"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-1.5">
+                        <span className="font-bold text-xs sm:text-sm text-foreground leading-snug line-clamp-1">
                           {project.title}
-                        </h4>
-                        <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-secondary text-muted-foreground">
+                        </span>
+                        <span className="text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded bg-secondary text-muted-foreground shrink-0 truncate max-w-[105px]">
                           {project.category}
                         </span>
                       </div>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        {project.impactMetric || project.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3 self-end sm:self-auto">
-                    <div className="hidden md:flex items-center gap-1">
-                      {project.technologies.slice(0, 3).map((t) => (
-                        <span
-                          key={t}
-                          className="text-[10px] font-mono px-1.5 py-0.5 rounded-sm bg-secondary text-muted-foreground"
-                        >
-                          {t}
+                      <div className="flex items-center justify-between gap-2 mt-0.5">
+                        <span className="text-[11px] sm:text-xs text-muted-foreground font-medium truncate">
+                          {project.role}
                         </span>
-                      ))}
-                    </div>
+                        {project.link && (
+                          <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground/70 shrink-0" />
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
 
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setActiveProject(project)}
-                      className="text-xs h-8 px-2.5 text-muted-foreground hover:text-foreground"
-                    >
-                      Inspect
-                    </Button>
-
-                    {project.link && (
-                      <Button
-                        asChild
-                        size="sm"
-                        className="text-xs h-8 px-3 rounded-full"
-                      >
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <span>Live Site</span>
-                          <ArrowUpRight className="w-3.5 h-3.5 ml-1" />
-                        </a>
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Accessible Project Details Modal (Keyboard operable, Escape closes) */}
-      <Dialog
-        open={!!activeProject}
-        onOpenChange={(open) => !open && setActiveProject(null)}
-      >
-        <DialogContent className="sm:max-w-xl p-6 sm:p-8 rounded-2xl bg-card border-border">
-          {activeProject && (
-            <div>
-              <DialogHeader>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-mono text-primary font-semibold">
-                    {activeProject.category?.toUpperCase() || "PROJECT"} • {activeProject.role || "ENGINEER"}
+              {/* Bottom Gradient Fade on Desktop */}
+              {canScrollDown && (
+                <div
+                  onClick={() => scrollList("down")}
+                  className="hidden lg:flex cursor-pointer absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-background via-background/90 to-transparent items-end justify-center pb-1.5 z-10 transition-opacity"
+                  title="Scroll ke bawah untuk proyek lainnya"
+                >
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-card/95 border border-border text-[11px] font-mono text-muted-foreground hover:text-foreground hover:border-primary/50 shadow-sm transition-all pointer-events-auto">
+                    <span>Scroll ke bawah</span>
+                    <ChevronDown className="w-3.5 h-3.5 text-primary animate-bounce" />
                   </span>
                 </div>
-                <DialogTitle className="text-2xl font-bold text-foreground">
-                  {activeProject.title}
-                </DialogTitle>
-                <DialogDescription className="text-sm text-muted-foreground mt-2 leading-relaxed">
-                  {activeProject.description}
-                </DialogDescription>
-              </DialogHeader>
+              )}
+            </div>
+          </div>
 
-              <div className="mt-6 space-y-5">
-                <div>
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">
-                    Technologies Deployed
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {activeProject.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 rounded-md bg-secondary border border-border text-xs font-mono font-medium text-foreground"
-                      >
-                        {tech}
+          {/* Active Project Detail Panel */}
+          {currentProject && (
+            <div
+              ref={detailPanelRef}
+              className="w-full min-w-0 max-w-full p-4 sm:p-6 lg:p-8 rounded-2xl border border-border bg-card shadow-sm min-h-0 lg:min-h-[440px] flex flex-col justify-between"
+            >
+              <div className="w-full min-w-0">
+                {/* Header Strip */}
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 pb-4 sm:pb-6 border-b border-border w-full min-w-0">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                      <span className="text-[11px] sm:text-xs font-mono px-2.5 py-0.5 rounded-md bg-primary/10 text-primary font-semibold">
+                        {currentProject.category}
                       </span>
-                    ))}
+                      {currentProject.role && (
+                        <span className="text-[11px] sm:text-xs font-mono text-muted-foreground">
+                          • {currentProject.role}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-foreground break-words">
+                      {currentProject.title}
+                    </h3>
+                    {currentProject.impactMetric && (
+                      <div className="flex items-center gap-1.5 mt-1 text-[11px] sm:text-xs font-mono text-emerald-600 dark:text-emerald-400 font-medium">
+                        <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                        <span className="truncate">{currentProject.impactMetric}</span>
+                      </div>
+                    )}
                   </div>
+
+                  {/* External Live Action */}
+                  {currentProject.link && (
+                    <Button
+                      asChild
+                      size="sm"
+                      className="w-full sm:w-auto min-h-[42px] sm:min-h-0 rounded-full px-4 text-xs font-medium shadow-xs shrink-0"
+                    >
+                      <a
+                        href={currentProject.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-1.5 text-primary-foreground font-semibold"
+                      >
+                        <span>Visit Live Site</span>
+                        <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
+                      </a>
+                    </Button>
+                  )}
                 </div>
 
-                {activeProject.architectureNotes && activeProject.architectureNotes.length > 0 && (
-                  <div>
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">
-                      Key Architectural Decisions
-                    </h4>
-                    <div className="space-y-2">
-                      {activeProject.architectureNotes.map((note, idx) => (
-                        <div
-                          key={idx}
-                          className="p-3 rounded-xl bg-secondary/50 border border-border/80 text-xs flex items-start gap-2.5"
-                        >
-                          <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                          <span className="text-foreground/90 leading-relaxed">
-                            {note}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                {/* Narrative Overview */}
+                <p className="mt-4 sm:mt-5 text-xs sm:text-sm text-muted-foreground leading-relaxed break-words">
+                  {currentProject.description}
+                </p>
+
+                {/* Architecture Highlights & Capabilities */}
+                {currentProject.architectureNotes && currentProject.architectureNotes.length > 0 && (
+                  <div className="mt-5 sm:mt-6 space-y-2 sm:space-y-2.5 w-full min-w-0">
+                    <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-muted-foreground block">
+                      Key Architectural Highlights & Capabilities
+                    </span>
+                    {currentProject.architectureNotes.map((note, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-2 sm:gap-2.5 text-xs sm:text-sm text-muted-foreground w-full min-w-0"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500 shrink-0 mt-0.5" />
+                        <span className="leading-relaxed text-foreground/90 break-words flex-1 min-w-0">
+                          {note}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
 
-              <div className="mt-8 pt-4 border-t border-border flex items-center justify-between gap-3">
-                <Button
-                  variant="ghost"
-                  onClick={() => setActiveProject(null)}
-                  className="text-xs text-muted-foreground hover:text-foreground"
-                >
-                  Close
-                </Button>
-                {activeProject.link && (
-                  <Button
-                    asChild
-                    size="sm"
-                    className="rounded-full px-5 font-medium gap-2"
-                  >
-                    <a
-                      href={activeProject.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
+              {/* Technologies Applied */}
+              <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-border w-full min-w-0">
+                <span className="text-[11px] sm:text-xs font-mono text-muted-foreground block mb-2">
+                  Technologies Applied:
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {currentProject.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-secondary border border-border/80 text-[11px] sm:text-xs font-mono font-medium text-foreground"
                     >
-                      <span>Visit Live Application</span>
-                      <ArrowUpRight className="w-4 h-4" />
-                    </a>
-                  </Button>
-                )}
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           )}
-        </DialogContent>
-      </Dialog>
+        </div>
+      </div>
     </section>
   );
 }

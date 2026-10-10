@@ -37,7 +37,7 @@ export default function WorkExperience({
       location: "Jakarta",
       type: "Fulltime - Onsite",
       period: "Aug 2024 - Present",
-      duration: "1+ Year",
+      duration: "2+ Years",
       description: [
         "Develop and maintain mission-critical internal enterprise platforms (SPRINT & Pegadaian Kita) using Vue 3, TypeScript, and micro-frontend architecture (Module Federation).",
         "Collaborate on core operational workflows, transaction processing, and enterprise service integrations using Vue, Go, and Java.",
@@ -51,7 +51,7 @@ export default function WorkExperience({
       location: "Yogyakarta",
       type: "Contract - Hybrid",
       period: "Jul 2024 - Present",
-      duration: "1+ Year",
+      duration: "2+ Years",
       description: [
         "Engineered internal university platforms, academic information systems (SIAKAD), and PBM (Teaching & Learning Process) modules tailored to UNU Yogyakarta institutional workflows.",
         "Developed the official university web portal (unu-jogja.ac.id) with high-performance SSR using Nuxt 3, Vue 3, and Tailwind CSS.",
@@ -122,6 +122,43 @@ export default function WorkExperience({
       .replace(/Agust\b/g, "Agu")
       .replace(/Ags\b/g, "Agu");
 
+  // Dynamically resolve duration accurately if still active (Present / Sekarang)
+  const resolveDuration = (period: string, fallbackDuration?: string) => {
+    const isPresent = /present|sekarang/i.test(period);
+    if (!isPresent) return fallbackDuration ? sanitizeText(fallbackDuration) : "";
+
+    const match = period.match(/([a-zA-Z]+)\s+(\d{4})\s*[-–—]/);
+    if (!match) return fallbackDuration ? sanitizeText(fallbackDuration) : "";
+
+    const monthStr = match[1].toLowerCase().slice(0, 3);
+    const startYear = parseInt(match[2], 10);
+    const isId = /sekarang|agu|des|okt|mei/i.test(period);
+
+    const monthMap: Record<string, number> = {
+      jan: 0, feb: 1, mar: 2, apr: 3, mei: 4, may: 4, jun: 5,
+      jul: 6, aug: 7, agu: 7, sep: 8, okt: 9, oct: 9, nov: 10, des: 11, dec: 11,
+    };
+
+    const startMonth = monthMap[monthStr] ?? 0;
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth();
+
+    let totalMonths = (currentYear - startYear) * 12 + (currentMonth - startMonth);
+    if (totalMonths < 0) totalMonths = 0;
+
+    const years = Math.floor(totalMonths / 12);
+    const remainingMonths = totalMonths % 12;
+
+    if (years >= 1) {
+      if (remainingMonths === 0) {
+        return isId ? `${years} Tahun` : `${years} ${years > 1 ? "Years" : "Year"}`;
+      }
+      return isId ? `${years}+ Tahun` : `${years}+ Years`;
+    }
+    return isId ? `${totalMonths} Bulan` : `${totalMonths} Months`;
+  };
+
   // Animate panel when tab changes
   useEffect(() => {
     if (!detailPanelRef.current) return;
@@ -136,7 +173,7 @@ export default function WorkExperience({
     <section
       id="experience"
       ref={containerRef}
-      className="slide-section snap-start snap-always relative min-h-[100dvh] lg:h-[100dvh] flex flex-col justify-center py-16 sm:py-20 px-4 sm:px-6 bg-secondary/20 border-t border-border overflow-hidden"
+      className="slide-section snap-start snap-always relative min-h-screen lg:min-h-[100dvh] flex flex-col justify-start lg:justify-center pt-20 pb-16 sm:py-20 px-4 sm:px-6 bg-secondary/20 border-t border-border overflow-visible"
       aria-label="Work Experience"
     >
       <div className="max-w-5xl mx-auto w-full">
@@ -187,7 +224,7 @@ export default function WorkExperience({
                     </span>
                     {exp.duration && (
                       <span className="text-[10px] font-mono text-muted-foreground/80 shrink-0">
-                        {sanitizeText(exp.duration)}
+                        {resolveDuration(exp.period, exp.duration)}
                       </span>
                     )}
                   </div>
@@ -218,6 +255,11 @@ export default function WorkExperience({
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary border border-border">
                     <Calendar className="w-3.5 h-3.5" />
                     <span>{sanitizeText(current.period)}</span>
+                    {current.duration && (
+                      <span className="text-primary font-medium">
+                        ({resolveDuration(current.period, current.duration)})
+                      </span>
+                    )}
                   </span>
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary border border-border">
                     <MapPin className="w-3.5 h-3.5" />

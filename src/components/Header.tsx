@@ -14,6 +14,48 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+function FlagID({ className = "w-5 h-3.5" }: { className?: string }) {
+  return (
+    <svg
+      className={`${className} rounded-[3px] overflow-hidden border border-border/80 shadow-xs shrink-0 inline-block align-middle`}
+      viewBox="0 0 24 16"
+      aria-hidden="true"
+    >
+      <rect width="24" height="8" fill="#E70011" />
+      <rect y="8" width="24" height="8" fill="#FFFFFF" />
+    </svg>
+  );
+}
+
+function FlagEN({ className = "w-5 h-3.5" }: { className?: string }) {
+  return (
+    <svg
+      className={`${className} rounded-[3px] overflow-hidden border border-border/80 shadow-xs shrink-0 inline-block align-middle`}
+      viewBox="0 0 60 30"
+      aria-hidden="true"
+    >
+      <clipPath id="uk-flag-clip-header">
+        <path d="M0,0 v30 h60 v-30 z" />
+      </clipPath>
+      <clipPath id="uk-flag-diags-header">
+        <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
+      </clipPath>
+      <g clipPath="url(#uk-flag-clip-header)">
+        <path d="M0,0 v30 h60 v-30 z" fill="#012169" />
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
+        <path
+          d="M0,0 L60,30 M60,0 L0,30"
+          clipPath="url(#uk-flag-diags-header)"
+          stroke="#C8102E"
+          strokeWidth="4"
+        />
+        <path d="M30,0 v30 M0,15 h60" stroke="#fff" strokeWidth="10" />
+        <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" strokeWidth="6" />
+      </g>
+    </svg>
+  );
+}
+
 interface HeaderProps {
   nav?: Nav;
 }
@@ -60,7 +102,7 @@ export default function Header({ nav: navProp }: HeaderProps) {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
-      const sections = ["hero", "stack", "experience", "education", "projects", "contact"];
+      const sections = ["hero", "experience", "projects", "contact"];
       let currentSection = "";
 
       for (const section of sections) {
@@ -102,7 +144,6 @@ export default function Header({ nav: navProp }: HeaderProps) {
 
   const navLinks = [
     { href: "#experience", label: nav.experience || "Experience", id: "experience" },
-    { href: "#education", label: nav.education || "Education", id: "education" },
     { href: "#projects", label: nav.projects || "Projects", id: "projects" },
     { href: "#contact", label: nav.contact || "Contact", id: "contact" },
   ];
@@ -165,58 +206,50 @@ export default function Header({ nav: navProp }: HeaderProps) {
           </div>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav
-          className="hidden md:flex items-center gap-1 bg-secondary/60 border border-border/80 px-2 py-1 rounded-full text-sm font-medium"
-          aria-label="Main Navigation"
-        >
-          {navLinks.map((link) => {
-            const isActive = activeSection === link.id;
-            return (
-              <a
-                key={link.id}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className={`px-3.5 py-1.5 rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-primary ${
-                  isActive
-                    ? "bg-primary text-primary-foreground font-semibold shadow-xs"
-                    : "text-muted-foreground hover:text-foreground hover:bg-background/80"
-                }`}
-              >
-                {link.label}
-              </a>
-            );
-          })}
-        </nav>
 
         {/* Right Controls: Language, Theme, Contact CTA */}
         <div className="flex items-center gap-2">
-          {/* Language Selector (Hydration-safe) */}
+          {/* Language Selector with Flags (Hydration-safe) */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-9 px-2.5 font-mono text-xs text-muted-foreground hover:text-foreground"
+                className="h-9 w-9 p-0 rounded-lg hover:bg-secondary flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary"
                 aria-label="Change Language"
+                title={mounted && i18n.language?.startsWith("id") ? "Bahasa Indonesia" : "English"}
               >
-                <span suppressHydrationWarning>
-                  {mounted ? (i18n.language?.startsWith("id") ? "ID" : "EN") : "EN"}
+                <span suppressHydrationWarning className="flex items-center justify-center">
+                  {mounted && i18n.language?.startsWith("id") ? (
+                    <FlagID className="w-5 h-3.5" />
+                  ) : (
+                    <FlagEN className="w-5 h-3.5" />
+                  )}
                 </span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-[120px]">
+            <DropdownMenuContent align="end" className="min-w-[140px] p-1.5">
               <DropdownMenuItem
                 onClick={() => i18n.changeLanguage("en")}
-                className={!i18n.language?.startsWith("id") ? "font-semibold text-primary" : ""}
+                className={`flex items-center gap-2.5 cursor-pointer py-2 rounded-lg text-xs ${
+                  !i18n.language?.startsWith("id")
+                    ? "font-semibold text-primary bg-secondary/60"
+                    : "text-foreground"
+                }`}
               >
-                English (EN)
+                <FlagEN className="w-4 h-3" />
+                <span>English</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => i18n.changeLanguage("id")}
-                className={i18n.language?.startsWith("id") ? "font-semibold text-primary" : ""}
+                className={`flex items-center gap-2.5 cursor-pointer py-2 rounded-lg text-xs ${
+                  i18n.language?.startsWith("id")
+                    ? "font-semibold text-primary bg-secondary/60"
+                    : "text-foreground"
+                }`}
               >
-                Bahasa (ID)
+                <FlagID className="w-4 h-3" />
+                <span>Bahasa (ID)</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -261,16 +294,24 @@ export default function Header({ nav: navProp }: HeaderProps) {
           aria-label="Mobile Navigation Menu"
         >
           <nav className="flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.id}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="min-h-[44px] flex items-center px-4 py-2.5 rounded-lg text-base font-medium text-foreground hover:bg-secondary transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`min-h-[44px] flex items-center px-4 py-2.5 rounded-lg text-base font-medium transition-colors ${
+                    isActive
+                      ? "bg-primary/10 text-primary font-semibold"
+                      : "text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
             <div className="pt-3 border-t border-border mt-2">
               <Button
                 asChild

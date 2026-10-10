@@ -72,6 +72,10 @@ const initialData = {
       "Vue.js",
       "React.js",
       "TypeScript",
+      "Micro-Frontends",
+      "Go",
+      "Java",
+      "Docker",
       "Tailwind CSS",
       "Next.js",
       "Node.js"
@@ -730,8 +734,8 @@ const initialData = {
       "id": "Akan segera hadir..."
     },
     "subtitle": {
-      "en": "A collection of my best work combining creativity and technology. Swipe to see more.",
-      "id": "Kumpulan karya terbaik yang menggabungkan kreativitas dan teknologi. Geser untuk melihat lebih banyak."
+      "en": "Mission-critical web applications, enterprise platforms, and scalable design systems built for scale and reliability.",
+      "id": "Platform web produksi, sistem enterprise, dan arsitektur frontend skala besar. Pilih proyek untuk melihat arsitektur & live demo."
     },
     "title": {
       "en": "Featured Projects",

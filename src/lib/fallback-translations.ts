@@ -19,7 +19,18 @@ export const fallbackTranslations = {
       status: {
         variant: "available"
       },
-      skills: ["Vue.js", "React.js", "TypeScript", "Tailwind CSS", "Next.js", "Node.js"],
+      skills: [
+        "Vue.js",
+        "React.js",
+        "TypeScript",
+        "Micro-Frontends",
+        "Go",
+        "Java",
+        "Docker",
+        "Tailwind CSS",
+        "Next.js",
+        "Node.js"
+      ],
       image: "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/Gemini_Generated_Image_l2igrul2igrul2ig.png"
     },
     workExperience: {
@@ -32,7 +43,7 @@ export const fallbackTranslations = {
           location: "Jakarta",
           type: "Fulltime - Onsite",
           period: "Aug 2024 - Present",
-          duration: "1+ Year",
+          duration: "2+ Years",
           description: [
             "Develop and maintain mission-critical internal enterprise platforms (SPRINT & Pegadaian Kita) using Vue 3, TypeScript, and micro-frontend architecture (Module Federation).",
             "Collaborate on core banking, transactional workflows, and operational service integrations using Vue, Go, and Java.",
@@ -46,7 +57,7 @@ export const fallbackTranslations = {
           location: "Yogyakarta",
           type: "Contract - Hybrid",
           period: "Jul 2024 - Present",
-          duration: "1+ Year",
+          duration: "2+ Years",
           description: [
             "Engineered internal university platforms, academic information systems (SIAKAD), and PBM (Teaching & Learning Process) modules tailored to UNU Yogyakarta institutional workflows.",
             "Developed the official university web portal (unu-jogja.ac.id) with high-performance SSR using Nuxt 3, Vue 3, and Tailwind CSS.",
@@ -199,7 +210,7 @@ export const fallbackTranslations = {
     },
     projects: {
       title: "Featured Projects",
-      subtitle: "A collection of my best work combining creativity and technology. Swipe to see more.",
+      subtitle: "Mission-critical web applications, enterprise platforms, and scalable design systems built for scale and reliability.",
       moreComingSoon: "More coming soon...",
       viewProject: "View Project",
       liveDemo: "Live Demo",
@@ -288,7 +299,18 @@ export const fallbackTranslations = {
       status: {
         variant: "available"
       },
-      skills: ["Vue.js", "React.js", "TypeScript", "Tailwind CSS", "Next.js", "Node.js"],
+      skills: [
+        "Vue.js",
+        "React.js",
+        "TypeScript",
+        "Micro-Frontends",
+        "Go",
+        "Java",
+        "Docker",
+        "Tailwind CSS",
+        "Next.js",
+        "Node.js"
+      ],
       image: "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/Gemini_Generated_Image_l2igrul2igrul2ig.png"
     },
     workExperience: {
@@ -301,7 +323,7 @@ export const fallbackTranslations = {
           location: "Jakarta",
           type: "Fulltime - Onsite",
           period: "Agu 2024 - Sekarang",
-          duration: "1+ Tahun",
+          duration: "2+ Tahun",
           description: [
             "Mengembangkan dan memelihara aplikasi internal enterprise berskala nasional (SPRINT & Pegadaian Kita) menggunakan Vue 3, TypeScript, dan arsitektur micro-frontend (Module Federation).",
             "Berkolaborasi dalam integrasi sistem operasional inti, pemrosesan transaksi, dan layanan bisnis enterprise menggunakan Vue, Go, dan Java.",
@@ -315,7 +337,7 @@ export const fallbackTranslations = {
           location: "Yogyakarta",
           type: "Kontrak - Hybrid",
           period: "Jul 2024 - Sekarang",
-          duration: "1+ Tahun",
+          duration: "2+ Tahun",
           description: [
             "Mengembangkan aplikasi internal kampus, sistem informasi akademik (SIAKAD), dan modul PBM (Proses Belajar Mengajar) sesuai kebutuhan operasional Universitas Nahdlatul Ulama Yogyakarta.",
             "Membangun portal web resmi universitas (unu-jogja.ac.id) berkinerja tinggi dengan arsitektur SSR menggunakan Nuxt 3, Vue 3, dan Tailwind CSS.",
@@ -468,7 +490,7 @@ export const fallbackTranslations = {
     },
     projects: {
       title: "Proyek Unggulan",
-      subtitle: "Kumpulan karya terbaik yang menggabungkan kreativitas dan teknologi. Geser untuk melihat lebih banyak.",
+      subtitle: "Platform web produksi, sistem enterprise, dan arsitektur frontend yang dibangun untuk keandalan dan skala tinggi.",
       moreComingSoon: "Akan segera hadir...",
       viewProject: "Lihat Proyek",
       liveDemo: "Demo Langsung",

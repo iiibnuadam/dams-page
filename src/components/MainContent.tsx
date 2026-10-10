@@ -65,12 +65,13 @@ export default function MainContent({ cmsData }: MainContentProps) {
   const contact = getSection<ContactType>("contact", cmsData?.contact);
   const footer = getSection<FooterType>("footer", cmsData?.footer);
 
-  const sectionOrder = cmsData?.settings?.sectionOrder || [
-    "workExperience",
-    "educationAndAwards",
-    "projects",
-    "contact",
-  ];
+  const sectionOrder = (
+    cmsData?.settings?.sectionOrder || [
+      "workExperience",
+      "projects",
+      "contact",
+    ]
+  ).filter((s) => s !== "educationAndAwards");
 
   const renderSection = (sectionId: string) => {
     switch (sectionId) {
@@ -83,20 +84,7 @@ export default function MainContent({ cmsData }: MainContentProps) {
           />
         );
       case "educationAndAwards":
-        return (
-          <EducationAndAwards
-            key="educationAndAwards"
-            education={educationAndAwards.education}
-            awards={educationAndAwards.awards}
-            organizations={educationAndAwards.organizations}
-            titles={{
-              main: educationAndAwards.title,
-              education: educationAndAwards.educationTitle,
-              awards: educationAndAwards.awardsTitle,
-              organizations: educationAndAwards.organizationsTitle,
-            }}
-          />
-        );
+        return null;
       case "projects":
         return (
           <Projects key="projects" projects={projects.items} texts={projects} />
@@ -117,9 +105,8 @@ export default function MainContent({ cmsData }: MainContentProps) {
   return (
     <>
       <Header nav={nav} />
-      <main className="w-full">
+      <main className="w-full min-w-0 max-w-full overflow-x-hidden">
         <Hero {...hero} email={contact.email} lang={lang} />
-        <TechStackExplorer skills={hero.skills} />
         {sectionOrder.map(renderSection)}
       </main>
       <SlideNavigator />

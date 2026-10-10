@@ -1,21 +1,28 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { ChevronUp, ChevronDown } from "lucide-react";
+import {
+  ChevronUp,
+  ChevronDown,
+  Home,
+  Briefcase,
+  Layers,
+  Mail,
+  Command,
+} from "lucide-react";
 
 export interface SlideItem {
   id: string;
   label: string;
   shortLabel: string;
+  icon: typeof Home;
 }
 
 const SLIDES: SlideItem[] = [
-  { id: "hero", label: "Intro", shortLabel: "01" },
-  { id: "stack", label: "Tech Stack", shortLabel: "02" },
-  { id: "experience", label: "Experience", shortLabel: "03" },
-  { id: "education", label: "Education", shortLabel: "04" },
-  { id: "projects", label: "Projects", shortLabel: "05" },
-  { id: "contact", label: "Contact", shortLabel: "06" },
+  { id: "hero", label: "Home", shortLabel: "01", icon: Home },
+  { id: "experience", label: "Experience", shortLabel: "02", icon: Briefcase },
+  { id: "projects", label: "Projects", shortLabel: "03", icon: Layers },
+  { id: "contact", label: "Contact", shortLabel: "04", icon: Mail },
 ];
 
 export default function SlideNavigator() {
@@ -107,41 +114,49 @@ export default function SlideNavigator() {
 
   return (
     <>
-      {/* Desktop Vertical Slide Indicator */}
+      {/* Modern Ultra-Sleek Deck Dock (Floating HUD) */}
       <nav
         aria-label="Deck slide navigation"
-        className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-end gap-2.5 pointer-events-auto"
+        className="fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center p-2 rounded-2xl bg-card/85 dark:bg-card/75 backdrop-blur-xl border border-border/80 shadow-2xl ring-1 ring-white/10 dark:ring-white/5 pointer-events-auto select-none"
       >
-        {/* Navigation Dots with Accessible Tap Area */}
-        <div className="flex flex-col items-end gap-1 p-1.5 rounded-full bg-card/70 backdrop-blur-md border border-border shadow-md">
+        {/* Slide Items List */}
+        <div className="flex flex-col items-center gap-1.5 py-0.5">
           {SLIDES.map((slide, idx) => {
             const isActive = idx === activeSlideIndex;
+            const Icon = slide.icon;
+
             return (
               <button
                 key={slide.id}
                 type="button"
                 onClick={() => scrollToSlide(slide.id)}
-                className="group relative min-w-[44px] min-h-[44px] flex items-center justify-end px-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                aria-label={`Jump to slide ${slide.shortLabel}: ${slide.label}`}
+                className={`group relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                  isActive
+                    ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-105"
+                    : "text-muted-foreground/60 hover:text-foreground hover:bg-secondary/70"
+                }`}
+                aria-label={`Jump to ${slide.label}`}
                 aria-current={isActive ? "step" : undefined}
               >
-                {/* Hover / Active Label Tooltip */}
-                <span
-                  className={`absolute right-12 px-2.5 py-1 rounded-md text-xs font-medium font-sans border transition-all duration-200 pointer-events-none whitespace-nowrap ${
+                {/* Refined Frosted Tooltip (Left side - only visible on hover) */}
+                <div
+                  className={`absolute right-13 px-3 py-1.5 rounded-xl border text-xs font-mono font-medium whitespace-nowrap transition-all duration-200 pointer-events-none flex items-center gap-2 shadow-xl backdrop-blur-md opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 bg-card/95 ${
                     isActive
-                      ? "opacity-100 translate-x-0 bg-primary text-primary-foreground border-primary shadow-xs"
-                      : "opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 bg-card text-foreground border-border shadow-xs"
+                      ? "text-foreground border-primary/40 ring-1 ring-primary/20"
+                      : "text-muted-foreground border-border"
                   }`}
                 >
-                  {slide.label}
-                </span>
+                  <span className="text-foreground font-semibold">
+                    {slide.label}
+                  </span>
+                </div>
 
-                {/* Dot / Pill visual */}
-                <span
-                  className={`block rounded-full transition-all duration-300 ${
+                {/* Icon Inside Dock */}
+                <Icon
+                  className={`transition-transform duration-200 ${
                     isActive
-                      ? "w-7 h-2.5 bg-primary"
-                      : "w-2.5 h-2.5 bg-muted-foreground/40 group-hover:bg-foreground group-hover:scale-125"
+                      ? "w-4 h-4 scale-110"
+                      : "w-4 h-4 opacity-75 group-hover:opacity-100 group-hover:scale-110"
                   }`}
                 />
               </button>
@@ -149,27 +164,30 @@ export default function SlideNavigator() {
           })}
         </div>
 
-        {/* Up / Down Arrow Jump Controls */}
-        <div className="flex flex-col gap-1 mt-1">
+        {/* Hairline Divider */}
+        <div className="w-6 h-px bg-border/60 my-1.5" />
+
+        {/* Integrated Up / Down Jump Controls */}
+        <div className="flex flex-col items-center gap-1">
           <button
             type="button"
             onClick={goToPrevSlide}
             disabled={activeSlideIndex === 0}
-            className="w-8 h-8 rounded-full bg-card/80 border border-border text-foreground hover:bg-secondary flex items-center justify-center disabled:opacity-30 disabled:pointer-events-none transition-colors"
+            className="w-8 h-7 rounded-lg hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground disabled:opacity-20 disabled:pointer-events-none transition-colors"
             aria-label="Previous slide"
             title="Previous slide (Arrow Up)"
           >
-            <ChevronUp className="w-4 h-4" />
+            <ChevronUp className="w-3.5 h-3.5" />
           </button>
           <button
             type="button"
             onClick={goToNextSlide}
             disabled={activeSlideIndex === SLIDES.length - 1}
-            className="w-8 h-8 rounded-full bg-card/80 border border-border text-foreground hover:bg-secondary flex items-center justify-center disabled:opacity-30 disabled:pointer-events-none transition-colors"
+            className="w-8 h-7 rounded-lg hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground disabled:opacity-20 disabled:pointer-events-none transition-colors"
             aria-label="Next slide"
             title="Next slide (Arrow Down)"
           >
-            <ChevronDown className="w-4 h-4" />
+            <ChevronDown className="w-3.5 h-3.5" />
           </button>
         </div>
       </nav>
@@ -178,10 +196,10 @@ export default function SlideNavigator() {
       {showKeyHint && (
         <aside
           aria-label="Keyboard navigation hint"
-          className="fixed bottom-6 left-6 z-40 hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-card/85 backdrop-blur-md border border-border text-xs font-mono text-muted-foreground shadow-md animate-fade-in"
+          className="fixed bottom-6 left-6 z-40 hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-card/85 backdrop-blur-md border border-border text-xs font-mono text-muted-foreground shadow-md animate-fade-in"
         >
-          <span className="text-foreground font-semibold">Tip:</span>
-          <span>Gunakan panah [↑] [↓] untuk navigasi slide</span>
+          <Command className="w-3.5 h-3.5 text-primary" />
+          <span>Navigasi: [↑] [↓] atau scroll</span>
           <button
             type="button"
             onClick={() => setShowKeyHint(false)}
