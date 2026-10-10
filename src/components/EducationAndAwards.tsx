@@ -1,224 +1,341 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Trophy, Users } from "lucide-react";
-import { BlurText } from "@/components/reactbits/BlurText";
+import { useState, useRef } from "react";
+import { GraduationCap, Users, Trophy, Star, ChevronLeft, ChevronRight, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-type Education = {
+interface Education {
   institution: string;
   degree: string;
   period: string;
   description: string[];
-};
+}
 
-type Award = {
+interface Award {
   title: string;
   issuer: string;
   date: string;
   associatedWith: string;
   type: "gold" | "silver" | "bronze" | "star";
-};
+}
 
-type Organization = {
+interface Organization {
   role: string;
   organization: string;
   period: string;
   associatedWith: string;
-};
+}
 
-type EducationAndAwardsProps = {
-  education: Education[];
-  awards: Award[];
-  organizations: Organization[];
-  titles: {
-    main: string;
-    education: string;
-    awards: string;
-    organizations: string;
+interface EducationAndAwardsProps {
+  education?: Education[];
+  awards?: Award[];
+  organizations?: Organization[];
+  titles?: {
+    main?: string;
+    education?: string;
+    awards?: string;
+    organizations?: string;
   };
-};
+}
 
 export default function EducationAndAwards({
-  education,
-  awards,
-  organizations,
+  education = [],
+  awards = [],
+  organizations = [],
   titles,
 }: EducationAndAwardsProps) {
+  const [activeTab, setActiveTab] = useState<"education" | "awards" | "leadership">("education");
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Sanitize any em dashes into standard hyphens (R-02)
+  const clean = (val: string) => val.replace(/—|–/g, "-");
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 320;
+      scrollContainerRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const defaultEducation: Education[] = [
+    {
+      institution: "Universitas Negeri Yogyakarta",
+      degree: "Undergraduate of Informatics Engineering",
+      period: "2018 - 2023",
+      description: [
+        "Concentration: Software Engineering and Information Systems",
+        "GPA: 3.79 (Graduate with Honors)",
+        "Key Coursework: Software Engineering, Data Structures, Information Systems Management",
+      ],
+    },
+  ];
+
+  const defaultAwards: Award[] = [
+    {
+      title: "Mahasiswa Berprestasi 2021",
+      issuer: "Universitas Negeri Yogyakarta",
+      date: "Apr 2021",
+      associatedWith: "UNY",
+      type: "gold",
+    },
+    {
+      title: "Awardee Bank Indonesia Scholarship",
+      issuer: "Bank Indonesia",
+      date: "Feb 2021",
+      associatedWith: "Bank Indonesia",
+      type: "gold",
+    },
+    {
+      title: "3rd Winner of Software Development - Techcomfest",
+      issuer: "Politeknik Negeri Semarang",
+      date: "Jan 2021",
+      associatedWith: "Polines",
+      type: "bronze",
+    },
+    {
+      title: "Mahasiswa Berprestasi 2020",
+      issuer: "Universitas Negeri Yogyakarta",
+      date: "Nov 2020",
+      associatedWith: "UNY",
+      type: "gold",
+    },
+    {
+      title: "Gemastik 13 - Finalist of Software Development",
+      issuer: "Kemendikbud",
+      date: "Sep 2020",
+      associatedWith: "Kemendikbud",
+      type: "star",
+    },
+    {
+      title: "Gemastik 12 - Finalist of User Experience",
+      issuer: "Kemenristekdikti",
+      date: "Sep 2019",
+      associatedWith: "Kemenristekdikti",
+      type: "star",
+    },
+  ];
+
+  const defaultOrganizations: Organization[] = [
+    {
+      role: "Media Kreatif",
+      organization: "GenBI DIY",
+      period: "Feb 2021 - Dec 2022",
+      associatedWith: "GenBI DIY",
+    },
+    {
+      role: "Koordinator Fakultas",
+      organization: "GenBI DIY Komisariat UNY",
+      period: "Feb 2020 - Dec 2020",
+      associatedWith: "UNY",
+    },
+    {
+      role: "Wakil Ketua",
+      organization: "HIMANIKA FT UNY",
+      period: "Feb 2020 - Dec 2020",
+      associatedWith: "UNY",
+    },
+  ];
+
+  const eduItems = education.length > 0 ? education : defaultEducation;
+  const awardItems = awards.length > 0 ? awards : defaultAwards;
+  const orgItems = organizations.length > 0 ? organizations : defaultOrganizations;
+
   return (
     <section
       id="education"
-      className="py-20 md:py-32 px-4 relative overflow-hidden"
+      className="slide-section snap-start snap-always relative min-h-[100dvh] lg:h-[100dvh] flex flex-col justify-center py-16 sm:py-20 px-4 sm:px-6 bg-background border-t border-border overflow-hidden"
+      aria-label="Education and Achievements"
     >
-      {/* Background Elements */}
-      <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-[100px] -z-10" />
-
-      <div className="max-w-6xl mx-auto">
-        <div className="flex justify-center mb-16">
-          <BlurText 
-            text={titles.main} 
-            delay={0.05} 
-            className="text-3xl md:text-6xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-500 leading-tight" 
-          />
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Left Column: Education & Organizations */}
-          <div className="space-y-12">
-            {/* Education Section */}
-            <div>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 rounded-xl bg-blue-500/10 text-blue-500">
-                  <GraduationCap className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-bold">{titles.education}</h3>
-              </div>
-
-              <div className="space-y-6">
-                {education.map((edu, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <Card className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-border/50 hover:border-blue-500/40 dark:hover:border-blue-400/40 transition-all duration-300 hover:shadow-md hover:shadow-blue-500/5 dark:hover:shadow-blue-400/5">
-                      <CardHeader>
-                        <div className="flex justify-between items-start mb-2 gap-4">
-                          <CardTitle className="text-xl font-bold leading-tight">
-                            {edu.institution}
-                          </CardTitle>
-                          <Badge
-                            variant="secondary"
-                            className="bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 shrink-0"
-                          >
-                            {edu.period}
-                          </Badge>
-                        </div>
-                        <div className="text-lg font-medium text-blue-600 dark:text-blue-400">
-                          {edu.degree}
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="list-disc list-outside ml-5 space-y-1 text-muted-foreground">
-                          {edu.description.map((desc, i) => (
-                            <li key={i}>{desc}</li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* Organizations Section */}
-            <div>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 rounded-xl bg-cyan-500/10 text-cyan-500">
-                  <Users className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-bold">{titles.organizations}</h3>
-              </div>
-
-              <div className="space-y-6">
-                {organizations.map((org, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <Card className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-border/50 hover:border-cyan-500/40 dark:hover:border-cyan-400/40 transition-all duration-300 hover:shadow-md hover:shadow-cyan-500/5 dark:hover:shadow-cyan-400/5">
-                      <CardContent className="pt-6">
-                        <div className="flex justify-between items-start mb-2 gap-4">
-                          <h4 className="text-lg font-bold leading-tight">
-                            {org.role}
-                          </h4>
-                          <Badge
-                            variant="outline"
-                            className="shrink-0 border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300"
-                          >
-                            {org.period}
-                          </Badge>
-                        </div>
-                        <div className="text-base font-medium text-cyan-600 dark:text-cyan-400 mb-1">
-                          {org.organization}
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          {org.associatedWith}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Awards */}
+      <div className="max-w-5xl mx-auto w-full">
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
           <div>
-            <div className="flex items-center gap-3 mb-8">
-              <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-500">
-                <Trophy className="w-6 h-6" />
-              </div>
-              <h3 className="text-2xl font-bold">{titles.awards}</h3>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/10 text-primary text-xs font-mono font-medium mb-2">
+              <GraduationCap className="w-3.5 h-3.5" />
+              <span>Academic Background</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+              {titles?.education || "Education"}
+            </h2>
+            <p className="text-muted-foreground text-sm sm:text-base mt-2 max-w-xl">
+              Academic foundation in Informatics Engineering from Universitas Negeri Yogyakarta with honors graduation.
+            </p>
+          </div>
+
+          {/* Controls: Tab Selector & Mobile Navigation Arrows */}
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Tab Selector */}
+            <div className="flex items-center gap-1 bg-secondary/70 p-1.5 rounded-xl border border-border">
+              <button
+                type="button"
+                onClick={() => setActiveTab("education")}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                  activeTab === "education"
+                    ? "bg-card text-foreground shadow-xs font-semibold"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+                aria-pressed={activeTab === "education"}
+              >
+                Education
+              </button>
+              <button
+                type="button"
+                disabled
+                className="px-3.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground/60 cursor-not-allowed flex items-center gap-1.5 opacity-60"
+                title="Awards & Honors is locked for now"
+                aria-disabled="true"
+              >
+                <Lock className="w-3 h-3 text-muted-foreground" />
+                <span>Awards & Honors ({awardItems.length})</span>
+              </button>
+              <button
+                type="button"
+                disabled
+                className="px-3.5 py-1.5 rounded-lg text-xs font-medium text-muted-foreground/60 cursor-not-allowed flex items-center gap-1.5 opacity-60"
+                title="Leadership is locked for now"
+                aria-disabled="true"
+              >
+                <Lock className="w-3 h-3 text-muted-foreground" />
+                <span>Leadership</span>
+              </button>
             </div>
 
-            <div className="relative border-l-2 border-border/50 ml-3 space-y-8 pl-8 py-2">
-              {awards.map((award, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative group"
-                >
-                  {/* Timeline Dot */}
-                  <div
-                    className={`absolute -left-[41px] top-6 w-5 h-5 rounded-full border-4 border-background z-10 ${
-                      award.type === "gold"
-                        ? "bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]"
-                        : award.type === "silver"
-                        ? "bg-slate-300 shadow-[0_0_10px_rgba(203,213,225,0.5)]"
-                        : award.type === "bronze"
-                        ? "bg-amber-600 shadow-[0_0_10px_rgba(217,119,6,0.5)]"
-                        : "bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"
-                    }`}
-                  />
-
-                  <Card className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border border-border/50 hover:border-indigo-500/40 dark:hover:border-indigo-400/40 transition-all duration-300 hover:shadow-md hover:shadow-indigo-500/5 dark:hover:shadow-indigo-400/5">
-                    <CardContent className="p-4">
-                      <div className="flex flex-col gap-1">
-                        <h4 className="text-lg font-bold leading-tight group-hover:text-indigo-500 transition-colors">
-                          {award.title}
-                        </h4>
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
-                          <span className="font-medium text-foreground/80 flex items-center gap-1">
-                            <Trophy className="w-3 h-3" />
-                            {award.issuer}
-                          </span>
-                          <span className="hidden sm:inline">•</span>
-                          <span className="bg-secondary/50 px-2 py-0.5 rounded text-xs">
-                            {award.date}
-                          </span>
-                        </div>
-                        <div className="text-sm text-muted-foreground/60 mt-1">
-                          {award.associatedWith}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+            {/* Mobile Navigation Arrows (Visible on mobile/tablet) */}
+            <div className="flex md:hidden items-center gap-1.5">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => scroll("left")}
+                className="h-9 w-9 rounded-lg border-border"
+                aria-label="Scroll left"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => scroll("right")}
+                className="h-9 w-9 rounded-lg border-border"
+                aria-label="Scroll right"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Swipe Cue */}
+        <div className="flex md:hidden items-center justify-between text-[11px] font-mono text-muted-foreground mb-3">
+          <span>Geser horizontal untuk melihat kartu</span>
+          <span>Swipe ➔</span>
+        </div>
+
+        {/* Content depending on tab: Mobile Carousel / Desktop Grid */}
+        {activeTab === "awards" && (
+          <div
+            ref={scrollContainerRef}
+            className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 gap-4 -mx-4 px-4 sm:mx-0 sm:px-0 md:grid-cols-2 lg:grid-cols-3"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {awardItems.map((item, index) => (
+              <div
+                key={index}
+                className="w-[82vw] sm:w-[320px] md:w-auto shrink-0 snap-start p-5 rounded-2xl border border-border bg-card flex flex-col justify-between hover:border-primary/40 transition-colors shadow-xs"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="p-2 rounded-lg bg-primary/10 text-primary">
+                      <Star className="w-4 h-4" />
+                    </span>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {clean(item.date)}
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-sm text-foreground leading-snug">
+                    {clean(item.title)}
+                  </h3>
+                </div>
+                <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
+                  <span>{clean(item.issuer)}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeTab === "education" && (
+          <div
+            ref={scrollContainerRef}
+            className="flex md:flex-col overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 gap-4 -mx-4 px-4 sm:mx-0 sm:px-0"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {eduItems.map((edu, index) => (
+              <div
+                key={index}
+                className="w-[85vw] sm:w-[420px] md:w-auto shrink-0 snap-start p-6 sm:p-8 rounded-2xl border border-border bg-card shadow-xs"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-border">
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground">
+                      {edu.degree}
+                    </h3>
+                    <div className="flex items-center gap-2 mt-1 text-primary font-medium text-sm">
+                      <GraduationCap className="w-4 h-4" />
+                      <span>{edu.institution}</span>
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono px-3 py-1 rounded-full bg-secondary border border-border text-muted-foreground self-start sm:self-auto">
+                    {clean(edu.period)}
+                  </span>
+                </div>
+
+                <div className="mt-6 space-y-2.5">
+                  {edu.description.map((desc, i) => (
+                    <div key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                      <span>{clean(desc)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeTab === "leadership" && (
+          <div
+            ref={scrollContainerRef}
+            className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 gap-4 -mx-4 px-4 sm:mx-0 sm:px-0 md:grid-cols-2 lg:grid-cols-3"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {orgItems.map((org, index) => (
+              <div
+                key={index}
+                className="w-[82vw] sm:w-[320px] md:w-auto shrink-0 snap-start p-5 rounded-2xl border border-border bg-card flex flex-col justify-between shadow-xs"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="p-2 rounded-lg bg-secondary text-foreground">
+                      <Users className="w-4 h-4" />
+                    </span>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {clean(org.period)}
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-sm text-foreground">
+                    {clean(org.role)}
+                  </h3>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {clean(org.organization)}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,169 +1,340 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { gsap } from "@/lib/gsap";
 import {
-  Github,
-  Linkedin,
   Mail,
-  Twitter,
-  Instagram,
-  Facebook,
-  Youtube,
-  Gitlab,
-  Dribbble,
-  Copy,
-  ArrowUpRight,
   Check,
+  Copy,
+  ExternalLink,
+  MessageSquare,
+  Clock,
+  ArrowUpRight,
+  Send,
+  ArrowUp,
 } from "lucide-react";
-import { useState } from "react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { toast } from "sonner";
-import { Card } from "@/components/ui/card";
 
-type Social = {
+interface Social {
   platform: string;
   url: string;
-};
+}
 
-type ContactInfo = {
-  title: string;
-  description: string;
-  email: string;
-  socials: Social[];
+interface ContactInfo {
+  title?: string;
+  description?: string;
+  email?: string;
+  socials?: Social[];
   cta?: string;
-};
+}
 
-type ContactProps = {
-  contact: ContactInfo;
-};
+interface ContactProps {
+  contact?: ContactInfo;
+  footerText?: string;
+}
 
-const getIcon = (platform: string) => {
-  switch (platform.toLowerCase()) {
-    case "github":
-      return <Github className="w-6 h-6" />;
-    case "linkedin":
-      return <Linkedin className="w-6 h-6" />;
-    case "twitter":
-      return <Twitter className="w-6 h-6" />;
-    case "instagram":
-      return <Instagram className="w-6 h-6" />;
-    case "facebook":
-      return <Facebook className="w-6 h-6" />;
-    case "youtube":
-      return <Youtube className="w-6 h-6" />;
-    case "gitlab":
-      return <Gitlab className="w-6 h-6" />;
-    case "dribbble":
-      return <Dribbble className="w-6 h-6" />;
-    default:
-      return <ArrowUpRight className="w-6 h-6" />;
-  }
-};
-
-export default function Contact({ contact }: ContactProps) {
+export default function Contact({ contact, footerText }: ContactProps) {
+  const containerRef = useRef<HTMLElement>(null);
+  const emailBoxRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState<string>("fulltime");
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(contact.email);
-    setCopied(true);
-    toast.success("Email copied to clipboard!");
-    setTimeout(() => setCopied(false), 2000);
+  const email = contact?.email || "ibnuadam.biz@gmail.com";
+
+  const topics = [
+    {
+      id: "fulltime",
+      label: "Full-Time / Core Engineer Role",
+      subject: "Engineering Opportunity: Ibnu Adam",
+      starter: "Hi Adam, we have an opening for a frontend / core engineer role that aligns with your expertise in Vue, React, and design systems.",
+    },
+    {
+      id: "project",
+      label: "Web Application / Freelance Project",
+      subject: "Project Inquiry for Ibnu Adam",
+      starter: "Hi Adam, I would like to discuss building a web application with you. Here are some brief details about our scope and timeline:",
+    },
+    {
+      id: "chat",
+      label: "Technical Consultation & Chat",
+      subject: "Tech Consultation: Ibnu Adam",
+      starter: "Hi Adam, I'd love to connect and chat regarding frontend architecture, design systems, or a quick technical inquiry.",
+    },
+  ];
+
+  const currentTopic = topics.find((t) => t.id === selectedTopic) || topics[0];
+
+  const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(
+    currentTopic.subject
+  )}&body=${encodeURIComponent(currentTopic.starter)}`;
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      toast.success("Email address copied to clipboard!");
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      toast.error("Failed to copy email");
+    }
   };
+
+  // GSAP subtle animation when topic switches
+  useEffect(() => {
+    if (!emailBoxRef.current) return;
+    gsap.fromTo(
+      emailBoxRef.current,
+      { opacity: 0.7, y: 6 },
+      { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }
+    );
+  }, [selectedTopic]);
+
+  const socials = contact?.socials || [
+    { platform: "github", url: "https://github.com/iiibnuadam" },
+    { platform: "linkedin", url: "https://www.linkedin.com/in/iiibnuadam/" },
+  ];
 
   return (
     <section
       id="contact"
-      className="py-24 md:py-32 relative overflow-hidden"
-      aria-label="Kontak"
+      ref={containerRef}
+      className="slide-section snap-start snap-always relative min-h-[100dvh] lg:h-[100dvh] flex flex-col justify-between pt-16 pb-6 px-4 sm:px-6 bg-secondary/30 border-t border-border overflow-hidden"
+      aria-label="Contact Section"
     >
-      {/* Background Gradients */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[100px] -z-10" />
-      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px] -z-10" />
+      <div className="max-w-5xl mx-auto w-full my-auto">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono font-medium mb-2 sm:mb-3">
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>Start a Conversation</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
+            {contact?.title || "Let's build something remarkable."}
+          </h2>
+          <p className="text-muted-foreground text-xs sm:text-sm mt-2 leading-relaxed">
+            {contact?.description ||
+              "Whether you are hiring for an engineering role, scoping a new web application, or discussing design systems, feel free to reach out directly."}
+          </p>
+        </div>
 
-      <div className="max-w-6xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-          {/* Left Column: Text & Email */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70 leading-tight">
-              {contact.title}
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed max-w-lg">
-              {contact.description}
-            </p>
+        {/* Interactive Contact Hub */}
+        <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6 items-start">
+          {/* Left Column: Interactive Topic Selector & Composer */}
+          <div className="p-5 sm:p-6 rounded-2xl border border-border bg-card shadow-sm">
+            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block mb-3">
+              1. What would you like to discuss?
+            </span>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col gap-2.5 mb-6">
+              {topics.map((topic) => {
+                const isSelected = topic.id === selectedTopic;
+                return (
+                  <button
+                    key={topic.id}
+                    type="button"
+                    onClick={() => setSelectedTopic(topic.id)}
+                    className={`w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all flex items-center justify-between ${
+                      isSelected
+                        ? "bg-primary/10 border-primary text-primary font-semibold ring-1 ring-primary/30"
+                        : "bg-secondary/40 border-border text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    }`}
+                  >
+                    <span>{topic.label}</span>
+                    <span
+                      className={`w-4 h-4 rounded-full border flex items-center justify-center text-[10px] ${
+                        isSelected
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-muted-foreground/40"
+                      }`}
+                    >
+                      {isSelected ? "✓" : ""}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block mb-2">
+              2. Starter Draft Ready
+            </span>
+
+            {/* Email Preview Box */}
+            <div
+              ref={emailBoxRef}
+              className="p-4 rounded-xl bg-secondary/50 border border-border text-xs sm:text-sm space-y-2 mb-6"
+            >
+              <div>
+                <span className="font-mono text-muted-foreground text-xs block">
+                  Subject:
+                </span>
+                <span className="font-medium text-foreground">
+                  {currentTopic.subject}
+                </span>
+              </div>
+              <div className="pt-2 border-t border-border/80">
+                <span className="font-mono text-muted-foreground text-xs block mb-1">
+                  Draft Body:
+                </span>
+                <p className="text-muted-foreground leading-relaxed italic">
+                  &ldquo;{currentTopic.starter}&rdquo;
+                </p>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-3">
               <Button
-                size="lg"
-                className="h-14 px-8 text-lg rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25 transition-all hover:scale-105"
                 asChild
+                size="lg"
+                className="h-12 px-6 rounded-full font-semibold shadow-xs flex-1 sm:flex-initial"
               >
-                <a href={`mailto:${contact.email}`}>
-                  <Mail className="mr-2 w-5 h-5" />
-                  {contact.cta || "Send Email"}
+                <a href={mailtoUrl}>
+                  <Send className="w-4 h-4 mr-2" />
+                  <span>Launch in Email App</span>
                 </a>
               </Button>
 
               <Button
                 variant="outline"
                 size="lg"
-                className="h-14 px-8 text-lg rounded-full border-2 hover:bg-secondary/50 transition-all"
                 onClick={handleCopyEmail}
+                className="h-12 px-5 rounded-full border-border hover:bg-secondary font-medium"
               >
                 {copied ? (
-                  <Check className="mr-2 w-5 h-5 text-green-500" />
+                  <Check className="w-4 h-4 mr-2 text-emerald-500" />
                 ) : (
-                  <Copy className="mr-2 w-5 h-5" />
+                  <Copy className="w-4 h-4 mr-2" />
                 )}
-                {copied ? "Copied!" : "Copy Email"}
+                <span>{copied ? "Email Copied!" : "Copy Email"}</span>
               </Button>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right Column: Social Grid */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
-          >
-            {contact.socials?.map((social, index) => (
-              <motion.div
-                key={social.platform}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.1 * index }}
-              >
-                <Card className="group hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 bg-background/50 backdrop-blur-sm">
+          {/* Right Column: Direct Channels & Live Availability */}
+          <div className="space-y-6">
+            {/* Direct Email Card */}
+            <div className="p-6 rounded-2xl border border-border bg-card shadow-xs">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                  <Mail className="w-5 h-5" />
+                </span>
+                <div>
+                  <span className="text-xs font-mono text-muted-foreground block">
+                    Direct Inbox
+                  </span>
                   <a
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-6"
-                    aria-label={social.platform}
+                    href={`mailto:${email}`}
+                    className="font-bold text-foreground text-sm sm:text-base hover:text-primary transition-colors"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="p-3 rounded-full bg-secondary group-hover:bg-blue-500/10 group-hover:text-blue-500 transition-colors">
-                        {getIcon(social.platform)}
-                      </div>
-                      <span className="font-medium capitalize text-lg">
-                        {social.platform}
-                      </span>
-                    </div>
-                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-blue-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    {email}
                   </a>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                Send a message directly from any client or mail service.
+              </p>
+            </div>
+
+            {/* Timezone & Response Time */}
+            <div className="p-6 rounded-2xl border border-border bg-card shadow-xs space-y-4">
+              <div className="flex items-start gap-3">
+                <Clock className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-xs font-semibold text-foreground block">
+                    Response Expectation
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Typically responds within 24 hours on business days.
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-border flex items-center justify-between text-xs font-mono text-muted-foreground">
+                <span>Location: Jakarta, Indonesia</span>
+                <span>Timezone: UTC+7 (WIB)</span>
+              </div>
+            </div>
+
+            {/* Verified Social Profiles */}
+            <div className="p-6 rounded-2xl border border-border bg-card shadow-xs">
+              <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block mb-3">
+                Verified Socials
+              </span>
+              <div className="flex flex-col gap-2">
+                {socials.map((social) => {
+                  const isGithub = social.platform.toLowerCase() === "github";
+                  const isLinkedin = social.platform.toLowerCase() === "linkedin";
+                  return (
+                    <a
+                      key={social.platform}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl bg-secondary/50 border border-border hover:bg-secondary hover:border-primary/40 transition-all flex items-center justify-between text-sm font-medium text-foreground group"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        {isGithub ? (
+                          <FaGithub className="w-4 h-4" />
+                        ) : isLinkedin ? (
+                          <FaLinkedin className="w-4 h-4 text-blue-500" />
+                        ) : (
+                          <ExternalLink className="w-4 h-4" />
+                        )}
+                        <span className="capitalize">{social.platform}</span>
+                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-transform group-hover:translate-x-0.5" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Slide 6 Integrated Footer Bar */}
+      <footer className="max-w-5xl mx-auto w-full pt-4 mt-6 border-t border-border/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+        <div className="flex items-center gap-2.5">
+          <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
+            <Image
+              src="/logo-dark.png"
+              alt="Ibnu Adam Logo"
+              width={20}
+              height={20}
+              className="w-full h-full object-contain dark:hidden"
+            />
+            <Image
+              src="/logo-white.png"
+              alt="Ibnu Adam Logo"
+              width={20}
+              height={20}
+              className="w-full h-full object-contain hidden dark:block"
+            />
+          </div>
+          <span>
+            © {new Date().getFullYear()} Ibnu Adam. {footerText || "All rights reserved."}
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={() => {
+              const hero = document.getElementById("hero");
+              if (hero) hero.scrollIntoView({ behavior: "smooth", block: "start" });
+              else window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="font-mono flex items-center gap-1.5 hover:text-foreground transition-colors px-2.5 py-1 rounded-md hover:bg-secondary"
+            aria-label="Back to top of deck"
+          >
+            <span>Back to Top</span>
+            <ArrowUp className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </footer>
     </section>
   );
 }

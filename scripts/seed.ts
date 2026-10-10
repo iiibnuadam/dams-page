@@ -53,8 +53,8 @@ const initialData = {
       "id": "Lihat Karya Saya"
     },
     "description": {
-      "en": "Hi there! Adam here — a Fullstack Engineer passionate about building scalable products from UI to core systems. I work with React, Vue.js, TypeScript, Golang, Java, and Node.js, focusing on clean architecture, microservices, and micro frontend development to create reliable and high-performing applications.",
-      "id": "Halo! Saya Adam. Saya seorang Front-End Developer kreatif dengan pengalaman lebih dari 3 tahun dalam membuat website dan aplikasi yang elegan. Keahlian saya terletak pada Vue.js dan Typescript, dilengkapi dengan sedikit sentuhan React.js."
+      "en": "Hi there! Adam's here. I'm a creative Front-End Developer with over 5 years of experience crafting sleek websites and apps in fast-paced, collaborative settings. My expertise lies in Vue.js and Typescript, complemented by a dash of React.js.",
+      "id": "Halo! Saya Adam. Saya seorang Front-End Developer kreatif dengan pengalaman lebih dari 5 tahun dalam membuat website dan aplikasi yang elegan. Keahlian saya terletak pada Vue.js dan Typescript, dilengkapi dengan sedikit sentuhan React.js."
     },
     "name": {
       "en": "Ibnu Adam",
@@ -66,8 +66,7 @@ const initialData = {
     },
     "tags": [
       "Frontend Developer",
-      "Core Developer",
-      "Fullstack Developer"
+      "Core Developer"
     ],
     "skills": [
       "Vue.js",
@@ -75,17 +74,12 @@ const initialData = {
       "TypeScript",
       "Tailwind CSS",
       "Next.js",
-      "Node.js",
-      "Go",
-      "Java",
-      "PostgreSQL",
-      "MySql",
-      "Mongo"
+      "Node.js"
     ],
     "status": {
       "variant": "available"
     },
-    "image": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/dams.jpg"
+    "image": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/Gemini_Generated_Image_l2igrul2igrul2ig.png"
   },
   "workExperience": {
     "experiences": [
@@ -96,209 +90,253 @@ const initialData = {
           "position": "Core Developer",
           "location": "Jakarta",
           "type": "Fulltime - Onsite",
-          "period": "Aug, 2024 - Present",
-          "duration": "1 Year",
+          "period": "Aug 2024 - Present",
+          "duration": "1+ Year",
           "description": [
-            "Implement Micro Frontend architecture using Vue and TypeScript, enabling modular development and independent deployment across multiple teams.",
-            "Develop and maintain enterprise financial platforms using microservices architecture with Golang, Java, and Node.js (Express) to support scalable core business operations.",
-            "Design and integrate RESTful APIs connecting distributed systems while improving system performance, reliability, and maintainability.",
-            "Collaborate across cross-functional teams to deliver end-to-end solutions, participate in architectural decisions, and support CI/CD deployment and production systems.."
+            "Develop and maintain mission-critical internal enterprise platforms (SPRINT & Pegadaian Kita) using Vue 3, TypeScript, and micro-frontend architecture (Module Federation).",
+            "Collaborate on core banking, transactional workflows, and operational service integrations using Vue, Go, and Java.",
+            "Implement Progressive Web App (PWA) solutions to guarantee reliable performance and offline-readiness across nationwide branch offices."
           ],
           "skills": [
-            "Vue",
+            "Micro-Frontends",
+            "Vue 3",
+            "TypeScript",
             "Go",
-            "Java"
+            "Java",
+            "Module Federation",
+            "PWA"
           ]
         },
         "id": {
-          "position": "Core Developer",
-          "company": "PT. Pegadaian",
           "logo": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/pgd%20logo.jpeg",
+          "company": "PT. Pegadaian",
+          "position": "Core Developer",
           "location": "Jakarta",
           "type": "Fulltime - Onsite",
-          "period": "Ags, 2024 - Sekarang",
-          "duration": "1 Year",
+          "period": "Agu 2024 - Sekarang",
+          "duration": "1+ Tahun",
           "description": [
-            "Mengembangkan Aplikasi Internal Perusahaan"
+            "Mengembangkan dan memelihara aplikasi internal enterprise berskala nasional (SPRINT & Pegadaian Kita) menggunakan Vue 3, TypeScript, dan arsitektur micro-frontend (Module Federation).",
+            "Berkolaborasi dalam integrasi sistem operasional inti, pemrosesan transaksi, dan layanan bisnis enterprise menggunakan Vue, Go, dan Java.",
+            "Mengimplementasikan kapabilitas Progressive Web App (PWA) guna memastikan keandalan akses operasional cabang di seluruh Indonesia."
           ],
           "skills": [
-            "Vue",
+            "Micro-Frontends",
+            "Vue 3",
+            "TypeScript",
             "Go",
-            "Java"
+            "Java",
+            "Module Federation",
+            "PWA"
           ]
         },
-        "_ui_id": "a15a0a30-3ec2-446b-93e6-b977dd6205b6"
+        "_ui_id": "exp-0-1791649132864"
       },
       {
         "en": {
+          "company": "Universitas Nahdlatul Ulama Yogyakarta",
           "position": "Frontend Developer",
-          "company": "PT. GITS Indonesia",
+          "location": "Yogyakarta",
+          "type": "Contract - Hybrid",
+          "period": "Jul 2024 - Present",
+          "duration": "1+ Year",
+          "description": [
+            "Engineered internal university platforms, academic information systems (SIAKAD), and PBM (Teaching & Learning Process) modules tailored to UNU Yogyakarta institutional workflows.",
+            "Developed the official university web portal (unu-jogja.ac.id) with high-performance SSR using Nuxt 3, Vue 3, and Tailwind CSS.",
+            "Built the Program Orang Tua Asuh philanthropy web platform (ota.unu-jogja.ac.id) for donor sponsorship and scholarship management.",
+            "Structured reusable, accessible UI component libraries and integrated RESTful APIs with university academic data services."
+          ],
+          "skills": [
+            "Nuxt 3",
+            "Vue.js",
+            "TypeScript",
+            "Tailwind CSS",
+            "REST APIs",
+            "SSR",
+            "Academic Systems"
+          ]
+        },
+        "id": {
+          "company": "Universitas Nahdlatul Ulama Yogyakarta",
+          "position": "Frontend Developer",
+          "location": "Yogyakarta",
+          "type": "Kontrak - Hybrid",
+          "period": "Jul 2024 - Sekarang",
+          "duration": "1+ Tahun",
+          "description": [
+            "Mengembangkan aplikasi internal kampus, sistem informasi akademik (SIAKAD), dan modul PBM (Proses Belajar Mengajar) sesuai kebutuhan operasional Universitas Nahdlatul Ulama Yogyakarta.",
+            "Membangun portal web resmi universitas (unu-jogja.ac.id) berkinerja tinggi dengan arsitektur SSR menggunakan Nuxt 3, Vue 3, dan Tailwind CSS.",
+            "Mengembangkan platform filantropi Program Orang Tua Asuh (ota.unu-jogja.ac.id) untuk pengelolaan sponsorship dan beasiswa mahasiswa.",
+            "Menyusun arsitektur komponen UI yang modular dan aksesibel serta mengintegrasikan REST API dengan layanan data akademik kampus."
+          ],
+          "skills": [
+            "Nuxt 3",
+            "Vue.js",
+            "TypeScript",
+            "Tailwind CSS",
+            "REST APIs",
+            "SSR",
+            "Academic Systems"
+          ]
+        },
+        "_ui_id": "exp-1-1791649132864"
+      },
+      {
+        "en": {
           "logo": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/GITS%20Indonesia%20Logo.jpeg",
+          "company": "PT. GITS Indonesia",
+          "position": "Frontend Developer",
           "location": "Bandung",
           "type": "Fulltime - Remote",
-          "period": "Dec, 2021 - Jun, 2024",
+          "period": "Dec 2021 - Jun 2024",
           "duration": "3 Years",
           "description": [
-            "Spearheaded the development of multiple external products from scratch using Nuxt 3 with TypeScript, achieving notable improvements in user satisfaction and app performance.",
-            "Developed various applications including web cloud services, e-commerce platforms, web merchant systems, CMS enterprise solutions, landing pages, and chat apps, increasing overall user engagement by 20%.",
-            "Integrated web sockets for real-time communication, enhancing app interactivity and user experience.",
-            "Optimized SEO and improved web app performance, resulting in a 30% increase in page speed scores.",
-            "Developed a comprehensive design system named Morpheme UI, streamlining UI consistency and development efficiency.",
-            "Created backend solutions using headless API Strapi, improving data management and scalability.",
-            "Performed unit tests using Jest to ensure code quality and reliability, reducing bug incidence by 25%.",
-            "Utilized Git for version control with expertise in Git flow and trunk-based development, ensuring smooth and efficient project progress.",
-            "Developed applications following Scrum methodologies, ensuring timely delivery and iterative improvements."
+            "Spearheaded development of multiple enterprise client products from scratch using Nuxt 3, Vue 3, and TypeScript.",
+            "Engineered cloud infrastructure dashboards, e-commerce platforms, web merchant tools, and real-time collaboration applications, increasing user engagement by 20%.",
+            "Architected Morpheme UI, an enterprise design system standardizing accessible UI tokens and components across multi-squad teams.",
+            "Optimized Core Web Vitals and technical SEO, achieving a 30% increase in Lighthouse page speed scores.",
+            "Integrated WebSocket channels for real-time reactivity and headless Strapi CMS for decoupled content delivery.",
+            "Maintained high code quality and test coverage using Jest, following Scrum sprint cycles and Git Flow."
           ],
           "skills": [
-            "Strapi",
-            "Pinia",
-            "Vuex",
-            "Git",
-            "Scrum",
-            "TypeScript",
             "Nuxt.js",
-            "Vue.js"
+            "Vue.js",
+            "TypeScript",
+            "Pinia",
+            "Morpheme UI",
+            "WebSockets",
+            "Strapi",
+            "Jest"
           ]
         },
         "id": {
-          "position": "Frontend Developer",
-          "company": "PT. GITS Indonesia",
           "logo": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/GITS%20Indonesia%20Logo.jpeg",
+          "company": "PT. GITS Indonesia",
+          "position": "Frontend Developer",
           "location": "Bandung",
           "type": "Fulltime - Remote",
-          "period": "Des, 2021 - Jun, 2024",
+          "period": "Des 2021 - Jun 2024",
           "duration": "3 Tahun",
           "description": [
-            "Memimpin pengembangan beberapa produk eksternal dari awal menggunakan Nuxt 3 dengan TypeScript, mencapai peningkatan signifikan dalam kepuasan pengguna dan kinerja aplikasi.",
-            "Mengembangkan berbagai aplikasi termasuk layanan cloud web, platform e-commerce, sistem merchant web, solusi perusahaan CMS, landing page, dan aplikasi obrolan, meningkatkan keterlibatan pengguna secara keseluruhan sebesar 20%.",
-            "Mengintegrasikan web socket untuk komunikasi real-time, meningkatkan interaktivitas aplikasi dan pengalaman pengguna.",
-            "Mengoptimalkan SEO dan meningkatkan kinerja aplikasi web, menghasilkan peningkatan skor kecepatan halaman sebesar 30%.",
-            "Mengembangkan sistem desain komprehensif bernama Morpheme UI, menyederhanakan konsistensi UI dan efisiensi pengembangan.",
-            "Membuat solusi backend menggunakan API headless Strapi, meningkatkan manajemen data dan skalabilitas.",
-            "Melakukan pengujian unit menggunakan Jest untuk memastikan kualitas dan keandalan kode, mengurangi insiden bug sebesar 25%.",
-            "Menggunakan Git untuk kontrol versi dengan keahlian dalam alur Git dan pengembangan berbasis trunk, memastikan kemajuan proyek yang lancar dan efisien.",
-            "Mengembangkan aplikasi mengikuti metodologi Scrum, memastikan pengiriman tepat waktu dan perbaikan berulang."
+            "Memimpin pengembangan berbagai produk enterprise dari awal menggunakan Nuxt 3, Vue 3, dan TypeScript.",
+            "Membangun dashboard layanan cloud, platform e-commerce, sistem merchant, dan aplikasi kolaborasi real-time, meningkatkan keterlibatan pengguna sebesar 20%.",
+            "Merancang sistem desain enterprise Morpheme UI guna menstandarisasi komponen UI dan meningkatkan efisiensi delivery tim lintas divisi.",
+            "Mengoptimalkan performa Core Web Vitals dan SEO teknis, menghasilkan peningkatan skor kecepatan halaman sebesar 30%.",
+            "Mengintegrasikan WebSockets untuk komunikasi real-time serta headless CMS Strapi untuk pengelolaan data yang fleksibel.",
+            "Menjaga kualitas kode dan pengujian unit dengan Jest, mengikuti alur kerja Scrum dan Git Flow."
           ],
           "skills": [
-            "Strapi",
-            "Pinia",
-            "Vuex",
-            "Git",
-            "Scrum",
-            "TypeScript",
             "Nuxt.js",
-            "Vue.js"
+            "Vue.js",
+            "TypeScript",
+            "Pinia",
+            "Morpheme UI",
+            "WebSockets",
+            "Strapi",
+            "Jest"
           ]
         },
-        "_ui_id": "1adc0408-a9b7-44e4-b73e-591e2ade5130"
+        "_ui_id": "exp-2-1791649132864"
       },
       {
         "en": {
-          "position": "Frontend Developer",
-          "company": "PT. Telkom Indonesia Squad Digital Amoeba",
           "logo": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/telkom%20logo.jpeg",
+          "company": "PT. Telkom Indonesia Squad Digital Amoeba",
+          "position": "Frontend Developer",
           "location": "Bandung",
           "type": "Contract - Remote",
-          "period": "Sept, 2021 - Feb, 2022",
+          "period": "Sep 2021 - Feb 2022",
           "duration": "6 Months",
           "description": [
-            "Developed internal products from scratch using React.js, leading to a 20% increase in internal user productivity.",
-            "Utilized Redux with Redux Thunk for state management, ensuring efficient and maintainable code.",
-            "Built reusable components, reducing development time for new features by 30%.",
-            "Sliced UI from Figma designs, ensuring pixel-perfect implementations and consistent user interfaces.",
-            "Developed applications following Scrum methodologies, ensuring efficient project management and delivery."
+            "Developed internal digital incubation products from scratch using React.js and TypeScript, increasing squad delivery productivity by 20%.",
+            "Architected scalable state management using Redux and Redux Thunk for complex transactional workflows.",
+            "Constructed reusable UI component libraries, cutting subsequent feature turnaround time by 30%.",
+            "Delivered pixel-perfect implementations translated from high-fidelity Figma specifications with responsive layout fidelity.",
+            "Collaborated within agile Scrum sprints to deliver continuous product iterations on schedule."
           ],
           "skills": [
+            "React.js",
+            "TypeScript",
             "Redux",
-            "REST APIs",
-            "Git",
-            "Scrum",
             "Redux Thunk",
-            "React.js"
+            "REST APIs",
+            "Scrum"
           ]
         },
         "id": {
-          "position": "Frontend Developer",
-          "company": "PT. Telkom Indonesia Squad Digital Amoeba",
           "logo": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/telkom%20logo.jpeg",
+          "company": "PT. Telkom Indonesia Squad Digital Amoeba",
+          "position": "Frontend Developer",
           "location": "Bandung",
           "type": "Kontrak - Remote",
-          "period": "Sept, 2021 - Feb, 2022",
+          "period": "Sep 2021 - Feb 2022",
           "duration": "6 Bulan",
           "description": [
-            "Mengembangkan produk internal dari awal menggunakan React.js, menghasilkan peningkatan produktivitas pengguna internal sebesar 20%.",
-            "Menggunakan Redux dengan Redux Thunk untuk manajemen state, memastikan kode yang efisien dan mudah dipelihara.",
-            "Membangun komponen yang dapat digunakan kembali, mengurangi waktu pengembangan untuk fitur baru sebesar 30%.",
-            "Melakukan slicing UI dari desain Figma, memastikan implementasi pixel-perfect dan antarmuka pengguna yang konsisten.",
-            "Mengembangkan aplikasi mengikuti metodologi Scrum, memastikan manajemen proyek dan pengiriman yang efisien."
+            "Mengembangkan produk inkubasi digital internal dari awal menggunakan React.js dan TypeScript, meningkatkan produktivitas tim sebesar 20%.",
+            "Menerapkan arsitektur state management yang terstruktur menggunakan Redux dan Redux Thunk untuk alur transaksi kompleks.",
+            "Membangun pustaka komponen antarmuka yang dapat digunakan kembali, memangkas waktu pengerjaan fitur baru sebesar 30%.",
+            "Mewujudkan slicing UI pixel-perfect dari spesifikasi desain Figma dengan ketepatan tata letak responsif.",
+            "Berkolaborasi dalam sprint agile Scrum untuk pengiriman iterasi produk secara tepat waktu."
           ],
           "skills": [
+            "React.js",
+            "TypeScript",
             "Redux",
-            "REST APIs",
-            "Git",
-            "Scrum",
             "Redux Thunk",
-            "React.js"
+            "REST APIs",
+            "Scrum"
           ]
         },
-        "_ui_id": "b8afea0c-eeeb-407d-8005-49102e5e2337"
+        "_ui_id": "exp-3-1791649132864"
       },
       {
         "en": {
-          "position": "Frontend Developer",
-          "company": "PT. Qatros Teknologi Indonesia",
           "logo": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/Qatros%20Logo.jpeg",
+          "company": "PT. Qatros Teknologi Indonesia",
+          "position": "Frontend Developer",
           "location": "Yogyakarta",
           "type": "Fulltime - Hybrid",
-          "period": "Aug, 2020 - Sept, 2021",
+          "period": "Aug 2020 - Sep 2021",
           "duration": "1 Year 2 Months",
           "description": [
-            "Developed internal and external products from scratch using Vue with Nuxt.js, achieving significant improvements in application performance and user satisfaction.",
-            "Used Vuex for state management, ensuring a seamless and responsive user experience.",
-            "Built reusable components using atomic design methodology, increasing development efficiency and code reusability.",
-            "Sliced UI from Figma designs, delivering high-fidelity user interfaces that aligned with design specifications.",
-            "Developed applications following Scrum methodologies, ensuring structured and timely project completion."
+            "Developed enterprise client platforms and internal tooling from scratch using Vue.js and Nuxt.js.",
+            "Structured reusable component architectures applying atomic design principles across diverse viewports.",
+            "Engineered asynchronous state pipelines using Vuex, ensuring fluid user interaction and reliable data fetching.",
+            "Converted Figma UI/UX prototypes into accessible, responsive web interfaces under agile Scrum methodology."
           ],
           "skills": [
-            "REST APIs",
-            "Vuex",
-            "Git",
-            "Scrum",
-            "Nuxt.js",
-            "Next.js",
-            "React.js",
             "Vue.js",
-            "JavaScript"
+            "Nuxt.js",
+            "Vuex",
+            "JavaScript",
+            "Atomic Design",
+            "REST APIs"
           ]
         },
         "id": {
-          "position": "Frontend Developer",
-          "company": "PT. Qatros Teknologi Indonesia",
           "logo": "https://rewa4zk0de09g6ks.public.blob.vercel-storage.com/Qatros%20Logo.jpeg",
+          "company": "PT. Qatros Teknologi Indonesia",
+          "position": "Frontend Developer",
           "location": "Yogyakarta",
           "type": "Fulltime - Hybrid",
-          "period": "Agust, 2020 - Sept, 2021",
+          "period": "Agu 2020 - Sep 2021",
           "duration": "1 Tahun 2 Bulan",
           "description": [
-            "Mengembangkan produk internal dan eksternal dari awal menggunakan Vue dengan Nuxt.js, mencapai peningkatan signifikan dalam kinerja aplikasi dan kepuasan pengguna.",
-            "Menggunakan Vuex untuk manajemen state, memastikan pengalaman pengguna yang mulus dan responsif.",
-            "Membangun komponen yang dapat digunakan kembali menggunakan metodologi desain atomik, meningkatkan efisiensi pengembangan dan penggunaan kembali kode.",
-            "Melakukan slicing UI dari desain Figma, memberikan antarmuka pengguna fidelitas tinggi yang selaras dengan spesifikasi desain.",
-            "Mengembangkan aplikasi mengikuti metodologi Scrum, memastikan penyelesaian proyek yang terstruktur dan tepat waktu."
+            "Mengembangkan platform klien enterprise dan perangkat internal dari awal menggunakan Vue.js dan Nuxt.js.",
+            "Menyusun arsitektur komponen reusable menerapkan prinsip desain atomik di berbagai ukuran layar.",
+            "Mengelola alur data dan state asinkron menggunakan Vuex untuk memastikan interaksi antarmuka yang mulus dan andal.",
+            "Mewujudkan prototipe UI/UX Figma menjadi antarmuka web yang responsif dan aksesibel dalam metodologi kerja Scrum."
           ],
           "skills": [
-            "REST APIs",
-            "Vuex",
-            "Git",
-            "Scrum",
-            "Nuxt.js",
-            "Next.js",
-            "React.js",
             "Vue.js",
-            "JavaScript"
+            "Nuxt.js",
+            "Vuex",
+            "JavaScript",
+            "Atomic Design",
+            "REST APIs"
           ]
         },
-        "_ui_id": "36cc0ad8-5a9f-4a69-baa8-212fc190d7c6"
+        "_ui_id": "exp-4-1791649132864"
       }
     ],
     "title": {
@@ -510,6 +548,136 @@ const initialData = {
     "items": [
       {
         "en": {
+          "title": "BimbelKu",
+          "description": "Modern operational management platform for tutoring centers. Powered by Go and PostgreSQL, automates camera attendance, private & regular schedules, multi-scheme tuition fees, tutor honorariums, and instant WhatsApp invoicing.",
+          "technologies": [
+            "Go",
+            "PostgreSQL",
+            "React",
+            "TypeScript",
+            "Tailwind CSS"
+          ],
+          "link": "https://bimbelku.web.id"
+        },
+        "id": {
+          "title": "BimbelKu",
+          "description": "Platform manajemen operasional bimbingan belajar modern. Didukung arsitektur backend Go dan PostgreSQL, mengotomasi presensi foto kamera, jadwal kelas, 3 skema tagihan SPP, honor tentor, hingga invoice WhatsApp instan.",
+          "technologies": [
+            "Go",
+            "PostgreSQL",
+            "React",
+            "TypeScript",
+            "Tailwind CSS"
+          ],
+          "link": "https://bimbelku.web.id"
+        }
+      },
+      {
+        "en": {
+          "title": "SPRINT Pegadaian",
+          "description": "Integrated micro-frontend operational and branch administration platform for PT. Pegadaian, powering core business workflows, transaction processing, and automated branch service management nationwide.",
+          "technologies": [
+            "Micro-Frontends",
+            "Module Federation",
+            "Vue 3",
+            "TypeScript",
+            "PWA"
+          ],
+          "link": "https://sprint.pegadaian.co.id/"
+        },
+        "id": {
+          "title": "SPRINT Pegadaian",
+          "description": "Platform operasional dan administrasi cabang berbasis microfrontend di PT. Pegadaian untuk alur kerja transaksi, manajemen operasional, serta otomasi layanan kantor cabang seluruh Indonesia.",
+          "technologies": [
+            "Micro-Frontends",
+            "Module Federation",
+            "Vue 3",
+            "TypeScript",
+            "PWA"
+          ],
+          "link": "https://sprint.pegadaian.co.id/"
+        }
+      },
+      {
+        "en": {
+          "title": "Pegadaian Kita",
+          "description": "Enterprise micro-frontend ecosystem portal for PT. Pegadaian employees, unifying Single Sign-On (SSO), operational tools, internal collaboration, and corporate resources in one hub.",
+          "technologies": [
+            "Micro-Frontends",
+            "Module Federation",
+            "Vue.js",
+            "TypeScript",
+            "REST API"
+          ],
+          "link": "https://kita.pegadaian.co.id/"
+        },
+        "id": {
+          "title": "Pegadaian Kita",
+          "description": "Portal ekosistem internal enterprise PT. Pegadaian berbasis microfrontend, menyatukan Single Sign-On (SSO), modul operasional multi-squad, dan pusat layanan terpadu insan Pegadaian.",
+          "technologies": [
+            "Micro-Frontends",
+            "Module Federation",
+            "Vue.js",
+            "TypeScript",
+            "REST API"
+          ],
+          "link": "https://kita.pegadaian.co.id/"
+        }
+      },
+      {
+        "en": {
+          "title": "UNU Yogyakarta Web Portal",
+          "description": "Official web portal of Nahdlatul Ulama University of Yogyakarta delivering academic programs, faculty directories, and admissions with high-performance SSR.",
+          "technologies": [
+            "Nuxt 3",
+            "Vue 3",
+            "TypeScript",
+            "Tailwind CSS",
+            "SSR"
+          ],
+          "link": "https://www.unu-jogja.ac.id/"
+        },
+        "id": {
+          "title": "UNU Yogyakarta Web Portal",
+          "description": "Portal web resmi Universitas Nahdlatul Ulama Yogyakarta yang menyajikan informasi akademik, direktori fakultas, program unggulan, dan penerimaan mahasiswa baru dengan performa tinggi.",
+          "technologies": [
+            "Nuxt 3",
+            "Vue 3",
+            "TypeScript",
+            "Tailwind CSS",
+            "SSR"
+          ],
+          "link": "https://www.unu-jogja.ac.id/"
+        }
+      },
+      {
+        "en": {
+          "title": "Program Orang Tua Asuh UNU Jogja",
+          "description": "Philanthropy and student sponsorship platform connecting donors with high-potential students from underprivileged families at UNU Yogyakarta.",
+          "technologies": [
+            "Nuxt 3",
+            "Vue 3",
+            "TypeScript",
+            "Tailwind CSS",
+            "REST API"
+          ],
+          "link": "https://ota.unu-jogja.ac.id/"
+        },
+        "id": {
+          "title": "Program Orang Tua Asuh UNU Jogja",
+          "description": "Platform filantropi dan sponsorship program Orang Tua Asuh UNU Yogyakarta untuk menghubungkan donatur dengan mahasiswa berprestasi dari keluarga prasejahtera.",
+          "technologies": [
+            "Nuxt 3",
+            "Vue 3",
+            "TypeScript",
+            "Tailwind CSS",
+            "REST API"
+          ],
+          "link": "https://ota.unu-jogja.ac.id/"
+        }
+      },
+      {
+        "en": {
           "title": "My Pertamina PDS",
           "description": "Pertamina Delivery Service offers fast and efficient fuel delivery for personal and commercial use.",
           "technologies": [
@@ -551,84 +719,6 @@ const initialData = {
           ],
           "link": "https://www.cloudeka.id/"
         }
-      },
-      {
-        "en": {
-          "title": "Majamojo",
-          "description": "Gaming industry joint venture between Telkomsel and GoTo driving digital transformation in Southeast Asia.",
-          "technologies": [
-            "Web CMS",
-            "Landing Page"
-          ],
-          "link": "https://majamojo.com/"
-        },
-        "id": {
-          "title": "Majamojo",
-          "description": "Usaha patungan industri game antara Telkomsel dan GoTo yang mendorong transformasi digital di Asia Tenggara.",
-          "technologies": [
-            "Web CMS",
-            "Landing Page"
-          ],
-          "link": "https://majamojo.com/"
-        }
-      },
-      {
-        "en": {
-          "title": "Dashboard Sikerja",
-          "description": "Employees task tracker system for KEMENDAGRI.",
-          "technologies": [
-            "Vue.js",
-            "Dashboard"
-          ],
-          "link": "https://sikerja.qatros.com/"
-        },
-        "id": {
-          "title": "Dashboard Sikerja",
-          "description": "Sistem pelacak tugas karyawan untuk KEMENDAGRI.",
-          "technologies": [
-            "Vue.js",
-            "Dashboard"
-          ],
-          "link": "https://sikerja.qatros.com/"
-        }
-      },
-      {
-        "en": {
-          "title": "GetDebug",
-          "description": "A digital platform for manage bug fixing with team.",
-          "technologies": [
-            "Bug Tracking",
-            "Collaboration"
-          ],
-          "link": "https://getdebug.com/"
-        },
-        "id": {
-          "title": "GetDebug",
-          "description": "Platform digital untuk mengelola perbaikan bug dengan tim.",
-          "technologies": [
-            "Bug Tracking",
-            "Collaboration"
-          ],
-          "link": "https://getdebug.com/"
-        }
-      },
-      {
-        "en": {
-          "title": "UI SLCM",
-          "description": "User interface project aimed at improving the customer's interaction with the system.",
-          "technologies": [
-            "UI/UX",
-            "Figma"
-          ]
-        },
-        "id": {
-          "title": "UI SLCM",
-          "description": "Proyek antarmuka pengguna yang bertujuan meningkatkan interaksi pelanggan dengan sistem.",
-          "technologies": [
-            "UI/UX",
-            "Figma"
-          ]
-        }
       }
     ],
     "liveDemo": {
@@ -661,7 +751,7 @@ const initialData = {
       "en": "Have a project in mind or just want to say hi? Feel free to reach out!",
       "id": "Punya ide proyek atau hanya ingin menyapa? Jangan ragu untuk menghubungi saya!"
     },
-    "email": "ibnuadam.biz@gmail.com",
+    "email": "halo@ibnuadam.tech",
     "github": {
       "en": "https://github.com/iiibnuadam",
       "id": "https://github.com/iiibnuadam"
@@ -681,11 +771,13 @@ const initialData = {
     "socials": [
       {
         "platform": "github",
-        "url": "https://github.com/iiibnuadam"
+        "url": "https://github.com/iiibnuadam",
+        "_ui_id": "2eccf97b-b40e-4bd2-9095-a0b0e45731f3"
       },
       {
         "platform": "linkedin",
-        "url": "https://www.linkedin.com/in/iiibnuadam/"
+        "url": "https://www.linkedin.com/in/iiibnuadam/",
+        "_ui_id": "462cb15a-04bb-406b-840a-b1db75cac0e6"
       }
     ]
   },

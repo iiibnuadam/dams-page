@@ -1,14 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import * as Tabs from "@radix-ui/react-tabs";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import Image from "next/image";
-import { BlurText } from "@/components/reactbits/BlurText";
+import { useState, useRef, useEffect } from "react";
+import { gsap } from "@/lib/gsap";
+import { Briefcase, Building2, Calendar, MapPin, CheckCircle2 } from "lucide-react";
 
-type Experience = {
+interface Experience {
   position: string;
   company: string;
   logo?: string;
@@ -18,212 +14,253 @@ type Experience = {
   duration: string;
   description: string[];
   skills: string[];
-};
+}
 
-type WorkExperienceProps = {
-  experiences: Experience[];
+interface WorkExperienceProps {
+  experiences?: Experience[];
   title?: string;
-};
+}
 
 export default function WorkExperience({
-  experiences,
+  experiences = [],
   title = "Work Experience",
 }: WorkExperienceProps) {
-  const [activeTab, setActiveTab] = useState(experiences[0]?.company || "");
+  const containerRef = useRef<HTMLElement>(null);
+  const detailPanelRef = useRef<HTMLDivElement>(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // Fallback verified experiences if none passed
+  const defaultExperiences: Experience[] = [
+    {
+      company: "PT. Pegadaian",
+      position: "Core Developer",
+      location: "Jakarta",
+      type: "Fulltime - Onsite",
+      period: "Aug 2024 - Present",
+      duration: "1+ Year",
+      description: [
+        "Develop and maintain mission-critical internal enterprise platforms (SPRINT & Pegadaian Kita) using Vue 3, TypeScript, and micro-frontend architecture (Module Federation).",
+        "Collaborate on core operational workflows, transaction processing, and enterprise service integrations using Vue, Go, and Java.",
+        "Implement Progressive Web App (PWA) solutions to guarantee reliable performance across nationwide branch offices.",
+      ],
+      skills: ["Micro-Frontends", "Vue 3", "TypeScript", "Go", "Java", "Module Federation", "PWA"],
+    },
+    {
+      company: "Universitas Nahdlatul Ulama Yogyakarta",
+      position: "Frontend Developer",
+      location: "Yogyakarta",
+      type: "Contract - Hybrid",
+      period: "Jul 2024 - Present",
+      duration: "1+ Year",
+      description: [
+        "Engineered internal university platforms, academic information systems (SIAKAD), and PBM (Teaching & Learning Process) modules tailored to UNU Yogyakarta institutional workflows.",
+        "Developed the official university web portal (unu-jogja.ac.id) with high-performance SSR using Nuxt 3, Vue 3, and Tailwind CSS.",
+        "Built the Program Orang Tua Asuh philanthropy web platform (ota.unu-jogja.ac.id) for donor sponsorship and scholarship management.",
+        "Structured reusable, accessible UI component libraries and integrated RESTful APIs with university academic data services.",
+      ],
+      skills: ["Nuxt 3", "Vue.js", "TypeScript", "Tailwind CSS", "REST APIs", "SSR", "Academic Systems"],
+    },
+    {
+      company: "PT. GITS Indonesia",
+      position: "Frontend Developer",
+      location: "Bandung",
+      type: "Fulltime - Remote",
+      period: "Dec 2021 - Jun 2024",
+      duration: "3 Years",
+      description: [
+        "Spearheaded development of multiple enterprise client products from scratch using Nuxt 3, Vue 3, and TypeScript.",
+        "Engineered cloud infrastructure dashboards, e-commerce platforms, web merchant tools, and real-time collaboration applications, increasing user engagement by 20%.",
+        "Architected Morpheme UI, an enterprise design system standardizing accessible UI tokens and components across multi-squad teams.",
+        "Optimized Core Web Vitals and technical SEO, achieving a 30% increase in Lighthouse page speed scores.",
+        "Integrated WebSocket channels for real-time reactivity and headless Strapi CMS for decoupled content delivery.",
+        "Maintained high code quality and test coverage using Jest, following Scrum sprint cycles and Git Flow.",
+      ],
+      skills: ["Nuxt.js", "Vue.js", "TypeScript", "Pinia", "Morpheme UI", "WebSockets", "Strapi", "Jest"],
+    },
+    {
+      company: "PT. Telkom Indonesia Squad Digital Amoeba",
+      position: "Frontend Developer",
+      location: "Bandung",
+      type: "Contract - Remote",
+      period: "Sep 2021 - Feb 2022",
+      duration: "6 Months",
+      description: [
+        "Developed internal digital incubation products from scratch using React.js and TypeScript, increasing squad delivery productivity by 20%.",
+        "Architected scalable state management using Redux and Redux Thunk for complex transactional workflows.",
+        "Constructed reusable UI component libraries, cutting subsequent feature turnaround time by 30%.",
+        "Delivered pixel-perfect implementations translated from high-fidelity Figma specifications with responsive layout fidelity.",
+        "Collaborated within agile Scrum sprints to deliver continuous product iterations on schedule.",
+      ],
+      skills: ["React.js", "TypeScript", "Redux", "Redux Thunk", "REST APIs", "Scrum"],
+    },
+    {
+      company: "PT. Qatros Teknologi Indonesia",
+      position: "Frontend Developer",
+      location: "Yogyakarta",
+      type: "Fulltime - Hybrid",
+      period: "Aug 2020 - Sep 2021",
+      duration: "1 Year 2 Months",
+      description: [
+        "Developed enterprise client platforms and internal tooling from scratch using Vue.js and Nuxt.js.",
+        "Structured reusable component architectures applying atomic design principles across diverse viewports.",
+        "Engineered asynchronous state pipelines using Vuex, ensuring fluid user interaction and reliable data fetching.",
+        "Converted Figma UI/UX prototypes into accessible, responsive web interfaces under agile Scrum methodology.",
+      ],
+      skills: ["Vue.js", "Nuxt.js", "Vuex", "JavaScript", "Atomic Design", "REST APIs"],
+    },
+  ];
+
+  const items = experiences.length > 0 ? experiences : defaultExperiences;
+  const current = items[selectedIndex] || items[0];
+
+  // Sanitize any em dashes into standard hyphens (R-02) and clean up date commas
+  const sanitizeText = (txt: string) =>
+    txt
+      .replace(/—|–/g, "-")
+      .replace(/,\s*/g, " ")
+      .replace(/Sept\b/g, "Sep")
+      .replace(/Agust\b/g, "Agu")
+      .replace(/Ags\b/g, "Agu");
+
+  // Animate panel when tab changes
+  useEffect(() => {
+    if (!detailPanelRef.current) return;
+    gsap.fromTo(
+      detailPanelRef.current,
+      { opacity: 0, x: 12 },
+      { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }
+    );
+  }, [selectedIndex]);
 
   return (
     <section
       id="experience"
-      className="py-20 md:py-32 px-4 relative overflow-hidden bg-background"
+      ref={containerRef}
+      className="slide-section snap-start snap-always relative min-h-[100dvh] lg:h-[100dvh] flex flex-col justify-center py-16 sm:py-20 px-4 sm:px-6 bg-secondary/20 border-t border-border overflow-hidden"
+      aria-label="Work Experience"
     >
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-[120px] -z-10" />
-      
-      <div className="max-w-5xl mx-auto">
-        <div className="flex justify-center mb-16 relative z-10">
-          <BlurText 
-            text={title} 
-            delay={0.05} 
-            className="text-3xl md:text-5xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-400 leading-tight" 
-          />
+      <div className="max-w-5xl mx-auto w-full">
+        {/* Section Header */}
+        <div className="mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/10 text-primary text-xs font-mono font-medium mb-2">
+            <Briefcase className="w-3.5 h-3.5" />
+            <span>Career Milestones</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+            {title}
+          </h2>
+          <p className="text-muted-foreground text-sm sm:text-base mt-2 max-w-xl">
+            Over 5 years of hands-on software development across enterprise core systems, digital agencies, and startup incubation.
+          </p>
         </div>
 
-        <Tabs.Root
-          defaultValue={experiences[0]?.company}
-          onValueChange={setActiveTab}
-          className="flex flex-col md:flex-row gap-6 md:gap-10 min-h-[600px] items-stretch"
-        >
-          {/* Sidebar / Tabs List */}
-          <Tabs.List
-            className="flex flex-row md:flex-col overflow-x-auto md:overflow-visible md:w-[350px] lg:w-[400px] shrink-0 gap-4 hide-scrollbar pb-4 md:pb-0 h-full"
-            aria-label="Work Experience Tabs"
-          >
-            {experiences.map((exp) => {
-              const isActive = activeTab === exp.company;
+        {/* Interactive Master-Detail Layout */}
+        <div className="grid lg:grid-cols-[1.1fr_1.9fr] gap-6 items-start">
+          {/* Company List Tabs */}
+          <div className="flex flex-col gap-2.5" role="tablist">
+            {items.map((exp, idx) => {
+              const isSelected = idx === selectedIndex;
               return (
-                <Tabs.Trigger
+                <button
                   key={exp.company}
-                  value={exp.company}
-                  className={`relative flex-1 flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 p-5 md:p-8 rounded-3xl border text-left transition-all duration-300 focus-visible:outline-none group overflow-hidden ${
-                    isActive
-                      ? "bg-white/90 dark:bg-zinc-900/90 border-blue-500/30 dark:border-cyan-500/30 shadow-xl shadow-blue-500/5 dark:shadow-cyan-400/5 text-foreground"
-                      : "bg-secondary/20 border-border/50 hover:bg-secondary/40 text-muted-foreground hover:text-foreground hover:border-border"
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  onClick={() => setSelectedIndex(idx)}
+                  className={`w-full text-left p-4 rounded-xl border transition-all duration-200 flex flex-col gap-1.5 ${
+                    isSelected
+                      ? "bg-card border-primary/50 shadow-xs ring-1 ring-primary/20"
+                      : "bg-card/40 border-border text-muted-foreground hover:bg-card hover:text-foreground"
                   }`}
                 >
-                  {/* Decorative Background Glow on Active */}
-                  {isActive && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-400/5 dark:from-blue-500/10 dark:to-cyan-400/10 -z-10" />
-                  )}
-
-                  {/* Tab Icon */}
-                  <div className={`w-12 h-12 md:w-16 md:h-16 relative flex-shrink-0 rounded-2xl overflow-hidden bg-background/50 p-2 md:p-3 border border-border/50 transition-transform duration-500 ${isActive ? 'scale-110 shadow-md ring-1 ring-blue-500/20' : 'grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100'}`}>
-                    {exp.logo && (
-                      <Image
-                        src={exp.logo}
-                        alt={`${exp.company} logo`}
-                        fill
-                        className="object-contain"
-                      />
-                    )}
-                  </div>
-                  
-                  {/* Tab Text Content */}
-                  <div className="flex flex-col justify-center">
-                    <span className={`font-bold text-lg md:text-2xl tracking-tight mb-1 ${isActive ? 'text-blue-600 dark:text-cyan-400' : ''}`}>
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="font-bold text-sm text-foreground leading-snug">
                       {exp.company}
                     </span>
-                    <span className="text-sm md:text-base font-medium leading-snug">
+                    <span className="text-[11px] font-mono text-muted-foreground whitespace-nowrap shrink-0 pt-0.5">
+                      {sanitizeText(exp.period)}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs text-muted-foreground font-medium truncate">
                       {exp.position}
                     </span>
-                    {isActive && (
-                      <motion.span 
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        className="text-xs md:text-sm text-muted-foreground mt-2 md:mt-3"
-                      >
-                        {exp.period}
-                      </motion.span>
+                    {exp.duration && (
+                      <span className="text-[10px] font-mono text-muted-foreground/80 shrink-0">
+                        {sanitizeText(exp.duration)}
+                      </span>
                     )}
                   </div>
-                </Tabs.Trigger>
+                </button>
               );
             })}
-          </Tabs.List>
-
-          {/* Main Content Area */}
-          <div className="flex-1 relative">
-            <AnimatePresence mode="wait">
-              {experiences.map((exp) =>
-                activeTab === exp.company ? (
-                  <Tabs.Content
-                    key={exp.company}
-                    value={exp.company}
-                    asChild
-                    forceMount
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, x: 20, filter: "blur(8px)" }}
-                      animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, x: -20, filter: "blur(8px)" }}
-                      transition={{ duration: 0.5, type: "spring", bounce: 0 }}
-                      className="h-full"
-                    >
-                      <Card className="h-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-border/50 shadow-lg overflow-hidden group/card relative">
-                        {/* Decorative Top Gradient */}
-                        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-400 opacity-50 group-hover/card:opacity-100 transition-opacity duration-500" />
-                        
-                        <div className="p-6 md:p-8 flex flex-col h-full gap-8">
-                          {/* Header Section */}
-                          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 pb-6 border-b border-border/50">
-                            <div>
-                              <h3 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70 mb-2">
-                                {exp.position}
-                              </h3>
-                              <div className="flex flex-wrap items-center gap-2 text-muted-foreground font-medium">
-                                <span className="text-blue-600 dark:text-cyan-400">
-                                  {exp.company}
-                                </span>
-                                <span className="w-1 h-1 rounded-full bg-border" />
-                                <span>{exp.location}</span>
-                                <span className="w-1 h-1 rounded-full bg-border" />
-                                <Badge variant="secondary" className="bg-secondary/50 font-normal">
-                                  {exp.type}
-                                </Badge>
-                              </div>
-                            </div>
-                            
-                            <div className="flex flex-col md:items-end text-sm text-muted-foreground/80 bg-secondary/30 px-3 py-2 rounded-lg border border-border/50 shrink-0">
-                              <span className="font-semibold text-foreground/90">{exp.period}</span>
-                              <span>{exp.duration}</span>
-                            </div>
-                          </div>
-
-                          {/* Details List */}
-                          <div className="flex-1">
-                            <h4 className="text-sm font-semibold text-foreground/80 uppercase tracking-widest mb-4">
-                              Key Responsibilities
-                            </h4>
-                            <ul className="space-y-4">
-                              {exp.description.map((desc, i) => (
-                                <motion.li
-                                  initial={{ opacity: 0, y: 10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: i * 0.1 + 0.2 }}
-                                  key={i}
-                                  className="flex items-start gap-3.5 text-muted-foreground/90 leading-relaxed max-w-3xl"
-                                >
-                                  <div className="mt-2 w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 flex-shrink-0 shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
-                                  <span className="text-[15px]">{desc}</span>
-                                </motion.li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {/* Skills Footer */}
-                          <div className="pt-6 mt-auto bg-secondary/10 -mx-6 -mb-6 p-6 md:-mx-8 md:-mb-8 md:p-8 border-t border-border/50">
-                            <h4 className="text-sm font-semibold mb-4 text-foreground/80 flex items-center gap-2">
-                              <span className="w-4 h-[1px] bg-border" />
-                              Technologies Used
-                              <span className="flex-1 h-[1px] bg-border" />
-                            </h4>
-                            <div className="flex flex-wrap gap-2">
-                              {exp.skills.map((skill, i) => (
-                                <motion.div
-                                  initial={{ opacity: 0, scale: 0.9 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{ delay: i * 0.05 + 0.4 }}
-                                  key={skill}
-                                >
-                                  <Badge
-                                    variant="outline"
-                                    className="bg-background/50 backdrop-blur-sm border-border/50 hover:bg-secondary hover:border-blue-500/30 transition-all font-medium py-1 px-3 shadow-sm"
-                                  >
-                                    {skill}
-                                  </Badge>
-                                </motion.div>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </Card>
-                    </motion.div>
-                  </Tabs.Content>
-                ) : null
-              )}
-            </AnimatePresence>
           </div>
-        </Tabs.Root>
-      </div>
 
-      <style jsx global>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
+          {/* Active Experience Details */}
+          <div
+            ref={detailPanelRef}
+            className="p-6 sm:p-8 rounded-2xl border border-border bg-card shadow-sm min-h-[380px] flex flex-col justify-between"
+          >
+            <div>
+              {/* Header */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-border">
+                <div>
+                  <h3 className="text-xl font-bold text-foreground">
+                    {current.position}
+                  </h3>
+                  <div className="flex items-center gap-2 mt-1 text-sm font-medium text-primary">
+                    <Building2 className="w-4 h-4" />
+                    <span>{current.company}</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-muted-foreground">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary border border-border">
+                    <Calendar className="w-3.5 h-3.5" />
+                    <span>{sanitizeText(current.period)}</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-secondary border border-border">
+                    <MapPin className="w-3.5 h-3.5" />
+                    <span>{sanitizeText(current.location)}</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Bullet Points */}
+              <div className="mt-6 space-y-3">
+                <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block">
+                  Responsibilities & Impact
+                </span>
+                {current.description.map((desc, i) => (
+                  <div key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-1" />
+                    <span className="leading-relaxed text-foreground/90">
+                      {sanitizeText(desc)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tech Stack used */}
+            <div className="mt-8 pt-6 border-t border-border">
+              <span className="text-xs font-mono text-muted-foreground block mb-2">
+                Technologies Applied:
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {current.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-2.5 py-1 rounded-md bg-secondary border border-border/80 text-xs font-mono font-medium text-foreground"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

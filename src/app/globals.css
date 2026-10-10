@@ -47,129 +47,107 @@
   --radius: 0.75rem;
 
   /* --- LIGHT MODE: Modern Tech Blue --- */
-  /* Base: Clean White with a hint of blue coolness */
-  --background: oklch(0.985 0.002 250);
-  --foreground: oklch(0.2 0.03 250); /* Softer Dark Blue */
+  /* Base: Clean porcelain white */
+  --background: oklch(0.985 0.005 240);
+  --foreground: oklch(0.18 0.03 250);
 
-  /* Surface: Pure White for pop */
+  /* Surface: Pure White */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.03 250);
+  --card-foreground: oklch(0.18 0.03 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.03 250);
+  --popover-foreground: oklch(0.18 0.03 250);
 
-  /* Primary: Vivid Electric Blue */
-  --primary: oklch(0.55 0.22 250);
-  --primary-foreground: oklch(0.98 0.01 250);
+  /* Primary: Electric Azure & Tech Emerald */
+  --primary: oklch(0.50 0.20 250);
+  --primary-foreground: oklch(0.99 0 0);
 
-  /* Secondary: Soft Sky Blue */
-  --secondary: oklch(0.95 0.03 250);
-  --secondary-foreground: oklch(0.35 0.08 250);
+  /* Secondary */
+  --secondary: oklch(0.95 0.01 240);
+  --secondary-foreground: oklch(0.25 0.03 250);
 
-  /* Muted elements */
-  --muted: oklch(0.96 0.01 250);
-  --muted-foreground: oklch(0.45 0.05 250);
+  /* Muted elements: ensures high contrast */
+  --muted: oklch(0.95 0.01 240);
+  --muted-foreground: oklch(0.40 0.02 240);
 
   /* Accent: Hover states */
-  --accent: oklch(0.95 0.03 250);
-  --accent-foreground: oklch(0.35 0.08 250);
+  --accent: oklch(0.94 0.02 240);
+  --accent-foreground: oklch(0.20 0.03 250);
 
   /* Borders & Inputs */
-  --border: oklch(0.92 0.02 250);
-  --input: oklch(0.92 0.02 250);
-  --ring: oklch(0.55 0.22 250);
+  --border: oklch(0.88 0.01 240);
+  --input: oklch(0.88 0.01 240);
+  --ring: oklch(0.50 0.20 250);
 
   /* Status */
-  --destructive: oklch(0.6 0.18 25);
-  --destructive-foreground: oklch(0.98 0 0);
-
-  /* Charts - Adjusted for harmony */
-  --chart-1: oklch(0.55 0.22 250); /* Primary Blue */
-  --chart-2: oklch(0.65 0.18 190); /* Cyan */
-  --chart-3: oklch(0.7 0.15 150); /* Soft Green */
-  --chart-4: oklch(0.75 0.15 85); /* Warm Orange */
-  --chart-5: oklch(0.65 0.2 270); /* Indigo Accent */
+  --destructive: oklch(0.55 0.20 25);
+  --destructive-foreground: oklch(0.99 0 0);
 
   /* Sidebar */
-  --sidebar: oklch(0.99 0.005 250);
-  --sidebar-foreground: oklch(0.25 0.03 250);
-  --sidebar-primary: oklch(0.55 0.22 250);
-  --sidebar-primary-foreground: oklch(0.98 0.01 250);
-  --sidebar-accent: oklch(0.95 0.03 250);
-  --sidebar-accent-foreground: oklch(0.35 0.08 250);
-  --sidebar-border: oklch(0.92 0.02 250);
-  --sidebar-ring: oklch(0.55 0.22 250);
-
-  /* Gradients: Cool Tech Aurora */
-  --gradient-1: oklch(0.9 0.1 250 / 0.5); /* Soft Blue */
-  --gradient-2: oklch(0.9 0.1 190 / 0.5); /* Soft Cyan */
-  --gradient-3: oklch(0.9 0.12 270 / 0.5); /* Soft Indigo Accent */
-  --gradient-4: oklch(0.92 0.08 220 / 0.5); /* Soft Sky */
+  --sidebar: oklch(0.99 0.005 240);
+  --sidebar-foreground: oklch(0.20 0.03 250);
+  --sidebar-primary: oklch(0.50 0.20 250);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.95 0.01 240);
+  --sidebar-accent-foreground: oklch(0.25 0.03 250);
+  --sidebar-border: oklch(0.88 0.01 240);
+  --sidebar-ring: oklch(0.50 0.20 250);
 }
 
 .dark {
-  /* --- DARK MODE: Deep Cyber Blue --- */
-  /* Base: Deep Navy/Slate */
-  --background: oklch(0.12 0.03 250);
+  /* --- DARK MODE: Deep Obsidian Slate --- */
+  /* Base: Deep Slate/Obsidian */
+  --background: oklch(0.13 0.02 250);
   --foreground: oklch(0.98 0.01 250);
 
-  /* Surface: Slightly lighter/tinted for hierarchy */
-  --card: oklch(0.16 0.04 250);
+  /* Surface: Crisp elevated obsidian */
+  --card: oklch(0.17 0.025 250);
   --card-foreground: oklch(0.98 0.01 250);
-  --popover: oklch(0.16 0.04 250);
+  --popover: oklch(0.17 0.025 250);
   --popover-foreground: oklch(0.98 0.01 250);
 
-  /* Primary: Neon Blue (Glowing) */
-  --primary: oklch(0.65 0.22 250);
-  --primary-foreground: oklch(0.98 0.01 250);
+  /* Primary: Electric Azure */
+  --primary: oklch(0.68 0.18 245);
+  --primary-foreground: oklch(0.10 0.02 250);
 
-  /* Secondary: Deep Muted Blue */
-  --secondary: oklch(0.25 0.06 250);
+  /* Secondary: Deep Slate */
+  --secondary: oklch(0.22 0.03 250);
   --secondary-foreground: oklch(0.98 0.01 250);
 
-  /* Muted */
-  --muted: oklch(0.22 0.04 250);
-  --muted-foreground: oklch(0.7 0.05 250);
+  /* Muted: High contrast WCAG AA compliant */
+  --muted: oklch(0.20 0.03 250);
+  --muted-foreground: oklch(0.72 0.025 250);
 
   /* Accent */
-  --accent: oklch(0.25 0.06 250);
+  --accent: oklch(0.24 0.04 250);
   --accent-foreground: oklch(0.98 0.01 250);
 
   /* Status */
-  --destructive: oklch(0.5 0.2 25);
+  --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: oklch(0.98 0.01 250);
 
-  /* Borders: Subtle separation */
-  --border: oklch(0.22 0.04 250);
-  --input: oklch(0.22 0.04 250);
-  --ring: oklch(0.65 0.22 250);
-
-  /* Charts - Neon & Glowing */
-  --chart-1: oklch(0.65 0.22 250);
-  --chart-2: oklch(0.7 0.18 190);
-  --chart-3: oklch(0.75 0.18 150);
-  --chart-4: oklch(0.8 0.18 80);
-  --chart-5: oklch(0.65 0.22 270);
+  /* Borders: Crisp and legible separation */
+  --border: oklch(0.24 0.025 250);
+  --input: oklch(0.24 0.025 250);
+  --ring: oklch(0.68 0.18 245);
 
   /* Sidebar Dark */
-  --sidebar: oklch(0.14 0.03 250);
+  --sidebar: oklch(0.14 0.02 250);
   --sidebar-foreground: oklch(0.98 0.01 250);
-  --sidebar-primary: oklch(0.65 0.22 250);
-  --sidebar-primary-foreground: oklch(0.98 0.01 250);
-  --sidebar-accent: oklch(0.22 0.05 250);
+  --sidebar-primary: oklch(0.68 0.18 245);
+  --sidebar-primary-foreground: oklch(0.10 0.02 250);
+  --sidebar-accent: oklch(0.22 0.03 250);
   --sidebar-accent-foreground: oklch(0.98 0.01 250);
-  --sidebar-border: oklch(0.22 0.04 250);
-  --sidebar-ring: oklch(0.65 0.22 250);
-
-  /* Gradients: Deep nebula glow */
-  --gradient-1: oklch(0.25 0.15 250 / 0.3); /* Deep Blue */
-  --gradient-2: oklch(0.25 0.15 190 / 0.3); /* Deep Cyan */
-  --gradient-3: oklch(0.25 0.15 270 / 0.3); /* Deep Indigo Accent */
-  --gradient-4: oklch(0.25 0.15 220 / 0.3); /* Deep Sky */
+  --sidebar-border: oklch(0.24 0.025 250);
+  --sidebar-ring: oklch(0.68 0.18 245);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+  *:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
   }
   button,
   a,
@@ -181,19 +159,13 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    scroll-snap-type: y mandatory;
+  }
+  .slide-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   body {
-    @apply bg-background text-foreground;
-    background-image: radial-gradient(
-        circle at 15% 15%,
-        var(--gradient-1) 0%,
-        transparent 45%
-      ),
-      radial-gradient(circle at 85% 15%, var(--gradient-2) 0%, transparent 45%),
-      radial-gradient(circle at 85% 85%, var(--gradient-3) 0%, transparent 45%),
-      radial-gradient(circle at 15% 85%, var(--gradient-4) 0%, transparent 45%);
-    background-attachment: fixed;
-    background-size: 100% 100%;
+    @apply bg-background text-foreground antialiased min-h-screen selection:bg-primary/20 selection:text-foreground;
   }
 }

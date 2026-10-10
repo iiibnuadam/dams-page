@@ -7,8 +7,9 @@ import WorkExperience from "@/components/WorkExperience";
 import EducationAndAwards from "@/components/EducationAndAwards";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
 import FloatingHireMe from "@/components/FloatingHireMe";
+import TechStackExplorer from "@/components/TechStackExplorer";
+import SlideNavigator from "@/components/SlideNavigator";
 import { extractLocalizedData } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import {
@@ -101,7 +102,13 @@ export default function MainContent({ cmsData }: MainContentProps) {
           <Projects key="projects" projects={projects.items} texts={projects} />
         );
       case "contact":
-        return <Contact key="contact" contact={contact} />;
+        return (
+          <Contact
+            key="contact"
+            contact={contact}
+            footerText={footer.rights}
+          />
+        );
       default:
         return null;
     }
@@ -110,11 +117,12 @@ export default function MainContent({ cmsData }: MainContentProps) {
   return (
     <>
       <Header nav={nav} />
-      <main>
-        <Hero {...hero} lang={lang} />
+      <main className="w-full">
+        <Hero {...hero} email={contact.email} lang={lang} />
+        <TechStackExplorer skills={hero.skills} />
         {sectionOrder.map(renderSection)}
       </main>
-      <Footer text={footer.rights} />
+      <SlideNavigator />
       <FloatingHireMe />
     </>
   );

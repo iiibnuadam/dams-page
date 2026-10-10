@@ -1,76 +1,87 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Send } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { ArrowUp } from "lucide-react";
+import { gsap } from "@/lib/gsap";
 
 export default function FloatingHireMe() {
   const [isVisible, setIsVisible] = useState(false);
+  const dockRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show button after scrolling down a bit (e.g., 100px)
-      if (window.scrollY > 100) {
+      if (window.scrollY > 300) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!dockRef.current) return;
+    if (isVisible) {
+      gsap.fromTo(
+        dockRef.current,
+        { y: 30, opacity: 0, scale: 0.9 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.5)" }
+      );
+    }
+  }, [isVisible]);
+
   const scrollToContact = () => {
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById("contact");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5, y: 50 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.5, y: 50 }}
-          className="fixed bottom-6 right-6 z-50"
-        >
-          <motion.div
-            animate={{
-              y: [0, -10, 0],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <Button
-              onClick={scrollToContact}
-              size="lg"
-              className="rounded-full h-14 px-6 shadow-lg shadow-primary/25 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold text-lg group relative overflow-hidden"
-            >
-              <motion.span
-                className="absolute inset-0 bg-white/20"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: "100%" }}
-                transition={{ duration: 0.5 }}
-              />
-              <span className="mr-2">Hire Me</span>
-              <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+  const scrollToTop = () => {
+    const hero = document.getElementById("hero");
+    if (hero) {
+      hero.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
-              {/* Ping effect */}
-              <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-              </span>
-            </Button>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+  if (!isVisible) return null;
+
+  return (
+    <aside
+      aria-label="Floating Quick Actions"
+      className="fixed bottom-6 right-6 z-40 flex items-center gap-2"
+    >
+      <div
+        ref={dockRef}
+        className="flex items-center gap-2 p-1.5 rounded-full bg-card/90 backdrop-blur-md border border-border shadow-lg"
+      >
+        <button
+          type="button"
+          onClick={scrollToContact}
+          className="min-h-[44px] min-w-[44px] px-4 rounded-full bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-2 hover:opacity-90 transition-opacity focus-visible:ring-2 focus-visible:ring-primary shadow-xs"
+          aria-label="Scroll to contact section to talk with Ibnu Adam"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
+          <span>Let&apos;s Talk</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="min-h-[44px] min-w-[44px] p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary"
+          aria-label="Back to top of page"
+          title="Back to top"
+        >
+          <ArrowUp className="w-4 h-4" />
+        </button>
+      </div>
+    </aside>
   );
 }
