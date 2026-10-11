@@ -157,6 +157,7 @@ export default function Hero({
     label: string;
     sub: string;
     href?: string;
+    topicId?: string;
   }> = [
     {
       value: "5+ Years",
@@ -175,9 +176,11 @@ export default function Hero({
       sub: lang === "id" ? "Cum Laude Honors" : "Cum Laude Honors",
     },
     {
-      value: "Enterprise",
-      label: lang === "id" ? "Core & Micro-Frontend" : "Core & Micro-Frontends",
-      sub: "Pegadaian & Multi-Squad",
+      value: "Web Dev",
+      label: lang === "id" ? "Jasa Pembuatan Website" : "Web Development Services",
+      sub: lang === "id" ? "Landing Page & Web App" : "Landing Pages & Web Apps",
+      href: "#contact",
+      topicId: "project",
     },
   ];
 
@@ -352,10 +355,31 @@ export default function Hero({
               {item.href ? (
                 <a
                   href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={item.href.startsWith("#") ? undefined : "_blank"}
+                  rel={item.href.startsWith("#") ? undefined : "noopener noreferrer"}
+                  onClick={
+                    item.href.startsWith("#")
+                      ? (e) => {
+                          e.preventDefault();
+                          if (item.topicId && typeof window !== "undefined") {
+                            window.dispatchEvent(
+                              new CustomEvent("select-contact-topic", {
+                                detail: { topicId: item.topicId },
+                              })
+                            );
+                          }
+                          scrollToSection(item.href!);
+                        }
+                      : undefined
+                  }
                   className="group flex flex-col text-left -m-2 p-2 rounded-xl hover:bg-secondary/50 border border-transparent hover:border-border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
-                  title={`Kunjungi ${item.value} (${item.sub})`}
+                  title={
+                    item.href.startsWith("#")
+                      ? lang === "id"
+                        ? `Arahkan ke ${item.label}`
+                        : `Go to ${item.label}`
+                      : `Kunjungi ${item.value} (${item.sub})`
+                  }
                 >
                   <div className="flex items-center gap-1.5">
                     <span className="text-xl sm:text-2xl md:text-3xl font-bold font-mono tracking-tight text-foreground group-hover:text-primary transition-colors">

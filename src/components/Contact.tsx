@@ -92,6 +92,20 @@ export default function Contact({ contact, footerText }: ContactProps) {
     );
   }, [selectedTopic]);
 
+  useEffect(() => {
+    const handleSelectTopic = (e: Event) => {
+      const customEvent = e as CustomEvent<{ topicId?: string }>;
+      if (customEvent.detail?.topicId) {
+        setSelectedTopic(customEvent.detail.topicId);
+      }
+    };
+
+    window.addEventListener("select-contact-topic", handleSelectTopic);
+    return () => {
+      window.removeEventListener("select-contact-topic", handleSelectTopic);
+    };
+  }, []);
+
   const socials = contact?.socials || [
     { platform: "github", url: "https://github.com/iiibnuadam" },
     { platform: "linkedin", url: "https://www.linkedin.com/in/iiibnuadam/" },

@@ -53,8 +53,8 @@ const initialData = {
       "id": "Lihat Karya Saya"
     },
     "description": {
-      "en": "Hi there! Adam's here. I'm a creative Front-End Developer with over 5 years of experience crafting sleek websites and apps in fast-paced, collaborative settings. My expertise lies in Vue.js and Typescript, complemented by a dash of React.js.",
-      "id": "Halo! Saya Adam. Saya seorang Front-End Developer kreatif dengan pengalaman lebih dari 5 tahun dalam membuat website dan aplikasi yang elegan. Keahlian saya terletak pada Vue.js dan Typescript, dilengkapi dengan sedikit sentuhan React.js."
+      "en": "Frontend Engineer & Web Builder with 5+ years of experience delivering high-performance websites and enterprise platforms. Specialized in Vue, React, and TypeScript—helping businesses and teams transform ideas into fast, responsive, and production-ready web solutions.",
+      "id": "Frontend Engineer & Web Builder berpengalaman 5+ tahun dalam membangun website performa tinggi dan sistem enterprise. Berfokus pada Vue, React, dan TypeScript—membantu bisnis mewujudkan website yang cepat, responsif, dan siap pakai."
     },
     "name": {
       "en": "Ibnu Adam",
