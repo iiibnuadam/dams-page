@@ -271,11 +271,11 @@ export default function Hero({
         >
           {lang === "id" ? (
             <>
-              Membangun aplikasi web performa tinggi dan arsitektur frontend presisi.
+              Solusi Web & Arsitektur Frontend Presisi.
             </>
           ) : (
             <>
-              Crafting high-performance web applications and resilient frontend architectures.
+              High-Performance Web & Frontend Architecture.
             </>
           )}
         </h1>
