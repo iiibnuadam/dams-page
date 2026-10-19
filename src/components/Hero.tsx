@@ -127,25 +127,22 @@ export default function Hero({
     }
   };
 
-  // Status mapping
+  // Status mapping: Monochrome badge with single deliberate highlight dot (R-19, R-29)
   const statusConfig = {
     available: {
       text: lang === "id" ? "Tersedia untuk proyek baru" : "Available for opportunities",
-      dotClass: "bg-emerald-500",
-      pingClass: "bg-emerald-400",
-      borderClass: "border-emerald-500/25 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
+      dotClass: "bg-primary",
+      borderClass: "border-border bg-secondary text-foreground",
     },
     open: {
       text: lang === "id" ? "Terbuka untuk diskusi" : "Open to select roles",
-      dotClass: "bg-amber-500",
-      pingClass: "bg-amber-400",
-      borderClass: "border-amber-500/25 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+      dotClass: "bg-primary",
+      borderClass: "border-border bg-secondary text-foreground",
     },
     busy: {
       text: lang === "id" ? "Sedang aktif dalam proyek" : "Focused on current role",
-      dotClass: "bg-rose-500",
-      pingClass: "bg-rose-400",
-      borderClass: "border-rose-500/25 bg-rose-500/10 text-rose-700 dark:text-rose-300",
+      dotClass: "bg-muted-foreground",
+      borderClass: "border-border bg-secondary text-muted-foreground",
     },
   };
 
@@ -184,37 +181,38 @@ export default function Hero({
     },
   ];
 
-  // Dynamic skill icon resolver for backend skills
+  // Monochrome skill icon resolver (R-29: no rainbow icon clutter)
   const getSkillIcon = (skillName: string) => {
     const s = skillName.toLowerCase();
+    const iconClass = "w-4 h-4 text-muted-foreground";
     if (s.includes("micro") || s.includes("federation")) {
-      return <Layers className="w-4 h-4 text-indigo-500" />;
+      return <Layers className={iconClass} />;
     }
     if (s.includes("docker") || s.includes("container")) {
-      return <SiDocker className="w-4 h-4 text-sky-500" />;
+      return <SiDocker className={iconClass} />;
     }
     if (s.includes("java") && !s.includes("script")) {
-      return <FaJava className="w-4 h-4 text-amber-600" />;
+      return <FaJava className={iconClass} />;
     }
     if (s.includes("go") || s.includes("golang")) {
-      return <SiGo className="w-4 h-4 text-teal-500" />;
+      return <SiGo className={iconClass} />;
     }
     if (s.includes("vue") || s.includes("nuxt")) {
-      return <SiNuxtdotjs className="w-4 h-4 text-emerald-500" />;
+      return <SiNuxtdotjs className={iconClass} />;
     }
     if (s.includes("react") || s.includes("next")) {
-      return <SiNextdotjs className="w-4 h-4 text-sky-500" />;
+      return <SiNextdotjs className={iconClass} />;
     }
     if (s.includes("type") || s.includes("ts")) {
-      return <SiTypescript className="w-4 h-4 text-blue-500" />;
+      return <SiTypescript className={iconClass} />;
     }
     if (s.includes("tailwind") || s.includes("css")) {
-      return <SiTailwindcss className="w-4 h-4 text-cyan-500" />;
+      return <SiTailwindcss className={iconClass} />;
     }
     if (s.includes("node")) {
-      return <FaNodeJs className="w-4 h-4 text-green-600" />;
+      return <FaNodeJs className={iconClass} />;
     }
-    return <Code2 className="w-4 h-4 text-primary" />;
+    return <Code2 className={iconClass} />;
   };
 
   const displayedSkills =
@@ -224,16 +222,23 @@ export default function Hero({
           icon: getSkillIcon(skill),
         }))
       : [
-          { name: "Vue.js / Nuxt 3", icon: <SiNuxtdotjs className="w-4 h-4 text-emerald-500" /> },
-          { name: "React / Next.js", icon: <SiNextdotjs className="w-4 h-4 text-sky-500" /> },
-          { name: "TypeScript", icon: <SiTypescript className="w-4 h-4 text-blue-500" /> },
-          { name: "Micro-Frontends", icon: <Layers className="w-4 h-4 text-indigo-500" /> },
-          { name: "Go", icon: <SiGo className="w-4 h-4 text-teal-500" /> },
-          { name: "Java", icon: <FaJava className="w-4 h-4 text-amber-600" /> },
-          { name: "Docker", icon: <SiDocker className="w-4 h-4 text-sky-500" /> },
-          { name: "Tailwind CSS", icon: <SiTailwindcss className="w-4 h-4 text-cyan-500" /> },
-          { name: "Node.js", icon: <FaNodeJs className="w-4 h-4 text-green-600" /> },
+          { name: "Vue.js / Nuxt 3", icon: <SiNuxtdotjs className="w-4 h-4 text-muted-foreground" /> },
+          { name: "React / Next.js", icon: <SiNextdotjs className="w-4 h-4 text-muted-foreground" /> },
+          { name: "TypeScript", icon: <SiTypescript className="w-4 h-4 text-muted-foreground" /> },
+          { name: "Micro-Frontends", icon: <Layers className="w-4 h-4 text-muted-foreground" /> },
+          { name: "Go", icon: <SiGo className="w-4 h-4 text-muted-foreground" /> },
+          { name: "Java", icon: <FaJava className="w-4 h-4 text-muted-foreground" /> },
+          { name: "Docker", icon: <SiDocker className="w-4 h-4 text-muted-foreground" /> },
+          { name: "Tailwind CSS", icon: <SiTailwindcss className="w-4 h-4 text-muted-foreground" /> },
+          { name: "Node.js", icon: <FaNodeJs className="w-4 h-4 text-muted-foreground" /> },
         ];
+
+  const cleanBio = (
+    description ||
+    (lang === "id"
+      ? `Halo, saya ${name}. Lulusan Teknik Informatika UNY (IPK 3.79, Mawapres). Software Engineer dengan pengalaman 5+ tahun merancang arsitektur web modern, sistem desain skala enterprise, dan modul platform modular.`
+      : `Hello, I am ${name}. Informatics Engineering graduate from UNY (GPA 3.79, Honors). Software Engineer with over 5 years of production experience building resilient web applications, enterprise design systems, and core platforms.`)
+  ).replace(/\s*—\s*/g, ", ");
 
   return (
     <section
@@ -243,19 +248,12 @@ export default function Hero({
       aria-label="Hero Overview"
     >
       <div className="max-w-5xl mx-auto w-full">
-        {/* Availability Pill */}
+        {/* Availability Status Badge (Calm single dot, no endless pulse loop per R-19) */}
         <div ref={badgeRef} className="mb-4 sm:mb-6 flex flex-wrap items-center gap-3">
           <div
-            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-mono font-medium ${currentStatus.borderClass}`}
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-md border text-xs font-mono font-medium ${currentStatus.borderClass}`}
           >
-            <span className="relative flex h-2 w-2">
-              <span
-                className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${currentStatus.pingClass}`}
-              />
-              <span
-                className={`relative inline-flex rounded-full h-2 w-2 ${currentStatus.dotClass}`}
-              />
-            </span>
+            <span className={`inline-flex rounded-full h-2 w-2 ${currentStatus.dotClass}`} />
             <span>{currentStatus.text}</span>
           </div>
 
@@ -285,13 +283,10 @@ export default function Hero({
           ref={bioRef}
           className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
         >
-          {description ||
-            (lang === "id"
-              ? `Halo, saya ${name}. Lulusan Teknik Informatika UNY (IPK 3.79, Mawapres). Software Engineer dengan pengalaman 5+ tahun merancang arsitektur web modern, sistem desain skala enterprise, dan modul platform modular.`
-              : `Hello, I am ${name}. Informatics Engineering graduate from UNY (GPA 3.79, Honors). Software Engineer with over 5 years of production experience building resilient web applications, enterprise design systems, and core platforms.`)}
+          {cleanBio}
         </p>
 
-        {/* Core Tech Stack Badges from Backend */}
+        {/* Core Tech Stack Badges from Backend (Monochrome architectural tags) */}
         <div className="mt-6 flex flex-wrap items-center gap-2">
           <span className="text-xs font-mono text-muted-foreground mr-1">
             Tech Stack:
@@ -299,7 +294,7 @@ export default function Hero({
           {displayedSkills.map((skill) => (
             <span
               key={skill.name}
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-secondary/80 border border-border text-xs font-medium text-foreground hover:border-primary/40 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-secondary border border-border text-xs font-medium text-foreground transition-colors"
             >
               {skill.icon}
               <span>{skill.name}</span>
@@ -315,7 +310,7 @@ export default function Hero({
           <Button
             size="lg"
             onClick={() => scrollToSection("#projects")}
-            className="h-11 sm:h-12 px-5 sm:px-6 rounded-full font-semibold shadow-sm group"
+            className="h-11 sm:h-12 px-5 sm:px-6 rounded-lg font-semibold shadow-xs group"
           >
             <span>{lang === "id" ? "Lihat Proyek Unggulan" : "Explore Featured Work"}</span>
             <ArrowDown className="w-4 h-4 ml-2 transition-transform group-hover:translate-y-0.5" />
@@ -325,7 +320,7 @@ export default function Hero({
             variant="outline"
             size="lg"
             onClick={() => scrollToSection("#contact")}
-            className="h-11 sm:h-12 px-5 sm:px-6 rounded-full font-semibold border-border hover:bg-secondary"
+            className="h-11 sm:h-12 px-5 sm:px-6 rounded-lg font-semibold border-border hover:bg-secondary"
           >
             <span>{lang === "id" ? "Mulai Diskusi" : "Start a Conversation"}</span>
           </Button>
@@ -333,11 +328,11 @@ export default function Hero({
           <button
             type="button"
             onClick={handleCopyEmail}
-            className="inline-flex items-center gap-2 h-11 sm:h-12 px-4 rounded-full border border-border bg-card hover:bg-secondary/70 text-xs font-mono text-muted-foreground hover:text-foreground transition-all duration-200"
+            className="inline-flex items-center gap-2 h-11 sm:h-12 px-4 rounded-lg border border-border bg-card hover:bg-secondary text-xs font-mono text-muted-foreground hover:text-foreground transition-all duration-200"
             title="Copy email to clipboard"
           >
             {copied ? (
-              <Check className="w-4 h-4 text-emerald-500" />
+              <Check className="w-4 h-4 text-primary" />
             ) : (
               <Copy className="w-4 h-4" />
             )}
@@ -372,7 +367,7 @@ export default function Hero({
                         }
                       : undefined
                   }
-                  className="group flex flex-col text-left -m-2 p-2 rounded-xl hover:bg-secondary/50 border border-transparent hover:border-border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
+                  className="group flex flex-col text-left -m-2 p-2 rounded-xl hover:bg-secondary border border-transparent hover:border-border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary cursor-pointer"
                   title={
                     item.href.startsWith("#")
                       ? lang === "id"
@@ -390,7 +385,7 @@ export default function Hero({
                   <span className="text-xs sm:text-sm font-semibold text-foreground mt-1">
                     {item.label}
                   </span>
-                  <span className="text-[11px] sm:text-xs text-primary underline underline-offset-2 mt-0.5 group-hover:text-primary/80 transition-colors">
+                  <span className="text-[11px] sm:text-xs text-muted-foreground underline decoration-border group-hover:decoration-primary underline-offset-2 mt-0.5 group-hover:text-foreground transition-colors">
                     {item.sub}
                   </span>
                 </a>
@@ -411,16 +406,16 @@ export default function Hero({
           ))}
         </div>
 
-        {/* Scroll Cue for Deck */}
+        {/* Scroll Cue for Deck (Hover motion only, no endless bounce per R-19) */}
         <div className="mt-8 hidden lg:flex items-center justify-center">
           <button
             type="button"
             onClick={() => scrollToSection("#experience")}
-            className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors group p-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors group p-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             aria-label="Scroll to next slide: Work Experience"
           >
             <span>Scroll atau tekan panah bawah untuk lanjut</span>
-            <ArrowDown className="w-3.5 h-3.5 animate-bounce group-hover:translate-y-0.5 transition-transform" />
+            <ArrowDown className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" />
           </button>
         </div>
       </div>

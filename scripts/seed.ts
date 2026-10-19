@@ -53,8 +53,8 @@ const initialData = {
       "id": "Lihat Karya Saya"
     },
     "description": {
-      "en": "Frontend Engineer & Web Builder with 5+ years of experience delivering high-performance websites and enterprise platforms. Specialized in Vue, React, and TypeScript—helping businesses and teams transform ideas into fast, responsive, and production-ready web solutions.",
-      "id": "Frontend Engineer & Web Builder berpengalaman 5+ tahun dalam membangun website performa tinggi dan sistem enterprise. Berfokus pada Vue, React, dan TypeScript—membantu bisnis mewujudkan website yang cepat, responsif, dan siap pakai."
+      "en": "Frontend Engineer & Web Builder with 5+ years of experience delivering high-performance websites and enterprise platforms. Specialized in Vue, React, and TypeScript, helping businesses and teams transform ideas into fast, responsive, and production-ready web solutions.",
+      "id": "Frontend Engineer & Web Builder berpengalaman 5+ tahun dalam membangun website performa tinggi dan sistem enterprise. Berfokus pada Vue, React, dan TypeScript, membantu bisnis mewujudkan website yang cepat, responsif, dan siap pakai."
     },
     "name": {
       "en": "Ibnu Adam",

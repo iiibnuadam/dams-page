@@ -114,10 +114,10 @@ export default function SlideNavigator() {
 
   return (
     <>
-      {/* Modern Ultra-Sleek Deck Dock (Floating HUD) */}
+      {/* Deck Dock (Solid architectural surface, R-10 dose cap) */}
       <nav
         aria-label="Deck slide navigation"
-        className="fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center p-2 rounded-2xl bg-card/85 dark:bg-card/75 backdrop-blur-xl border border-border/80 shadow-2xl ring-1 ring-white/10 dark:ring-white/5 pointer-events-auto select-none"
+        className="fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center p-2 rounded-2xl bg-card border border-border shadow-md pointer-events-auto select-none"
       >
         {/* Slide Items List */}
         <div className="flex flex-col items-center gap-1.5 py-0.5">
@@ -130,19 +130,19 @@ export default function SlideNavigator() {
                 key={slide.id}
                 type="button"
                 onClick={() => scrollToSlide(slide.id)}
-                className={`group relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                className={`group relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                   isActive
-                    ? "bg-primary text-primary-foreground shadow-md shadow-primary/25 scale-105"
-                    : "text-muted-foreground/60 hover:text-foreground hover:bg-secondary/70"
+                    ? "bg-primary text-primary-foreground shadow-xs"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
                 aria-label={`Jump to ${slide.label}`}
                 aria-current={isActive ? "step" : undefined}
               >
-                {/* Refined Frosted Tooltip (Left side - only visible on hover) */}
+                {/* Tooltip (Left side - only visible on hover) */}
                 <div
-                  className={`absolute right-13 px-3 py-1.5 rounded-xl border text-xs font-mono font-medium whitespace-nowrap transition-all duration-200 pointer-events-none flex items-center gap-2 shadow-xl backdrop-blur-md opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 bg-card/95 ${
+                  className={`absolute right-13 px-3 py-1.5 rounded-lg border text-xs font-mono font-medium whitespace-nowrap transition-all duration-200 pointer-events-none flex items-center gap-2 shadow-md opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 bg-card ${
                     isActive
-                      ? "text-foreground border-primary/40 ring-1 ring-primary/20"
+                      ? "text-foreground border-primary"
                       : "text-muted-foreground border-border"
                   }`}
                 >
@@ -155,8 +155,8 @@ export default function SlideNavigator() {
                 <Icon
                   className={`transition-transform duration-200 ${
                     isActive
-                      ? "w-4 h-4 scale-110"
-                      : "w-4 h-4 opacity-75 group-hover:opacity-100 group-hover:scale-110"
+                      ? "w-4 h-4"
+                      : "w-4 h-4 opacity-75 group-hover:opacity-100"
                   }`}
                 />
               </button>
@@ -165,7 +165,7 @@ export default function SlideNavigator() {
         </div>
 
         {/* Hairline Divider */}
-        <div className="w-6 h-px bg-border/60 my-1.5" />
+        <div className="w-6 h-px bg-border my-1.5" />
 
         {/* Integrated Up / Down Jump Controls */}
         <div className="flex flex-col items-center gap-1">
@@ -173,7 +173,7 @@ export default function SlideNavigator() {
             type="button"
             onClick={goToPrevSlide}
             disabled={activeSlideIndex === 0}
-            className="w-8 h-7 rounded-lg hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground disabled:opacity-20 disabled:pointer-events-none transition-colors"
+            className="w-8 h-7 rounded-lg hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground disabled:opacity-25 disabled:pointer-events-none transition-colors"
             aria-label="Previous slide"
             title="Previous slide (Arrow Up)"
           >
@@ -183,7 +183,7 @@ export default function SlideNavigator() {
             type="button"
             onClick={goToNextSlide}
             disabled={activeSlideIndex === SLIDES.length - 1}
-            className="w-8 h-7 rounded-lg hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground disabled:opacity-20 disabled:pointer-events-none transition-colors"
+            className="w-8 h-7 rounded-lg hover:bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground disabled:opacity-25 disabled:pointer-events-none transition-colors"
             aria-label="Next slide"
             title="Next slide (Arrow Down)"
           >
@@ -196,7 +196,7 @@ export default function SlideNavigator() {
       {showKeyHint && (
         <aside
           aria-label="Keyboard navigation hint"
-          className="fixed bottom-6 left-6 z-40 hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-card/85 backdrop-blur-md border border-border text-xs font-mono text-muted-foreground shadow-md animate-fade-in"
+          className="fixed bottom-6 left-6 z-40 hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-card border border-border text-xs font-mono text-muted-foreground shadow-sm animate-fade-in"
         >
           <Command className="w-3.5 h-3.5 text-primary" />
           <span>Navigasi: [↑] [↓] atau scroll</span>
@@ -214,7 +214,7 @@ export default function SlideNavigator() {
       {/* Mobile Top Deck Progress Bar */}
       <div
         aria-hidden="true"
-        className="fixed top-0 left-0 right-0 h-1 z-50 bg-secondary/40 lg:hidden"
+        className="fixed top-0 left-0 right-0 h-1 z-50 bg-secondary lg:hidden"
       >
         <div
           className="h-full bg-primary transition-all duration-300"

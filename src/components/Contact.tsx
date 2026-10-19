@@ -115,13 +115,13 @@ export default function Contact({ contact, footerText }: ContactProps) {
     <section
       id="contact"
       ref={containerRef}
-      className="slide-section snap-start snap-always relative min-h-[100dvh] lg:h-[100dvh] flex flex-col justify-between pt-16 pb-6 px-4 sm:px-6 bg-secondary/30 border-t border-border overflow-hidden"
+      className="slide-section snap-start snap-always relative min-h-[100dvh] lg:h-[100dvh] flex flex-col justify-between pt-16 pb-6 px-4 sm:px-6 bg-background border-t border-border overflow-hidden"
       aria-label="Contact Section"
     >
       <div className="max-w-5xl mx-auto w-full my-auto">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono font-medium mb-2 sm:mb-3">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary border border-border text-muted-foreground text-xs font-mono font-medium mb-2 sm:mb-3">
             <MessageSquare className="w-3.5 h-3.5" />
             <span>Start a Conversation</span>
           </div>
@@ -137,7 +137,7 @@ export default function Contact({ contact, footerText }: ContactProps) {
         {/* Interactive Contact Hub */}
         <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6 items-start">
           {/* Left Column: Interactive Topic Selector & Composer */}
-          <div className="p-5 sm:p-6 rounded-2xl border border-border bg-card shadow-sm">
+          <div className="p-5 sm:p-6 rounded-2xl border border-border bg-card shadow-xs">
             <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block mb-3">
               1. What would you like to discuss?
             </span>
@@ -152,8 +152,8 @@ export default function Contact({ contact, footerText }: ContactProps) {
                     onClick={() => setSelectedTopic(topic.id)}
                     className={`w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm font-medium transition-all flex items-center justify-between ${
                       isSelected
-                        ? "bg-primary/10 border-primary text-primary font-semibold ring-1 ring-primary/30"
-                        : "bg-secondary/40 border-border text-muted-foreground hover:bg-secondary hover:text-foreground"
+                        ? "bg-secondary border-primary text-foreground font-semibold"
+                        : "bg-background border-border text-muted-foreground hover:bg-secondary hover:text-foreground"
                     }`}
                   >
                     <span>{topic.label}</span>
@@ -161,7 +161,7 @@ export default function Contact({ contact, footerText }: ContactProps) {
                       className={`w-4 h-4 rounded-full border flex items-center justify-center text-[10px] ${
                         isSelected
                           ? "border-primary bg-primary text-primary-foreground"
-                          : "border-muted-foreground/40"
+                          : "border-border"
                       }`}
                     >
                       {isSelected ? "✓" : ""}
@@ -178,7 +178,7 @@ export default function Contact({ contact, footerText }: ContactProps) {
             {/* Email Preview Box */}
             <div
               ref={emailBoxRef}
-              className="p-4 rounded-xl bg-secondary/50 border border-border text-xs sm:text-sm space-y-2 mb-6"
+              className="p-4 rounded-xl bg-secondary border border-border text-xs sm:text-sm space-y-2 mb-6"
             >
               <div>
                 <span className="font-mono text-muted-foreground text-xs block">
@@ -188,7 +188,7 @@ export default function Contact({ contact, footerText }: ContactProps) {
                   {currentTopic.subject}
                 </span>
               </div>
-              <div className="pt-2 border-t border-border/80">
+              <div className="pt-2 border-t border-border">
                 <span className="font-mono text-muted-foreground text-xs block mb-1">
                   Draft Body:
                 </span>
@@ -203,7 +203,7 @@ export default function Contact({ contact, footerText }: ContactProps) {
               <Button
                 asChild
                 size="lg"
-                className="h-12 px-6 rounded-full font-semibold shadow-xs flex-1 sm:flex-initial"
+                className="h-12 px-6 rounded-lg font-semibold shadow-xs flex-1 sm:flex-initial"
               >
                 <a href={mailtoUrl}>
                   <Send className="w-4 h-4 mr-2" />
@@ -215,10 +215,10 @@ export default function Contact({ contact, footerText }: ContactProps) {
                 variant="outline"
                 size="lg"
                 onClick={handleCopyEmail}
-                className="h-12 px-5 rounded-full border-border hover:bg-secondary font-medium"
+                className="h-12 px-5 rounded-lg border-border hover:bg-secondary font-medium"
               >
                 {copied ? (
-                  <Check className="w-4 h-4 mr-2 text-emerald-500" />
+                  <Check className="w-4 h-4 mr-2 text-primary" />
                 ) : (
                   <Copy className="w-4 h-4 mr-2" />
                 )}
@@ -232,7 +232,7 @@ export default function Contact({ contact, footerText }: ContactProps) {
             {/* Direct Email Card */}
             <div className="p-6 rounded-2xl border border-border bg-card shadow-xs">
               <div className="flex items-center gap-3 mb-2">
-                <span className="p-2.5 rounded-xl bg-primary/10 text-primary">
+                <span className="p-2.5 rounded-xl bg-secondary border border-border text-foreground">
                   <Mail className="w-5 h-5" />
                 </span>
                 <div>
@@ -255,7 +255,7 @@ export default function Contact({ contact, footerText }: ContactProps) {
             {/* Timezone & Response Time */}
             <div className="p-6 rounded-2xl border border-border bg-card shadow-xs space-y-4">
               <div className="flex items-start gap-3">
-                <Clock className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                <Clock className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
                 <div>
                   <span className="text-xs font-semibold text-foreground block">
                     Response Expectation
@@ -287,13 +287,13 @@ export default function Contact({ contact, footerText }: ContactProps) {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-3 rounded-xl bg-secondary/50 border border-border hover:bg-secondary hover:border-primary/40 transition-all flex items-center justify-between text-sm font-medium text-foreground group"
+                      className="p-3 rounded-xl bg-secondary border border-border hover:border-primary transition-all flex items-center justify-between text-sm font-medium text-foreground group"
                     >
                       <div className="flex items-center gap-2.5">
                         {isGithub ? (
                           <FaGithub className="w-4 h-4" />
                         ) : isLinkedin ? (
-                          <FaLinkedin className="w-4 h-4 text-blue-500" />
+                          <FaLinkedin className="w-4 h-4 text-foreground" />
                         ) : (
                           <ExternalLink className="w-4 h-4" />
                         )}
@@ -310,7 +310,7 @@ export default function Contact({ contact, footerText }: ContactProps) {
       </div>
 
       {/* Slide 6 Integrated Footer Bar */}
-      <footer className="max-w-5xl mx-auto w-full pt-4 mt-6 border-t border-border/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+      <footer className="max-w-5xl mx-auto w-full pt-4 mt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
         <div className="flex items-center gap-2.5">
           <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
             <Image

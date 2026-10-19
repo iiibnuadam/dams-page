@@ -12,18 +12,20 @@
 
 ## Color Palette & Theme
 - **Dark Mode (Default & Primary)**:
-  - Background Canvas: `oklch(0.12 0.02 250)` (#0d131f / deep obsidian slate)
-  - Card & Surface: `oklch(0.16 0.02 250)` (#151c2c) with clean crisp border `oklch(0.24 0.02 250)`
-  - Foreground: `oklch(0.98 0.01 250)` (high-contrast off-white, passes WCAG AAA)
-  - Muted Foreground: `oklch(0.72 0.02 250)` (readable slate text, passes WCAG AA 4.5:1)
-  - Accent Color: Emerald / Mint `oklch(0.72 0.17 155)` (#10b981) for live status, action focus, and technical precision.
-  - Secondary Accent: Azure Blue `oklch(0.68 0.16 240)` (#38bdf8) for interactive tech tags.
+  - Background Canvas: `#09090B` (pure carbon black, zero blue/slate AI tint)
+  - Card & Surface: `#121212` (elevated matte charcoal) with crisp neutral border `#27272A`
+  - Secondary Surface: `#1C1C1C` (solid monochrome container)
+  - Foreground: `#FAFAFA` (high-contrast crisp white, 19.06:1 on canvas, passes WCAG AAA)
+  - Muted Foreground: `#A3A3A3` (neutral mid-grey, 6.76:1 on `#1C1C1C` and 7.89:1 on `#09090B`, passes WCAG AA)
+  - Bright Highlight (`--primary`): Signal Emerald `#10B981` (7.84:1 on `#09090B`, 7.39:1 on `#121212`, with `#09090B` button text at 7.84:1) reserved strictly for focal CTAs, active indicators, and the live status dot.
 - **Light Mode**:
-  - Background Canvas: `oklch(0.98 0.01 240)` (crisp off-white / porcelain)
-  - Card & Surface: `oklch(1 0 0)` with clean subtle borders `oklch(0.90 0.01 240)`
-  - Foreground: `oklch(0.15 0.02 250)` (deep charcoal slate)
-  - Muted Foreground: `oklch(0.42 0.02 250)` (crisp mid-slate, 4.5:1+)
-- **Palette Restriction**: Exactly 2 core neutrals + 1 primary accent (Emerald) + 1 tech accent (Azure). No uncontrolled rainbow colors.
+  - Background Canvas: `#FAFAFA` (warm architectural paper)
+  - Card & Surface: `#FFFFFF` with crisp neutral border `#D4D4D8`
+  - Secondary Surface: `#F0F0F0`
+  - Foreground: `#09090B` (deep ink black, 19.06:1 on canvas)
+  - Muted Foreground: `#525252` (neutral graphite, 6.86:1 on `#F0F0F0` and 7.81:1 on `#FFFFFF`, passes WCAG AA)
+  - Highlight (`--primary`): Deep Signal Emerald `#047857` (5.48:1 on `#FFFFFF`, 5.25:1 on `#FAFAFA`, with `#FFFFFF` button text at 5.48:1).
+- **Palette & Surface Restriction**: Strictly flat, solid monochrome surfaces (zero radial glow orbs, zero CSS gradients, zero translucent `/10` or `/20` washes, zero backdrop-blur) + 1 bright Signal Emerald highlight (`#10B981` / `#047857`). All tech icons, checkmarks, and metadata badges remain monochrome to eliminate AI slop.
 
 ## Typography
 - **Heading**: Inter / Geist Sans with crisp tracking and distinct weight hierarchy (Bold 700 / SemiBold 600).

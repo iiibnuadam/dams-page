@@ -8,7 +8,6 @@ import {
   ArrowUpRight,
   CheckCircle2,
   ExternalLink,
-  Sparkles,
   ChevronUp,
   ChevronDown,
 } from "lucide-react";
@@ -265,7 +264,7 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-5 sm:mb-8 w-full min-w-0">
           <div className="min-w-0 max-w-full">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/10 text-primary text-xs font-mono font-medium mb-2">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary border border-border text-muted-foreground text-xs font-mono font-medium mb-2">
               <Layers className="w-3.5 h-3.5" />
               <span>Production Portfolio</span>
             </div>
@@ -279,7 +278,7 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
 
           {/* Category Filter Pills (Fluid scroll on small screens with min-w-0 containment) */}
           <div className="w-full md:w-auto min-w-0 max-w-full overflow-hidden">
-            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-secondary/60 border border-border overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full min-w-0">
+            <div className="flex items-center gap-1.5 p-1 rounded-xl bg-secondary border border-border overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden w-full min-w-0">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
@@ -312,7 +311,7 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                   type="button"
                   onClick={() => scrollList("up")}
                   disabled={!canScrollUp}
-                  className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-30 disabled:pointer-events-none transition-colors border border-border/60"
+                  className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-30 disabled:pointer-events-none transition-colors border border-border"
                   aria-label="Scroll list up"
                   title="Scroll ke atas"
                 >
@@ -322,7 +321,7 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                   type="button"
                   onClick={() => scrollList("down")}
                   disabled={!canScrollDown}
-                  className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-30 disabled:pointer-events-none transition-colors border border-border/60"
+                  className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary disabled:opacity-30 disabled:pointer-events-none transition-colors border border-border"
                   aria-label="Scroll list down"
                   title="Scroll ke bawah"
                 >
@@ -336,32 +335,32 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
               <span className="text-xs font-mono text-muted-foreground">
                 Pilih Proyek ({filteredProjects.length})
               </span>
-              <span className="text-[11px] font-mono text-primary flex items-center gap-1">
+              <span className="text-[11px] font-mono text-muted-foreground flex items-center gap-1">
                 <span>Geser kartu</span>
                 <span>→</span>
               </span>
             </div>
 
-            {/* Scroll Container */}
+            {/* Scroll Container (Solid surfaces, zero gradient masks) */}
             <div className="relative w-full min-w-0 max-w-full overflow-hidden">
-              {/* Top fade cue on desktop */}
               {canScrollUp && (
-                <div
-                  onClick={() => scrollList("up")}
-                  className="hidden lg:flex cursor-pointer absolute top-0 inset-x-0 h-10 bg-gradient-to-b from-background via-background/85 to-transparent z-10 items-start justify-center pt-1 transition-opacity"
-                  title="Scroll ke atas"
-                >
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-card/90 border border-border text-[10px] font-mono text-muted-foreground hover:text-foreground shadow-xs">
-                    <ChevronUp className="w-3 h-3 text-primary animate-bounce" />
+                <div className="hidden lg:flex absolute top-2 inset-x-0 z-10 items-start justify-center pointer-events-none">
+                  <button
+                    type="button"
+                    onClick={() => scrollList("up")}
+                    className="pointer-events-auto inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-card border border-border text-[10px] font-mono text-muted-foreground hover:text-foreground hover:border-primary shadow-xs transition-colors"
+                    title="Scroll ke atas"
+                  >
+                    <ChevronUp className="w-3 h-3 text-primary" />
                     <span>Ke atas</span>
-                  </span>
+                  </button>
                 </div>
               )}
 
               {/* The scrollable list */}
               <div
                 ref={listRef}
-                className="flex lg:flex-col gap-2.5 overflow-x-auto lg:overflow-y-auto w-full min-w-0 max-w-full max-h-none lg:max-h-[460px] pb-3 lg:pb-12 pr-1.5 scroll-smooth snap-x snap-mandatory lg:snap-none [scrollbar-width:thin] [scrollbar-color:oklch(var(--border))_transparent] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-secondary/40 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 hover:[&::-webkit-scrollbar-thumb]:bg-primary/60 [&::-webkit-scrollbar-thumb]:rounded-full"
+                className="flex lg:flex-col gap-2.5 overflow-x-auto lg:overflow-y-auto w-full min-w-0 max-w-full max-h-none lg:max-h-[460px] pb-3 lg:pb-10 pr-1.5 scroll-smooth snap-x snap-mandatory lg:snap-none [scrollbar-width:thin] [scrollbar-color:var(--border)_transparent] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-secondary [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:bg-border hover:[&::-webkit-scrollbar-thumb]:bg-primary [&::-webkit-scrollbar-thumb]:rounded-full"
                 role="tablist"
                 aria-label="Projects list"
               >
@@ -376,13 +375,16 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                       onClick={() => setSelectedIndex(idx)}
                       className={`w-[220px] sm:w-[260px] lg:w-full shrink-0 snap-start text-left p-3 sm:p-4 rounded-xl border transition-all duration-200 flex flex-col gap-1.5 ${
                         isSelected
-                          ? "bg-card border-primary/50 shadow-xs ring-1 ring-primary/20"
-                          : "bg-card/40 border-border text-muted-foreground hover:bg-card hover:text-foreground"
+                          ? "bg-card border-primary shadow-xs"
+                          : "bg-background border-border text-muted-foreground hover:bg-secondary hover:text-foreground"
                       }`}
                     >
                       <div className="flex items-start justify-between gap-1.5">
-                        <span className="font-bold text-xs sm:text-sm text-foreground leading-snug line-clamp-1">
-                          {project.title}
+                        <span className="font-bold text-xs sm:text-sm leading-snug line-clamp-1 text-foreground flex items-center gap-2">
+                          {isSelected && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                          )}
+                          <span className="truncate">{project.title}</span>
                         </span>
                         <span className="text-[9px] sm:text-[10px] font-mono px-1.5 py-0.5 rounded bg-secondary text-muted-foreground shrink-0 truncate max-w-[105px]">
                           {project.category}
@@ -393,7 +395,7 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                           {project.role}
                         </span>
                         {project.link && (
-                          <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground/70 shrink-0" />
+                          <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                         )}
                       </div>
                     </button>
@@ -401,17 +403,17 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                 })}
               </div>
 
-              {/* Bottom Gradient Fade on Desktop */}
               {canScrollDown && (
-                <div
-                  onClick={() => scrollList("down")}
-                  className="hidden lg:flex cursor-pointer absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-background via-background/90 to-transparent items-end justify-center pb-1.5 z-10 transition-opacity"
-                  title="Scroll ke bawah untuk proyek lainnya"
-                >
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-card/95 border border-border text-[11px] font-mono text-muted-foreground hover:text-foreground hover:border-primary/50 shadow-sm transition-all pointer-events-auto">
+                <div className="hidden lg:flex absolute bottom-2 inset-x-0 items-end justify-center z-10 pointer-events-none">
+                  <button
+                    type="button"
+                    onClick={() => scrollList("down")}
+                    className="pointer-events-auto inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-card border border-border text-[11px] font-mono text-muted-foreground hover:text-foreground hover:border-primary shadow-xs transition-colors"
+                    title="Scroll ke bawah untuk proyek lainnya"
+                  >
                     <span>Scroll ke bawah</span>
-                    <ChevronDown className="w-3.5 h-3.5 text-primary animate-bounce" />
-                  </span>
+                    <ChevronDown className="w-3.5 h-3.5 text-primary" />
+                  </button>
                 </div>
               )}
             </div>
@@ -421,14 +423,14 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
           {currentProject && (
             <div
               ref={detailPanelRef}
-              className="w-full min-w-0 max-w-full p-4 sm:p-6 lg:p-8 rounded-2xl border border-border bg-card shadow-sm min-h-0 lg:min-h-[440px] flex flex-col justify-between"
+              className="w-full min-w-0 max-w-full p-4 sm:p-6 lg:p-8 rounded-2xl border border-border bg-card shadow-xs min-h-0 lg:min-h-[440px] flex flex-col justify-between"
             >
               <div className="w-full min-w-0">
                 {/* Header Strip */}
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 pb-4 sm:pb-6 border-b border-border w-full min-w-0">
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                      <span className="text-[11px] sm:text-xs font-mono px-2.5 py-0.5 rounded-md bg-primary/10 text-primary font-semibold">
+                      <span className="text-[11px] sm:text-xs font-mono px-2.5 py-0.5 rounded-md bg-secondary border border-border text-foreground font-semibold">
                         {currentProject.category}
                       </span>
                       {currentProject.role && (
@@ -441,8 +443,7 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                       {currentProject.title}
                     </h3>
                     {currentProject.impactMetric && (
-                      <div className="flex items-center gap-1.5 mt-1 text-[11px] sm:text-xs font-mono text-emerald-600 dark:text-emerald-400 font-medium">
-                        <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                      <div className="flex items-center gap-1.5 mt-1 text-[11px] sm:text-xs font-mono text-primary font-medium">
                         <span className="truncate">{currentProject.impactMetric}</span>
                       </div>
                     )}
@@ -453,7 +454,7 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                     <Button
                       asChild
                       size="sm"
-                      className="w-full sm:w-auto min-h-[42px] sm:min-h-0 rounded-full px-4 text-xs font-medium shadow-xs shrink-0"
+                      className="w-full sm:w-auto min-h-[42px] sm:min-h-0 rounded-lg px-4 text-xs font-medium shadow-xs shrink-0"
                     >
                       <a
                         href={currentProject.link}
@@ -484,8 +485,8 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                         key={i}
                         className="flex items-start gap-2 sm:gap-2.5 text-xs sm:text-sm text-muted-foreground w-full min-w-0"
                       >
-                        <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500 shrink-0 mt-0.5" />
-                        <span className="leading-relaxed text-foreground/90 break-words flex-1 min-w-0">
+                        <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground shrink-0 mt-0.5" />
+                        <span className="leading-relaxed text-foreground break-words flex-1 min-w-0">
                           {note}
                         </span>
                       </div>
@@ -503,7 +504,7 @@ export default function Projects({ projects = [], texts }: ProjectsProps) {
                   {currentProject.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-secondary border border-border/80 text-[11px] sm:text-xs font-mono font-medium text-foreground"
+                      className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-secondary border border-border text-[11px] sm:text-xs font-mono font-medium text-foreground"
                     >
                       {tech}
                     </span>

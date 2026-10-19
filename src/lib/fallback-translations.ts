@@ -13,7 +13,7 @@ export const fallbackTranslations = {
     hero: {
       name: "Ibnu Adam",
       tags: ["Frontend Developer", "Core Developer"],
-      description: "Frontend Engineer & Web Builder with 5+ years of experience delivering high-performance websites and enterprise platforms. Specialized in Vue, React, and TypeScript—helping businesses and teams transform ideas into fast, responsive, and production-ready web solutions.",
+      description: "Frontend Engineer & Web Builder with 5+ years of experience delivering high-performance websites and enterprise platforms. Specialized in Vue, React, and TypeScript, helping businesses and teams transform ideas into fast, responsive, and production-ready web solutions.",
       cta: "View My Work",
       contact: "Contact Me",
       status: {
@@ -293,7 +293,7 @@ export const fallbackTranslations = {
     hero: {
       name: "Ibnu Adam",
       tags: ["Frontend Developer", "Core Developer"],
-      description: "Frontend Engineer & Web Builder berpengalaman 5+ tahun dalam membangun website performa tinggi dan sistem enterprise. Berfokus pada Vue, React, dan TypeScript—membantu bisnis mewujudkan website yang cepat, responsif, dan siap pakai.",
+      description: "Frontend Engineer & Web Builder berpengalaman 5+ tahun dalam membangun website performa tinggi dan sistem enterprise. Berfokus pada Vue, React, dan TypeScript, membantu bisnis mewujudkan website yang cepat, responsif, dan siap pakai.",
       cta: "Lihat Karya Saya",
       contact: "Hubungi Saya",
       status: {

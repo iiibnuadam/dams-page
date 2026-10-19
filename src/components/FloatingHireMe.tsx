@@ -57,25 +57,21 @@ export default function FloatingHireMe() {
     >
       <div
         ref={dockRef}
-        className="flex items-center gap-2 p-1.5 rounded-full bg-card/90 backdrop-blur-md border border-border shadow-lg"
+        className="flex items-center gap-2 p-1.5 rounded-xl bg-card border border-border shadow-md"
       >
         <button
           type="button"
           onClick={scrollToContact}
-          className="min-h-[44px] min-w-[44px] px-4 rounded-full bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-2 hover:opacity-90 transition-opacity focus-visible:ring-2 focus-visible:ring-primary shadow-xs"
+          className="min-h-[44px] min-w-[44px] px-4 rounded-lg bg-primary text-primary-foreground font-semibold text-xs flex items-center gap-2 hover:opacity-90 transition-opacity focus-visible:ring-2 focus-visible:ring-primary shadow-xs"
           aria-label="Scroll to contact section to talk with Ibnu Adam"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-          </span>
           <span>Let&apos;s Talk</span>
         </button>
 
         <button
           type="button"
           onClick={scrollToTop}
-          className="min-h-[44px] min-w-[44px] p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary"
+          className="min-h-[44px] min-w-[44px] p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-primary"
           aria-label="Back to top of page"
           title="Back to top"
         >

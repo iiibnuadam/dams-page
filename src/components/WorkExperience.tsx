@@ -173,13 +173,13 @@ export default function WorkExperience({
     <section
       id="experience"
       ref={containerRef}
-      className="slide-section snap-start snap-always relative min-h-screen lg:min-h-[100dvh] flex flex-col justify-start lg:justify-center pt-20 pb-16 sm:py-20 px-4 sm:px-6 bg-secondary/20 border-t border-border overflow-visible"
+      className="slide-section snap-start snap-always relative min-h-screen lg:min-h-[100dvh] flex flex-col justify-start lg:justify-center pt-20 pb-16 sm:py-20 px-4 sm:px-6 bg-background border-t border-border overflow-visible"
       aria-label="Work Experience"
     >
       <div className="max-w-5xl mx-auto w-full">
         {/* Section Header */}
         <div className="mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/10 text-primary text-xs font-mono font-medium mb-2">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary border border-border text-muted-foreground text-xs font-mono font-medium mb-2">
             <Briefcase className="w-3.5 h-3.5" />
             <span>Career Milestones</span>
           </div>
@@ -206,13 +206,16 @@ export default function WorkExperience({
                   onClick={() => setSelectedIndex(idx)}
                   className={`w-full text-left p-4 rounded-xl border transition-all duration-200 flex flex-col gap-1.5 ${
                     isSelected
-                      ? "bg-card border-primary/50 shadow-xs ring-1 ring-primary/20"
-                      : "bg-card/40 border-border text-muted-foreground hover:bg-card hover:text-foreground"
+                      ? "bg-card border-primary shadow-xs"
+                      : "bg-background border-border text-muted-foreground hover:bg-secondary hover:text-foreground"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <span className="font-bold text-sm text-foreground leading-snug">
-                      {exp.company}
+                    <span className="font-bold text-sm leading-snug text-foreground flex items-center gap-2">
+                      {isSelected && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                      )}
+                      <span>{exp.company}</span>
                     </span>
                     <span className="text-[11px] font-mono text-muted-foreground whitespace-nowrap shrink-0 pt-0.5">
                       {sanitizeText(exp.period)}
@@ -223,7 +226,7 @@ export default function WorkExperience({
                       {exp.position}
                     </span>
                     {exp.duration && (
-                      <span className="text-[10px] font-mono text-muted-foreground/80 shrink-0">
+                      <span className="text-[10px] font-mono text-muted-foreground shrink-0">
                         {resolveDuration(exp.period, exp.duration)}
                       </span>
                     )}
@@ -236,7 +239,7 @@ export default function WorkExperience({
           {/* Active Experience Details */}
           <div
             ref={detailPanelRef}
-            className="p-6 sm:p-8 rounded-2xl border border-border bg-card shadow-sm min-h-[380px] flex flex-col justify-between"
+            className="p-6 sm:p-8 rounded-2xl border border-border bg-card shadow-xs min-h-[380px] flex flex-col justify-between"
           >
             <div>
               {/* Header */}
@@ -256,7 +259,7 @@ export default function WorkExperience({
                     <Calendar className="w-3.5 h-3.5" />
                     <span>{sanitizeText(current.period)}</span>
                     {current.duration && (
-                      <span className="text-primary font-medium">
+                      <span className="text-foreground font-medium">
                         ({resolveDuration(current.period, current.duration)})
                       </span>
                     )}
@@ -275,8 +278,8 @@ export default function WorkExperience({
                 </span>
                 {current.description.map((desc, i) => (
                   <div key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-1" />
-                    <span className="leading-relaxed text-foreground/90">
+                    <CheckCircle2 className="w-4 h-4 text-muted-foreground shrink-0 mt-1" />
+                    <span className="leading-relaxed text-foreground">
                       {sanitizeText(desc)}
                     </span>
                   </div>
@@ -293,7 +296,7 @@ export default function WorkExperience({
                 {current.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-2.5 py-1 rounded-md bg-secondary border border-border/80 text-xs font-mono font-medium text-foreground"
+                    className="px-2.5 py-1 rounded-md bg-secondary border border-border text-xs font-mono font-medium text-foreground"
                   >
                     {skill}
                   </span>
